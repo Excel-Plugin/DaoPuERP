@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="trapx00.lightx00.client.presentation.financeui.InitialEstablishmentUiController"
+      prefHeight="800.0" prefWidth="800.0" spacing="20">
+    <padding>
+        <Insets bottom="10" left="10" right="10" top="10"/>
+    </padding>
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <MaterialDesignIconView fill="black" glyphName="ATTACHMENT" glyphSize="42"/>
+        <Label text="期初建账" textFill="#5e5e5e">
+            <font>
+                <Font name="System Bold" size="32.0"/>
+            </font>
+        </Label>
+    </HBox>
+    <JFXMasonryPane prefHeight="100">
+        <StackPane prefHeight="50" prefWidth="100">
+            <JFXTextField labelFloat="true" fx:id="tfId" editable="false" promptText="ID"/>
+        </StackPane>
+        <StackPane prefHeight="50" prefWidth="100">
+            <JFXTextField labelFloat="true" fx:id="tfDate" editable="false" promptText="日期"/>
+        </StackPane>
+        <StackPane prefHeight="50" prefWidth="100">
+            <JFXTextField labelFloat="true" fx:id="tfOperator" editable="false" promptText="操作员"/>
+        </StackPane>
+    </JFXMasonryPane>
+
+    <SplitPane dividerPositions="0.3f, 0.7f">
+        <VBox prefWidth="250">
+            <Label text="银行账户">
+                <font>
+                    <Font size="20.0"/>
+                </font>
+            </Label>
+            <JFXTreeTableView fx:id="tableBankAccounts" prefHeight="600" maxHeight="2000">
+                <columns>
+                    <JFXTreeTableColumn fx:id="tcBankId" prefWidth="50" text="ID"/>
+                    <JFXTreeTableColumn fx:id="tcBankName" editable="false" prefWidth="150" text="账户名称"/>
+                    <JFXTreeTableColumn fx:id="tcBankBalance" prefWidth="50" text="余额"/>
+                </columns>
+            </JFXTreeTableView>
+        </VBox>
+        <VBox prefWidth="250">
+            <Label text="客户信息">
+                <font>
+                    <Font size="20.0"/>
+                </font>
+            </Label>
+            <JFXTreeTableView fx:id="tableClient" prefHeight="600" maxHeight="2000">
+                <columns>
+                    <JFXTreeTableColumn fx:id="tcClientId" prefWidth="50" text="ID"/>
+                    <JFXTreeTableColumn fx:id="tcClientName" editable="false" prefWidth="150" text="客户名称"/>
+                    <JFXTreeTableColumn fx:id="tcClientType" prefWidth="150" text="客户类型"/>
+                </columns>
+            </JFXTreeTableView>
+        </VBox>
+        <VBox prefWidth="250">
+            <Label text="银行账户">
+                <font>
+                    <Font size="20.0"/>
+                </font>
+            </Label>
+            <JFXTreeTableView fx:id="tableCommodity" prefHeight="600" maxHeight="2000">
+                <columns>
+                    <JFXTreeTableColumn fx:id="tcCommodityId" prefWidth="100" text="ID"/>
+                    <JFXTreeTableColumn fx:id="tcCommodityName" editable="false" prefWidth="150" text="商品名称"/>
+                </columns>
+            </JFXTreeTableView>
+        </VBox>
+    </SplitPane>
+
+    <HBox spacing="20">
+        <JFXButton fx:id="btnAutofill" buttonType="RAISED" onAction="#onBtnAutofillClicked"
+                   style="-fx-background-color: #3F51B5; -fx-text-fill: #FFFFFF;" text="自动填写">
+            <graphic>
+                <MaterialIconView glyphName="EDIT" glyphSize="24" glyphStyle="-fx-fill: #FFFFFF"/>
+            </graphic>
+        </JFXButton>
+        <JFXButton fx:id="btnSubmit" buttonType="RAISED" onAction="#onBtnSubmitClicked"
+                   style="-fx-background-color: #3F51B5; -fx-text-fill: #FFFFFF;" text="提交">
+            <graphic>
+                <MaterialIconView glyphName="CHECK" glyphSize="24" glyphStyle="-fx-fill: #FFFFFF"/>
+            </graphic>
+        </JFXButton>
+        <JFXButton fx:id="btnCancel" buttonType="RAISED" onAction="#onBtnCancelClicked"
+                   style="-fx-background-color: #E8EAF6; -fx-text-fill: #000000;" text="取消">
+            <graphic>
+                <FontAwesomeIconView glyphName="HOME" glyphSize="24"/>
+            </graphic>
+        </JFXButton>
+    </HBox>
+</VBox>

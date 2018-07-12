@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="trapx00.lightx00.client.presentation.inventoryui.check.InventoryPictureUiController"
+      prefHeight="600.0" prefWidth="800.0">
+    <padding>
+        <Insets top="20" right="20" bottom="10" left="20"/>
+    </padding>
+
+    <HBox alignment="CENTER_LEFT" maxWidth="2000">
+        <MaterialIconView glyphName="FILTER_LIST" glyphSize="28" />
+        <Text text="库存盘点">
+            <font>
+                <Font size="20.0" />
+            </font></Text>
+        <padding>
+            <Insets right="10.0" />
+        </padding>
+        <HBox.margin>
+            <Insets right="10.0" />
+        </HBox.margin>
+    </HBox>
+
+
+    <HBox alignment="BASELINE_LEFT" maxWidth="2000">
+        <padding>
+            <Insets right="20.0" />
+        </padding>
+    </HBox>
+
+    <JFXTreeTableView fx:id="tableView" prefHeight="500.0" prefWidth="500.0">
+        <columns>
+            <JFXTreeTableColumn fx:id="tcNum" prefWidth="100" text="行号" />
+            <JFXTreeTableColumn fx:id="tcId" prefWidth="150" text="Id" />
+            <JFXTreeTableColumn fx:id="tcName"  prefWidth="150" text="名称" />
+            <JFXTreeTableColumn fx:id="tcType" prefWidth="150" text="型号" />
+            <JFXTreeTableColumn fx:id="tcAmount" prefWidth="150" text="库存数量" />
+            <JFXTreeTableColumn fx:id="tcPrice" prefWidth="150" text="库存均价" />
+            <JFXTreeTableColumn fx:id="tcBatch" prefWidth="150" text="批次" />
+            <JFXTreeTableColumn fx:id="tcBatchNo" prefWidth="150" text="批号" />
+            <JFXTreeTableColumn fx:id="tcProductionTime" prefWidth="150" text="出厂日期" />
+        </columns>
+    </JFXTreeTableView>
+
+    <HBox alignment="CENTER_LEFT" maxHeight="60.0" maxWidth="2000.0" prefHeight="60.0" prefWidth="600.0">
+        <padding>
+            <Insets bottom="10" right="20" top="10" />
+        </padding>
+        <JFXButton fx:id="btnFilter" buttonType="RAISED" onAction="#onBtnFilterClicked" style="-fx-background-color: #424242; -fx-text-fill: #FFFFFF" text="快照一下">
+            <graphic>
+                <MaterialIconView glyphName="REFRESH" glyphSize="24" glyphStyle="-fx-fill: #FFFFFF" />
+            </graphic>
+            <HBox.margin>
+                <Insets right="10.0" />
+            </HBox.margin>
+        </JFXButton>
+        <JFXButton fx:id="exportButton" buttonType="RAISED" onAction="#onExportClicked"
+                   style="-fx-background-color: #ff6f00; -fx-text-fill: #FFFFFF" text="导出">
+            <graphic>
+                <MaterialIconView glyphName="SHARE" glyphSize="24" glyphStyle="-fx-fill: #FFFFFF"/>
+            </graphic>
+            <HBox.margin>
+                <Insets right="10.0"/>
+            </HBox.margin>
+        </JFXButton>
+    </HBox>
+
+
+</VBox>

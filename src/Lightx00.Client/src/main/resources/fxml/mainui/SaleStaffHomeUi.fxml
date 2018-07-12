@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.materialicons.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<BorderPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="trapx00.lightx00.client.presentation.mainui.SaleStaffHomeUiController">
+    <top>
+        <VBox>
+            <HBox>
+                <Text fx:id="textWelcome" fill="black" text="欢迎~,">
+                    <font>
+                        <Font size="32.00"/>
+                    </font>
+                </Text>
+                <padding>
+                    <Insets bottom="20.0" left="50.0" right="50.0" top="20.0"/>
+                </padding>
+            </HBox>
+            <HBox>
+                <Text fx:id="textLoginTime" fill="black" text="登录时间：">
+                    <font>
+                        <Font size="32.00"/>
+                    </font>
+                </Text>
+                <padding>
+                    <Insets bottom="20.0" left="50.0" right="50.0" top="20.0"/>
+                </padding>
+            </HBox>
+        </VBox>
+    </top>
+    <center>
+        <HBox alignment="TOP_CENTER">
+            <VBox>
+                <JFXButton buttonType="RAISED" onAction="#onClientFunctionClicked" prefHeight="100.0" prefWidth="100.0"
+                           style="-fx-background-color: #1A217E; -fx-text-fill: #FFFFFF;-fx-background-radius: 25;-fx-border-radius:25;"
+                           text="">
+                    <graphic>
+                        <MaterialIconView glyphName="FILTER_TILT_SHIFT" glyphSize="100.0"
+                                          glyphStyle="-fx-fill: #FFFFFF;"/>
+                    </graphic>
+                    <VBox.margin>
+                        <Insets left="10.0"/>
+                    </VBox.margin>
+                </JFXButton>
+                <HBox alignment="CENTER">
+                    <Text fill="black" text="管理客户">
+                        <font>
+                            <Font size="22.00"/>
+                        </font>
+                        <HBox.margin>
+                            <Insets left="10.0"/>
+                        </HBox.margin>
+                    </Text>
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                    </padding>
+                </HBox>
+                <padding>
+                    <Insets bottom="20.0" top="20.0"/>
+                </padding>
+            </VBox>
+            <VBox>
+                <JFXButton buttonType="RAISED" onAction="#onPurchaseBillFunctionClicked" prefHeight="100.0"
+                           prefWidth="100.0"
+                           style="-fx-background-color: #1A217E; -fx-text-fill: #FFFFFF;-fx-background-radius: 25;-fx-border-radius:25;"
+                           text="">
+                    <graphic>
+                        <MaterialIconView glyphName="CONTACTS" glyphSize="100.0" glyphStyle="-fx-fill: #FFFFFF;"/>
+                    </graphic>
+                    <VBox.margin>
+                        <Insets left="30.0"/>
+                    </VBox.margin>
+                </JFXButton>
+                <HBox alignment="CENTER">
+                    <Text fill="black" text="填写进货单">
+                        <font>
+                            <Font size="22.00"/>
+                        </font>
+                        <HBox.margin>
+                            <Insets left="15.0"/>
+                        </HBox.margin>
+                    </Text>
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                    </padding>
+                </HBox>
+                <padding>
+                    <Insets bottom="20.0" top="20.0"/>
+                </padding>
+                <HBox.margin>
+                    <Insets/>
+                </HBox.margin>
+            </VBox>
+            <VBox>
+                <JFXButton buttonType="RAISED" onAction="#onPurchaseRefundBillFunctionClicked"
+                           style="-fx-background-color: #1A217E; -fx-text-fill: #FFFFFF;-fx-background-radius: 25;-fx-border-radius:25;"
+                           text="">
+                    <graphic>
+                        <MaterialIconView glyphName="CHROME_READER_MODE" glyphSize="100.0"
+                                          glyphStyle="-fx-fill: #FFFFFF;"/>
+                    </graphic>
+                    <VBox.margin>
+                        <Insets left="30.0"/>
+                    </VBox.margin>
+                </JFXButton>
+                <HBox alignment="CENTER">
+                    <Text fill="black" text="填写进货退货单">
+                        <font>
+                            <Font size="22.00"/>
+                        </font>
+                        <HBox.margin>
+                            <Insets/>
+                        </HBox.margin>
+                    </Text>
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                    </padding>
+                </HBox>
+                <padding>
+                    <Insets bottom="20.0" top="20.0"/>
+                </padding>
+            </VBox>
+            <VBox>
+                <JFXButton buttonType="RAISED" onAction="#onSaleBillFunctionClicked" prefHeight="100.0"
+                           prefWidth="100.0"
+                           style="-fx-background-color: #1A217E; -fx-text-fill: #FFFFFF;-fx-background-radius: 25;-fx-border-radius:25;"
+                           text="">
+                    <graphic>
+                        <MaterialIconView glyphName="GAVEL" glyphSize="100.0" glyphStyle="-fx-fill: #FFFFFF;"/>
+                    </graphic>
+                    <VBox.margin>
+                        <Insets left="20.0"/>
+                    </VBox.margin>
+                </JFXButton>
+                <HBox alignment="CENTER">
+                    <Text fill="black" text="填写销售单">
+                        <font>
+                            <Font size="22.00"/>
+                        </font>
+                    </Text>
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                    </padding>
+                </HBox>
+                <padding>
+                    <Insets bottom="20.0" top="20.0"/>
+                </padding>
+            </VBox>
+            <VBox prefWidth="173.0">
+                <JFXButton buttonType="RAISED" onAction="#onSaleRefundBillFunctionClicked" prefHeight="100.0"
+                           prefWidth="100.0"
+                           style="-fx-background-color: #1A217E; -fx-text-fill: #FFFFFF;-fx-background-radius: 25;-fx-border-radius:25;"
+                           text="">
+                    <graphic>
+                        <MaterialIconView glyphName="LOCAL_GROCERY_STORE" glyphSize="100.0"
+                                          glyphStyle="-fx-fill: #FFFFFF;"/>
+                    </graphic>
+                    <VBox.margin>
+                        <Insets left="40.0"/>
+                    </VBox.margin>
+                </JFXButton>
+                <HBox alignment="CENTER">
+                    <Text fill="black" text="填写销售退货单">
+                        <font>
+                            <Font size="22.00"/>
+                        </font>
+                    </Text>
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                    </padding>
+                </HBox>
+                <padding>
+                    <Insets bottom="20.0" top="20.0"/>
+                </padding>
+            </VBox>
+            <BorderPane.margin>
+                <Insets right="-20.0"/>
+            </BorderPane.margin>
+        </HBox>
+    </center>
+    <bottom>
+        <HBox alignment="TOP_CENTER">
+            <VBox>
+                <JFXButton fx:id="btnNotification" buttonType="RAISED" onAction="#onBtnNotificationClicked"
+                           style="-fx-background-color: #CC0000; -fx-text-fill: #FFFFFF;-fx-background-radius: 25;-fx-border-radius:25;"
+                           text="0">
+                    <graphic>
+                        <MaterialIconView glyphName="MESSAGE" glyphSize="100.0" glyphStyle="-fx-fill: #FFFFFF;"/>
+                    </graphic>
+                    <VBox.margin>
+                        <Insets left="40.0" right="40.0"/>
+                    </VBox.margin>
+                    <font>
+                        <Font size="30.0"/>
+                    </font>
+                </JFXButton>
+                <HBox alignment="CENTER">
+                    <Text fill="black" text="通知">
+                        <font>
+                            <Font size="22.00"/>
+                        </font>
+                    </Text>
+                    <padding>
+                        <Insets bottom="20.0" top="20.0"/>
+                    </padding>
+                </HBox>
+                <padding>
+                    <Insets bottom="20.0" top="20.0"/>
+                </padding>
+            </VBox>
+            <VBox>
+                <JFXButton fx:id="btnDraft" buttonType="RAISED" onAction="#onBtnDraftClicked"
+                           style="-fx-background-color: #CC0000; -fx-text-fill: #FFFFFF;-fx-background-radius: 25;-fx-border-radius:25;"
+                           text="0">
+                    <graphic>
+                        <MaterialIconView glyphName="CLASS" glyphSize="100.0" glyphStyle="-fx-fill: #FFFFFF;"/>
+                    </graphic>
+                    <VBox.margin>
+                        <Insets left="40.0" right="40.0"/>
+                    </VBox.margin>
+                    <font>
+                        <Font size="30.0"/>
+                    </font>
+                </JFXButton>
+                <HBox alignment="CENTER">
+                    <Text fill="black" text="草稿">
+                        <font>
+                            <Font size="22.00"/>
+                        </font>
+                    </Text>
+                    <padding>
+                        <Insets bottom="20.0" top="20.0"/>
+                    </padding>
+                </HBox>
+                <padding>
+                    <Insets bottom="20.0" top="20.0"/>
+                </padding>
+            </VBox>
+        </HBox>
+    </bottom>
+    <padding>
+        <Insets bottom="50.0" left="50.0" right="50.0" top="50.0"/>
+    </padding>
+</BorderPane>

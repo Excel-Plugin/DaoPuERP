@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<VBox fx:id="dialogContainer" prefHeight="600.0" prefWidth="400.0" alignment="TOP_CENTER" styleClass="exteriorLine"
+      xmlns="http://javafx.com/javafx/8.0.121"
+      fx:controller="trapx00.lightx00.client.presentation.saleui.SaleCommodityFillUiController"
+      xmlns:fx="http://javafx.com/fxml">
+    <padding>
+        <Insets bottom="10" left="10" right="10" top="10"/>
+    </padding>
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <MaterialDesignIconView fill="black" glyphName="CASH_100" glyphSize="48"/>
+        <Label text="商品" textFill="#5e5e5e">
+            <font>
+                <Font name="System Bold" size="32.0"/>
+            </font>
+        </Label>
+    </HBox>
+
+    <JFXMasonryPane prefHeight="300.0" prefWidth="400.0">
+        <StackPane prefHeight="50" prefWidth="100">
+            <JFXTextField labelFloat="true" fx:id="tfCommodityPrice" editable="true" promptText="商品单价"/>
+        </StackPane>
+        <StackPane prefHeight="50" prefWidth="100">
+            <JFXTextField labelFloat="true" fx:id="tfCommodityNumber" editable="true" promptText="商品数量"/>
+        </StackPane>
+        <StackPane prefHeight="50" prefWidth="100">
+            <JFXTextField labelFloat="true" fx:id="tfCommodityComment" editable="true" promptText="商品备注"/>
+        </StackPane>
+        <padding>
+            <Insets bottom="10" left="10" right="10" top="10"/>
+        </padding>
+    </JFXMasonryPane>
+    <Separator/>
+    <HBox spacing="20">
+        <JFXButton buttonType="RAISED" onAction="#onBtnSubmitClicked"
+                   style="-fx-background-color: #3F51B5; -fx-text-fill: #FFFFFF;" text="确定">
+            <graphic>
+                <MaterialIconView glyphName="CHECK" glyphSize="24" glyphStyle="-fx-fill: #FFFFFF"/>
+            </graphic>
+        </JFXButton>
+        <JFXButton buttonType="RAISED" onAction="#onBtnCancelClicked"
+                   style="-fx-background-color: #E8EAF6; -fx-text-fill: #000000;" text="取消">
+            <graphic>
+                <FontAwesomeIconView glyphName="HOME" glyphSize="24"/>
+            </graphic>
+        </JFXButton>
+    </HBox>
+</VBox>

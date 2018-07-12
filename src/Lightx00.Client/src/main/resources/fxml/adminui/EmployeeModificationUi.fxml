@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<VBox alignment="TOP_CENTER" prefHeight="450.0" prefWidth="600.0" spacing="20" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="trapx00.lightx00.client.presentation.adminui.EmployeeModificationUiController">
+    <padding>
+        <Insets bottom="10" left="10" right="10" top="10" />
+    </padding>
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <FontAwesomeIconView fill="black" glyphName="USER_ALT" glyphSize="42" />
+        <Label text="修改职员信息" textFill="#5e5e5e">
+            <font>
+                <Font name="System Bold" size="32.0" />
+            </font>
+        </Label>
+    </HBox>
+
+    <HBox>
+        <VBox alignment="CENTER_LEFT" prefWidth="300.0" spacing="20">
+            <StackPane alignment="CENTER_LEFT" prefHeight="50" prefWidth="100">
+                <JFXTextField fx:id="tfId" editable="false" labelFloat="true" maxWidth="150.0" prefWidth="100.0" promptText="ID">
+                    <StackPane.margin>
+                        <Insets left="30.0" />
+                    </StackPane.margin></JFXTextField>
+            </StackPane>
+            <StackPane alignment="CENTER_LEFT" prefHeight="50" prefWidth="100">
+                <JFXTextField fx:id="tfName" editable="false" labelFloat="true" maxWidth="150.0" prefWidth="100.0" promptText="姓名">
+                    <StackPane.margin>
+                        <Insets left="30.0" />
+                    </StackPane.margin></JFXTextField>
+            </StackPane>
+            <StackPane alignment="CENTER_LEFT" prefHeight="50" prefWidth="100">
+                <JFXTextField fx:id="tfPassword" editable="false" labelFloat="true" maxWidth="150.0" prefWidth="100.0" promptText="密码">
+                    <StackPane.margin>
+                        <Insets left="30.0" />
+                    </StackPane.margin></JFXTextField>
+            </StackPane>
+            <StackPane alignment="CENTER_LEFT" prefHeight="50" prefWidth="100">
+                <JFXDatePicker fx:id="tfWorkDate" editable="false" maxWidth="150.0" prefWidth="100.0" promptText="入职日期">
+                    <StackPane.margin>
+                        <Insets left="30.0" />
+                    </StackPane.margin></JFXDatePicker>
+            </StackPane>
+        </VBox>
+        <VBox alignment="CENTER_RIGHT" prefWidth="300.0" spacing="20">
+
+            <StackPane alignment="CENTER_LEFT" prefHeight="50" prefWidth="100">
+                <JFXComboBox fx:id="tfPosition" labelFloat="true" maxWidth="150.0" prefWidth="100.0" promptText="就职单位">
+                    <StackPane.margin>
+                        <Insets left="30.0" />
+                    </StackPane.margin></JFXComboBox>
+            </StackPane>
+            <StackPane alignment="CENTER_LEFT" prefHeight="50" prefWidth="100">
+                <JFXComboBox fx:id="tfState" labelFloat="true" maxWidth="150.0" prefWidth="100.0" promptText="就职状态">
+                    <StackPane.margin>
+                        <Insets left="30.0" />
+                    </StackPane.margin></JFXComboBox>
+            </StackPane>
+            <StackPane alignment="CENTER_LEFT" prefHeight="50" prefWidth="100">
+                <JFXComboBox fx:id="tfRoot" labelFloat="true" maxWidth="150.0" prefWidth="100.0" promptText="拥有最高权限">
+                    <StackPane.margin>
+                        <Insets left="30.0" />
+                    </StackPane.margin></JFXComboBox>
+            </StackPane>
+            <StackPane alignment="CENTER_LEFT" prefHeight="50" prefWidth="100">
+                <JFXComboBox fx:id="tfSaleType" labelFloat="true" maxWidth="150.0" prefWidth="100.0" promptText="销售级别">
+                    <StackPane.margin>
+                        <Insets left="30.0" />
+                    </StackPane.margin></JFXComboBox>
+            </StackPane>
+        </VBox>
+    </HBox>
+    <HBox alignment="CENTER">
+        <JFXButton fx:id="btnSubmit" buttonType="RAISED" onAction="#onBtnSubmitClicked" style="-fx-background-color: #3F51B5; -fx-text-fill: #FFFFFF;" text="提交">
+            <graphic>
+                <MaterialIconView glyphName="CHECK" glyphSize="24" glyphStyle="-fx-fill: #FFFFFF" />
+            </graphic>
+            <HBox.margin>
+                <Insets right="30.0" />
+            </HBox.margin>
+        </JFXButton>
+        <JFXButton fx:id="btnCancel" buttonType="RAISED" onAction="#onBtnCancelClicked" style="-fx-background-color: #E8EAF6; -fx-text-fill: #000000;" text="取消">
+            <graphic>
+                <MaterialIconView glyphName="CLOSE" glyphSize="24" />
+            </graphic>
+            <HBox.margin>
+                <Insets left="30.0" />
+            </HBox.margin>
+        </JFXButton>
+        <VBox.margin>
+            <Insets top="10.0" />
+        </VBox.margin>
+    </HBox>
+
+
+</VBox>

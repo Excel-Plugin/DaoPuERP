@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialicons.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<VBox prefHeight="800.0" prefWidth="800.0" spacing="20" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="trapx00.lightx00.client.presentation.promotionui.detail.ComSalePromotionUiController">
+    <padding>
+        <Insets bottom="10" left="10" right="10" top="10" />
+    </padding>
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <FontAwesomeIconView fill="black" glyphName="CART_ARROW_DOWN" glyphSize="32" />
+        <Label text="组合商品促销策略" textFill="#5e5e5e">
+            <font>
+                <Font name="System Bold" size="28.0" />
+            </font>
+        </Label>
+    </HBox>
+
+
+    <JFXMasonryPane maxHeight="80.0" prefHeight="80.0">
+        <StackPane prefHeight="50" prefWidth="200">
+            <JFXTextField fx:id="tfId" editable="false" labelFloat="true" promptText="促销策略编号" />
+        </StackPane>
+        <StackPane prefHeight="50" prefWidth="100">
+            <JFXDatePicker fx:id="tfStartDate" editable="true" promptText="起始日期" />
+        </StackPane>
+        <StackPane prefHeight="50" prefWidth="100">
+            <JFXDatePicker fx:id="tfEndDate" editable="true" promptText="结束日期" />
+        </StackPane>
+        <StackPane prefHeight="50" prefWidth="100">
+            <JFXTextField fx:id="tfSalePrice" editable="true" labelFloat="true" promptText="商品组合价" />
+        </StackPane>
+    </JFXMasonryPane>
+
+    <VBox>
+        <Label text="赠品单" textFill="#5e5e5e">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <JFXTreeTableView fx:id="tbPromotionCommodity" prefHeight="400.0" prefWidth="800.0">
+            <columns>
+                <JFXTreeTableColumn fx:id="tcId" prefWidth="200" text="商品编号" />
+                <JFXTreeTableColumn fx:id="tcName" prefWidth="200" text="商品名称" />
+                <JFXTreeTableColumn fx:id="tcPrice" prefWidth="200" text="价格" />
+                <JFXTreeTableColumn fx:id="tcAmount" prefWidth="200" text="数量" />
+            </columns>
+        </JFXTreeTableView>
+        <HBox alignment="BASELINE_RIGHT" prefWidth="100" spacing="10">
+            <Label text="总价：" />
+            <Label fx:id="lbTotal" text="0.00" />
+            <JFXButton fx:id="btnAdd" onAction="#onBtnAddCommodityClicked" style="-fx-text-fill: #000000" text="添加">
+                <graphic>
+                    <MaterialIconView glyphName="ADD" glyphSize="24" />
+                </graphic>
+                <HBox.margin>
+                    <Insets right="10.0" />
+                </HBox.margin>
+            </JFXButton>
+            <JFXButton fx:id="btnDelete" onAction="#onBtnDeleteCommodityClicked" style="-fx-text-fill: #000000;" text="删除">
+                <graphic>
+                    <MaterialIconView glyphName="DELETE" glyphSize="24" />
+                </graphic>
+                <HBox.margin>
+                    <Insets right="10.0" />
+                </HBox.margin>
+            </JFXButton>
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+        </HBox>
+    </VBox>
+    <Separator />
+
+    <HBox alignment="CENTER_LEFT" spacing="20">
+        <JFXButton fx:id="btnSubmit" buttonType="RAISED" onAction="#onBtnSubmitClicked" style="-fx-background-color: #3F51B5; -fx-text-fill: #FFFFFF;" text="提交">
+            <graphic>
+                <MaterialIconView glyphName="CHECK" glyphSize="24" glyphStyle="-fx-fill: #FFFFFF" />
+            </graphic>
+        </JFXButton>
+        <JFXButton fx:id="btnDraft" buttonType="RAISED" onAction="#onBtnDraftClicked" style="-fx-background-color: #E8EAF6; -fx-text-fill: #000000;" text="保存草稿">
+            <graphic>
+                <MaterialIconView glyphName="SAVE" glyphSize="24" />
+            </graphic>
+        </JFXButton>
+        <JFXButton fx:id="btnReset" buttonType="RAISED" onAction="#onBtnResetClicked" style="-fx-background-color: #424242; -fx-text-fill: #FFFFFF" text="重置">
+            <graphic>
+                <MaterialIconView glyphName="REFRESH" glyphSize="24" glyphStyle="-fx-fill: #FFFFFF" />
+            </graphic>
+        </JFXButton>
+        <VBox.margin>
+            <Insets left="20.0" />
+        </VBox.margin>
+    </HBox>
+</VBox>

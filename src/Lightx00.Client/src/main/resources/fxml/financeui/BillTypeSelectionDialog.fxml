@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="trapx00.lightx00.client.presentation.financeui.BillTypeSelectionDialog"
+      prefHeight="400.0" prefWidth="400.0" spacing="10" alignment="TOP_CENTER">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="选择要筛选的单据类型" textFill="#5e5e5e">
+            <font>
+                <Font name="System Bold" size="32.0" />
+            </font>
+        </Label>
+    </HBox>
+
+    <JFXTreeTableView fx:id="tbTypes" prefHeight="500">
+        <columns>
+        <JFXTreeTableColumn fx:id="tcName" prefWidth="380" text="单据类型名称" />
+    </columns>
+    </JFXTreeTableView>
+
+    <HBox alignment="CENTER" spacing="20" prefHeight="50">
+        <JFXButton fx:id="btnSubmit" buttonType="RAISED" onAction="#onBtnSubmitClicked" prefHeight="32.0" prefWidth="80.0" style="-fx-background-color: #3F51B5; -fx-text-fill: #FFFFFF;" text="选择"/>
+        <JFXButton fx:id="btnReset" buttonType="RAISED" onAction="#onBtnResetClicked" prefHeight="32.0" prefWidth="80.0" style="-fx-background-color: #e64a19; -fx-text-fill: #FFFFFF" text="重置"/>
+        <JFXButton fx:id="btnBack" buttonType="RAISED" onAction="#onBtnBackClicked" prefHeight="32.0" prefWidth="80.0"
+                   style="-fx-background-color: #E8EAF6; -fx-text-fill: #000000;" text="返回"/>
+    </HBox>
+
+
+</VBox>

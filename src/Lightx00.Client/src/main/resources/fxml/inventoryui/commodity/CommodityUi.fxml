@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.materialicons.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="trapx00.lightx00.client.presentation.commodityui.commodity.CommodityUiController"
+      prefHeight="400.0" prefWidth="600.0">
+
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
+    <HBox alignment="CENTER_LEFT" spacing="20">
+        <MaterialIconView glyphName="CLASS" glyphSize="48" />
+        <Label text="商品管理" textFill="#5e5e5e">
+            <font>
+                <Font name="System Bold" size="32.0" />
+            </font>
+        </Label>
+    </HBox>
+
+
+    <HBox>
+
+        <StackPane prefHeight="50" prefWidth="100">
+            <JFXTextField labelFloat="true" fx:id="tfId" editable="false" promptText="ID" />
+            <HBox.margin>
+                <Insets left="10.0" right="10.0"/>
+            </HBox.margin>
+        </StackPane>
+
+        <StackPane prefHeight="50" prefWidth="100">
+            <JFXTextField labelFloat="true" fx:id="tfDate" editable="false" promptText="叶节点" />
+            <HBox.margin>
+                <Insets left="10.0" right="10.0"/>
+            </HBox.margin>
+        </StackPane>
+        <StackPane prefHeight="50" prefWidth="100">
+            <JFXTextField labelFloat="true" fx:id="tfOperator" editable="false" promptText="种类" />
+            <HBox.margin>
+                <Insets left="10.0" right="10.0"/>
+            </HBox.margin>
+        </StackPane>
+        <StackPane prefHeight="50" prefWidth="100">
+            <JFXTextField labelFloat="true" fx:id="tfName" editable="false" promptText="名称" />
+            <HBox.margin>
+                <Insets left="10.0" right="10.0"/>
+            </HBox.margin>
+        </StackPane>
+
+    </HBox>
+
+
+
+
+    <HBox alignment="CENTER_LEFT" spacing="20" maxHeight="5000" maxWidth="20000">
+
+        <padding>
+            <Insets top="10" right="10" bottom="10" left="10"/>
+        </padding>
+
+        <TreeView fx:id="tv" maxHeight="4000" maxWidth="4000"
+                  GridPane.rowIndex="2" GridPane.columnIndex="0"  GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+            <contextMenu>
+                <ContextMenu >
+                    <items><MenuItem fx:id="addMenuItem" text="增加商品分类" /></items>
+                    <items><MenuItem fx:id="modifyMenuItem" text="修改商品分类" /></items>
+                    <items><MenuItem fx:id="deleteMenuItem" text="删除商品分类" /></items>
+                </ContextMenu>
+            </contextMenu>
+            <HBox.margin>
+                <Insets left="10.0" right="10.0"/>
+            </HBox.margin>
+        </TreeView>
+
+        <JFXTreeTableView fx:id="commodityTable" maxHeight="11000.0" maxWidth="11000.0" prefHeight="1000.0" prefWidth="1000.0">
+                 <columns>
+                    <JFXTreeTableColumn fx:id="tableNameColumn" prefWidth="150" text="商品名" />
+                    <JFXTreeTableColumn fx:id="tableIdColumn"  prefWidth="150" text="商品ID" />
+                    <JFXTreeTableColumn fx:id="tableSortColumn" prefWidth="150" text="所在商品分类" />
+                    <JFXTreeTableColumn fx:id="tableAmountColumn" prefWidth="150" text="商品数量" />
+                    <JFXTreeTableColumn fx:id="tableDateColumn" prefWidth="150" text="生产日期" />
+                </columns>
+            <HBox.margin>
+                <Insets left="10.0" right="10.0"/>
+            </HBox.margin>
+        </JFXTreeTableView>
+
+    </HBox>
+
+    <HBox alignment="CENTER" maxWidth="2000" spacing="20">
+        <MaterialIconView glyphName="BORDER_COLOR" glyphSize="20" />
+        <JFXTextField fx:id="tfSearch" promptText="模糊搜索商品，按回车执行搜索"/>
+        <padding>
+            <Insets right="50.0" />
+        </padding>
+    </HBox>
+
+
+    <HBox alignment="CENTER_RIGHT" maxHeight="60.0" maxWidth="2000.0" prefHeight="60.0" prefWidth="600.0" spacing="20">
+            <padding>
+                <Insets bottom="10" right="20" top="10" />
+            </padding>
+            <JFXButton fx:id="addCommodityButton" buttonType="RAISED" onAction="#onAddButtonClicked" style="-fx-background-color: #3F51B5; -fx-text-fill: #FFFFFF" text="增加">
+                <graphic>
+                    <MaterialIconView glyphName="ADD" glyphSize="24" glyphStyle="-fx-fill: #FFFFFF" />
+                </graphic>
+                <HBox.margin>
+                    <Insets right="10.0" />
+                </HBox.margin>
+            </JFXButton>
+
+            <JFXButton fx:id="btnModify" buttonType="RAISED" onAction="#onBtnModifyClicked" style="-fx-background-color: #232e5f; -fx-text-fill: #FFFFFF" text="更改">
+                <graphic>
+                    <MaterialIconView glyphName="MODE_EDIT" glyphSize="24" glyphStyle="-fx-fill: #FFFFFF" />
+                </graphic>
+                <HBox.margin>
+                    <Insets right="10.0" />
+                </HBox.margin>
+            </JFXButton>
+            <JFXButton fx:id="deleteButton" buttonType="RAISED" onAction="#onDeleteButtonClicked" style="-fx-background-color: #bf360c; -fx-text-fill: #FFFFFF" text="删除">
+                <graphic>
+                    <MaterialIconView glyphName="DELETE" glyphSize="24" glyphStyle="-fx-fill: #FFFFFF" />
+                </graphic>
+                <HBox.margin>
+                    <Insets right="10.0" />
+                </HBox.margin>
+            </JFXButton>
+        </HBox>
+
+
+</VBox>

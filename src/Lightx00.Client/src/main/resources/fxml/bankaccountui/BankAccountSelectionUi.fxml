@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="trapx00.lightx00.client.presentation.bankaccountui.BankAccountSelectionUi"
+      prefHeight="600.0" prefWidth="600.0" alignment="TOP_CENTER" spacing="20">
+    <padding>
+        <Insets left="10" right="10" top="10" bottom="10"/>
+    </padding>
+    <Label text="选择银行账户" textFill="#5e5e5e">
+        <font>
+            <Font name="System Bold" size="32.0"/>
+        </font>
+    </Label>
+    <JFXTextField labelFloat="true" fx:id="tfSearch" promptText="按名字搜索，按回车执行搜索"/>
+    <JFXTreeTableView fx:id="tableBankAccounts" prefHeight="500.0" prefWidth="500.0">
+        <columns>
+            <JFXTreeTableColumn fx:id="tcId" prefWidth="50" text="ID" />
+            <JFXTreeTableColumn fx:id="tcName" editable="false" prefWidth="150" text="账户名称" />
+            <JFXTreeTableColumn fx:id="tcBalance" prefWidth="150" text="账户余额" />
+            <JFXTreeTableColumn fx:id="tcCreateTime" prefWidth="150" text="账户创建时间" />
+        </columns>
+    </JFXTreeTableView>
+    <HBox alignment="CENTER" prefHeight="40.0" spacing="40.0">
+        <JFXButton fx:id="btnSelect" buttonType="RAISED" onAction="#onBtnSelectClicked" prefHeight="32.0"
+                   prefWidth="80.0" style="-fx-background-color: #3F51B5; -fx-text-fill: #FFFFFF;" text="选择">
+            <HBox.margin>
+                <Insets/>
+            </HBox.margin>
+        </JFXButton>
+        <JFXButton fx:id="btnClose" buttonType="RAISED" onAction="#onBtnCloseClicked" prefHeight="32.0" prefWidth="80.0"
+                   style="-fx-background-color: #E8EAF6; -fx-text-fill: #000000;" text="取消"/>
+        <padding>
+            <Insets top="10.0"/>
+        </padding>
+    </HBox>
+
+
+</VBox>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="trapx00.lightx00.client.presentation.financeui.paymentandreceival.ReceivalBillDetailUi"
+      prefHeight="700.0" prefWidth="600.0" alignment="TOP_CENTER" spacing="20">
+    <padding>
+        <Insets top="10" right="50" bottom="10" left="50"/>
+    </padding>
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <MaterialIconView glyphName="RECEIPT" glyphSize="40" fill="black" />
+        <Label text="收款单" textFill="#5e5e5e">
+            <font>
+                <Font name="System Bold" size="32.0" />
+            </font>
+        </Label>
+    </HBox>
+
+
+    <VBox spacing="30">
+        <JFXTextField labelFloat="true" fx:id="tfId" editable="false" promptText="ID"/>
+        <JFXTextField labelFloat="true" fx:id="tfDate" editable="false" promptText="日期"/>
+        <JFXTextField labelFloat="true" fx:id="tfOperator" editable="false" promptText="操作员"/>
+        <JFXTextField labelFloat="true" fx:id="tfClient" editable="false" promptText="客户"/>
+        <JFXTextField labelFloat="true" fx:id="tfBillState" editable="false" promptText="单据状态" />
+    </VBox>
+
+
+    <VBox spacing="10">
+        <Label text="转账列表" textFill="#5e5e5e">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <JFXTreeTableView fx:id="tbTranscations" prefHeight="300.0" prefWidth="400.0">
+            <columns>
+                <JFXTreeTableColumn fx:id="tcBankAccount" prefWidth="100" text="银行账户"/>
+                <JFXTreeTableColumn fx:id="tcAmount" prefWidth="100" text="金额" />
+                <JFXTreeTableColumn fx:id="tcComment" prefWidth="150" text="备注" />
+            </columns>
+        </JFXTreeTableView>
+        <HBox prefWidth="100" spacing="10" alignment="BASELINE_RIGHT">
+            <Label text="总价："/>
+            <Label fx:id="lbTotal" text="0.00"/>
+        </HBox>
+    </VBox>
+</VBox>

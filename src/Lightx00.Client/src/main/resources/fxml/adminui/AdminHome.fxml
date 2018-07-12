@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<BorderPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="trapx00.lightx00.client.presentation.adminui.AdminHomeUiController">
+    <top>
+        <VBox>
+            <HBox>
+                <Text fx:id="textWelcome" fill="black" text="欢迎~,">
+                    <font>
+                        <Font size="32.00" />
+                    </font>
+                </Text>
+                <padding>
+                    <Insets bottom="20.0" left="50.0" right="50.0" top="20.0" />
+                </padding>
+            </HBox>
+            <HBox>
+                <Text fx:id="textLoginTime" fill="black" text="登录时间：">
+                    <font>
+                        <Font size="32.00" />
+                    </font>
+                </Text>
+                <padding>
+                    <Insets bottom="20.0" left="50.0" right="50.0" top="20.0" />
+                </padding>
+            </HBox>
+        </VBox>
+    </top>
+    <center>
+        <JFXMasonryPane prefWidth="800">
+            <VBox alignment="CENTER" spacing="40.0">
+                <JFXButton buttonType="RAISED" onAction="#onBtnUserManagementClicked" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #1A217E; -fx-text-fill: #FFFFFF;-fx-background-radius: 25;-fx-border-radius:25;" text="">
+                    <graphic>
+                        <FontAwesomeIconView fill="white" glyphName="ADDRESS_CARD" glyphSize="75" />
+                    </graphic>
+                </JFXButton>
+                <Text fill="black" text="职员信息管理">
+                    <font>
+                        <Font size="22.00" />
+                    </font>
+                </Text>
+            <padding>
+               <Insets left="20.0" right="20.0" />
+            </padding>
+            </VBox>
+            <VBox alignment="CENTER" spacing="40.0">
+                <JFXButton buttonType="RAISED" onAction="#onBtnFaceIdClicked" style="-fx-background-color: #1A217E; -fx-text-fill: #FFFFFF;-fx-background-radius: 25;-fx-border-radius:25;" text="">
+                    <graphic>
+                        <MaterialIconView fill="white" glyphName="FACE" glyphSize="90" />
+                    </graphic>
+                </JFXButton>
+                <Text fill="black" text="FaceID注册">
+                    <font>
+                        <Font size="22.00" />
+                    </font>
+                </Text>
+            <padding>
+               <Insets left="20.0" right="20.0" />
+            </padding>
+            </VBox>
+            <VBox alignment="CENTER" spacing="40.0">
+                <JFXButton buttonType="RAISED" onAction="#onBtnLogBackUpClicked" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #1A217E; -fx-text-fill: #FFFFFF;-fx-background-radius: 25;-fx-border-radius:25;" text="">
+                    <graphic>
+                        <MaterialDesignIconView fill="white" glyphName="CLOUD_OUTLINE" glyphSize="90" />
+                    </graphic>
+                </JFXButton>
+                <HBox alignment="CENTER">
+                    <Text fill="black" text="云备份日志">
+                        <font>
+                            <Font size="18.00" />
+                        </font>
+                    </Text>
+                </HBox>
+            <padding>
+               <Insets left="30.0" right="30.0" />
+            </padding>
+            </VBox>
+
+        </JFXMasonryPane>
+    </center>
+    <bottom>
+        <HBox alignment="TOP_CENTER">
+            <VBox>
+                <JFXButton fx:id="btnNotification" buttonType="RAISED" onAction="#onBtnNotificationClicked" style="-fx-background-color: #CC0000; -fx-text-fill: #FFFFFF;-fx-background-radius: 25;-fx-border-radius:25;" text="0">
+                    <graphic>
+                        <MaterialIconView glyphName="MESSAGE" glyphSize="100.0" glyphStyle="-fx-fill: #FFFFFF;" />
+                    </graphic>
+                    <VBox.margin>
+                        <Insets left="40.0" right="40.0" />
+                    </VBox.margin>
+                    <font>
+                        <Font size="30.0" />
+                    </font>
+                </JFXButton>
+                <HBox alignment="CENTER">
+                    <Text fill="black" text="通知">
+                        <font>
+                            <Font size="22.00" />
+                        </font>
+                    </Text>
+                    <padding>
+                        <Insets bottom="20.0" top="20.0" />
+                    </padding>
+                </HBox>
+                <padding>
+                    <Insets bottom="20.0" top="20.0" />
+                </padding>
+            </VBox>
+            <VBox>
+                <JFXButton fx:id="btnDraft" buttonType="RAISED" onAction="#onBtnDraftButtonClicked" style="-fx-background-color: #CC0000; -fx-text-fill: #FFFFFF;-fx-background-radius: 25;-fx-border-radius:25;" text="0">
+                    <graphic>
+                        <MaterialIconView glyphName="CLASS" glyphSize="100.0" glyphStyle="-fx-fill: #FFFFFF;" />
+                    </graphic>
+                    <VBox.margin>
+                        <Insets left="40.0" right="40.0" />
+                    </VBox.margin>
+                    <font>
+                        <Font size="30.0" />
+                    </font>
+                </JFXButton>
+                <HBox alignment="CENTER">
+                    <Text fill="black" text="草稿">
+                        <font>
+                            <Font size="22.00" />
+                        </font>
+                    </Text>
+                    <padding>
+                        <Insets bottom="20.0" top="20.0" />
+                    </padding>
+                </HBox>
+                <padding>
+                    <Insets bottom="20.0" top="20.0" />
+                </padding>
+            </VBox>
+        </HBox>
+    </bottom>
+    <padding>
+        <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+    </padding>
+</BorderPane>

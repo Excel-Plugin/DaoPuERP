@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.materialicons.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="600.0" spacing="20" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="trapx00.lightx00.client.presentation.clientui.ClientUiController">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+    <Label text="选择客户" textFill="#5e5e5e">
+        <font>
+            <Font name="System Bold" size="32.0" />
+        </font>
+    </Label>
+    <JFXTextField fx:id="tfSearch" promptText="按列表项搜索，按回车执行搜索"/>
+    <JFXTreeTableView fx:id="clientTable" prefHeight="500.0" prefWidth="750.0">
+        <columns>
+            <JFXTreeTableColumn fx:id="clientIdColumn" editable="false" prefWidth="150" text="编号" />
+            <JFXTreeTableColumn fx:id="clientNameColumn" editable="false" prefWidth="150" text="姓名" />
+            <JFXTreeTableColumn fx:id="clientTypeColumn" editable="false" prefWidth="150" text="分类" />
+            <JFXTreeTableColumn fx:id="clientLevelColumn" editable="false" prefWidth="150" text="级别" />
+            <JFXTreeTableColumn fx:id="clientPhoneColumn" editable="false" prefWidth="150" text="电话" />
+        </columns>
+    </JFXTreeTableView>
+    <Separator/>
+    <HBox spacing="20">
+        <JFXButton buttonType="RAISED" onAction="#onBtnAddClicked"
+                   style="-fx-background-color: #3F51B5; -fx-text-fill: #FFFFFF;" text="添加">
+            <graphic>
+                <MaterialIconView glyphName="ADD" glyphSize="24" glyphStyle="-fx-fill: #FFFFFF"/>
+            </graphic>
+        </JFXButton>
+        <JFXButton buttonType="RAISED" onAction="#onBtnModifyClicked"
+                   style="-fx-background-color: #e64a19; -fx-text-fill: #FFFFFF;" text="修改">
+            <graphic>
+                <MaterialIconView glyphName="BORDER_COLOR" glyphSize="24" glyphStyle="-fx-fill: #FFFFFF"/>
+            </graphic>
+        </JFXButton>
+        <JFXButton buttonType="RAISED" onAction="#onBtnDeleteClicked"
+                   style="-fx-background-color: #9999CC; -fx-text-fill: #FFFFFF;" text="删除">
+            <graphic>
+                <MaterialIconView glyphName="CLEAR" glyphSize="24" glyphStyle="-fx-fill: #FFFFFF"/>
+            </graphic>
+        </JFXButton>
+        <JFXButton buttonType="RAISED" onAction="#onBtnSelectClicked"
+                   style="-fx-background-color: #339900; -fx-text-fill: #FFFFFF;" text="选择">
+            <graphic>
+                <MaterialIconView glyphName="CHECK" glyphSize="24" glyphStyle="-fx-fill: #FFFFFF"/>
+            </graphic>
+        </JFXButton>
+        <JFXButton buttonType="RAISED" onAction="#onBtnCloseClicked"
+                   style="-fx-background-color: #E8EAF6; -fx-text-fill: #000000;" text="取消">
+            <graphic>
+                <MaterialIconView glyphName="HOME" glyphSize="24"/>
+            </graphic>
+        </JFXButton>
+    </HBox>
+</VBox>

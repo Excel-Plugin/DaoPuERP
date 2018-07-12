@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="trapx00.lightx00.client.presentation.inventoryui.check.InventoryCheckUiController"
+      prefHeight="600.0" prefWidth="800.0">
+    <padding>
+        <Insets top="20" right="20" bottom="10" left="20"/>
+    </padding>
+
+    <HBox alignment="CENTER_LEFT" maxWidth="2000">
+        <MaterialIconView glyphName="ACCOUNT_BOX" glyphSize="28" />
+        <Text text="库存查看">
+            <font>
+                <Font size="20.0" />
+            </font></Text>
+        <padding>
+            <Insets right="10.0" />
+        </padding>
+    </HBox>
+
+    <JFXMasonryPane prefHeight="100.0">
+        <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+        </padding>
+        <StackPane alignment="CENTER_LEFT" maxHeight="30">
+            <JFXDatePicker fx:id="startDatePicker" maxHeight="30" prefWidth="150" promptText="创建时间起始" />
+        </StackPane>
+        <StackPane alignment="CENTER_LEFT" maxHeight="30">
+            <JFXDatePicker fx:id="endDatePicker" maxHeight="30" prefWidth="150" promptText="创建时间终止" />
+        </StackPane>
+        <StackPane alignment="CENTER_LEFT" maxHeight="30">
+            <HBox spacing="20" alignment="CENTER">
+                <JFXButton fx:id="btnFilter" buttonType="RAISED" prefHeight="30" onAction="#onBtnFilterClicked" style="-fx-background-color: #424242; -fx-text-fill: #FFFFFF" text="更新">
+                    <graphic>
+                        <MaterialIconView glyphName="REFRESH" glyphSize="24" glyphStyle="-fx-fill: #FFFFFF" />
+                    </graphic>
+                    <HBox.margin>
+                        <Insets right="10.0" />
+                    </HBox.margin>
+                </JFXButton>
+            </HBox>
+        </StackPane>
+    </JFXMasonryPane>
+
+
+    <JFXTreeTableView fx:id="tableView" prefHeight="500.0" prefWidth="500.0">
+        <columns>
+            <JFXTreeTableColumn fx:id="tcinventoryAmount" prefWidth="100" text="入库数量" />
+            <JFXTreeTableColumn fx:id="tcinventoryMoney"  prefWidth="100" text="入库金额" />
+            <JFXTreeTableColumn fx:id="tcoutOfInventoryAmount" prefWidth="100" text="出库数量" />
+            <JFXTreeTableColumn fx:id="tcoutOfInVentoryMoney" prefWidth="100" text="出库金额" />
+            <JFXTreeTableColumn fx:id="tcinSold" prefWidth="100" text="销售金额" />
+            <JFXTreeTableColumn fx:id="tcsoldNum" prefWidth="100" text="销售数量" />
+            <JFXTreeTableColumn fx:id="tcoutSold" prefWidth="100" text="进货金额" />
+            <JFXTreeTableColumn fx:id="tcinvennum" prefWidth="100" text="进货数量" />
+            <JFXTreeTableColumn fx:id="tcsum" prefWidth="100" text="合计" />
+        </columns>
+    </JFXTreeTableView>
+
+
+</VBox>

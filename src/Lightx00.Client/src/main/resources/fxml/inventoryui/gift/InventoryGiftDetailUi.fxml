@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="trapx00.lightx00.client.presentation.inventoryui.gift.InventoryGiftDetailUiController"
+      prefHeight="800.0" prefWidth="600.0" spacing="20">
+
+    <padding>
+        <Insets top="10" left="20" bottom="20" right="20"/>
+    </padding>
+
+    <Label text="库存赠送单" textFill="#5e5e5e">
+        <font>
+            <Font name="System Bold" size="32.0" />
+        </font>
+        <VBox.margin>
+            <Insets />
+        </VBox.margin>
+    </Label>
+
+    <VBox maxWidth="500" spacing="30">
+
+        <JFXTextField promptText="ID" labelFloat="true" fx:id="tfId" editable="false"/>
+
+        <JFXTextField promptText="日期" labelFloat="true"  fx:id="tfDate" editable="false"/>
+
+        <JFXTextField promptText="制定者" labelFloat="true"  fx:id="tfOperator" editable="false"/>
+
+        <JFXTextField   promptText="单据状态" labelFloat="true"  fx:id="tfBillState" editable="false"/>
+
+
+    </VBox>
+
+
+    <Label text="赠送商品" textFill="#5e5e5e">
+        <font>
+            <Font size="18.0" />
+        </font>
+    </Label>
+
+    <JFXTreeTableView fx:id="inventoryGiftItems" prefHeight="300.0" prefWidth="400.0">
+        <columns>
+            <JFXTreeTableColumn fx:id="tcName" prefWidth="100" text="条目名" />
+            <JFXTreeTableColumn fx:id="tcPrice" editable="false" prefWidth="100" resizable="false" text="最近价格" />
+            <JFXTreeTableColumn fx:id="tcAmount" prefWidth="100" text="数量" />
+        </columns>
+    </JFXTreeTableView>
+
+</VBox>

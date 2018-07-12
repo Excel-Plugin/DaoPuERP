@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="trapx00.lightx00.client.presentation.clientui.ClientAddUiController"
+      prefHeight="600.0" prefWidth="600.0" spacing="20">
+    <padding>
+        <Insets top="10" left="20" bottom="20" right="20"/>
+    </padding>
+    <Label text="客户信息" textFill="#5e5e5e">
+        <font>
+            <Font name="System Bold" size="32.0"/>
+        </font>
+        <VBox.margin>
+            <Insets/>
+        </VBox.margin>
+    </Label>
+
+    <VBox maxWidth="500" spacing="30">
+        <GridPane>
+            <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="250"/>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="250"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
+                <VBox alignment="CENTER" GridPane.columnIndex="0">
+                    <VBox>
+                        <padding>
+                            <Insets bottom="20" left="20" top="30"/>
+                        </padding>
+                        <JFXTextField fx:id="clientId" editable="false" prefWidth="150" promptText="编号"
+                                      labelFloat="true">
+                            <padding>
+                                <Insets bottom="5.0" left="40.0" right="80.0"/>
+                            </padding>
+                        </JFXTextField>
+                    </VBox>
+                    <VBox>
+                        <padding>
+                            <Insets bottom="20" left="20" top="30"/>
+                        </padding>
+                        <JFXTextField fx:id="clientName" editable="true" prefWidth="150" promptText="姓名"
+                                      labelFloat="true">
+                            <padding>
+                                <Insets bottom="5.0" left="40.0" right="80.0"/>
+                            </padding>
+                        </JFXTextField>
+                    </VBox>
+                    <VBox>
+                        <padding>
+                            <Insets bottom="20" left="20" top="30"/>
+                        </padding>
+                        <JFXComboBox fx:id="clientType" editable="true" prefWidth="150" promptText="分类"
+                                     labelFloat="true">
+                            <padding>
+                                <Insets bottom="5.0" left="40.0"/>
+                            </padding>
+                        </JFXComboBox>
+                    </VBox>
+                    <VBox>
+                        <padding>
+                            <Insets bottom="20" left="20" top="30"/>
+                        </padding>
+                        <JFXComboBox fx:id="clientLevel" editable="true" prefWidth="150" promptText="级别"
+                                     labelFloat="true">
+                            <padding>
+                                <Insets bottom="5.0" left="40.0"/>
+                            </padding>
+                        </JFXComboBox>
+                    </VBox>
+                    <VBox>
+                        <padding>
+                            <Insets bottom="20" left="20" top="30"/>
+                        </padding>
+                        <JFXTextField fx:id="clientPhone" editable="true" prefWidth="150" promptText="电话"
+                                      labelFloat="true">
+                            <padding>
+                                <Insets bottom="5.0" left="40.0" right="80.0"/>
+                            </padding>
+                        </JFXTextField>
+                    </VBox>
+                    <VBox>
+                        <padding>
+                            <Insets bottom="20" left="20" top="30"/>
+                        </padding>
+                        <JFXTextField fx:id="clientAddress" editable="true" prefWidth="150" promptText="地址"
+                                      labelFloat="true">
+                            <padding>
+                                <Insets bottom="5.0" left="40.0" right="80.0"/>
+                            </padding>
+                        </JFXTextField>
+                    </VBox>
+                </VBox>
+                <VBox alignment="CENTER" GridPane.columnIndex="1">
+                    <VBox>
+                        <padding>
+                            <Insets bottom="20" left="20" top="30"/>
+                        </padding>
+                        <JFXTextField fx:id="clientZipCode" editable="true" prefWidth="150" promptText="邮编"
+                                      labelFloat="true">
+                            <padding>
+                                <Insets bottom="5.0" left="40.0" right="80.0"/>
+                            </padding>
+                        </JFXTextField>
+                    </VBox>
+                    <VBox>
+                        <padding>
+                            <Insets bottom="20" left="20" top="30"/>
+                        </padding>
+                        <JFXTextField fx:id="clientEmail" editable="true" prefWidth="150" promptText="电子邮箱"
+                                      labelFloat="true">
+                            <padding>
+                                <Insets bottom="5.0" left="40.0" right="80.0"/>
+                            </padding>
+                        </JFXTextField>
+                    </VBox>
+                    <VBox>
+                        <padding>
+                            <Insets bottom="20" left="20" top="30"/>
+                        </padding>
+                        <JFXTextField fx:id="clientReceivableQuota" editable="false" prefWidth="150" promptText="应收额度"
+                                      labelFloat="true">
+                            <padding>
+                                <Insets bottom="5.0" left="40.0" right="80.0"/>
+                            </padding>
+                        </JFXTextField>
+                    </VBox>
+                    <VBox>
+                        <padding>
+                            <Insets bottom="20" left="20" top="30"/>
+                        </padding>
+                        <JFXTextField fx:id="clientReceivable" editable="false" prefWidth="150" promptText="应收"
+                                      labelFloat="true">
+                            <padding>
+                                <Insets bottom="5.0" left="40.0" right="80.0"/>
+                            </padding>
+                        </JFXTextField>
+                    </VBox>
+                    <VBox>
+                        <padding>
+                            <Insets bottom="20" left="20" top="30"/>
+                        </padding>
+                        <JFXTextField fx:id="clientPayable" editable="false" prefWidth="150" promptText="应付"
+                                      labelFloat="true">
+                            <padding>
+                                <Insets bottom="5.0" left="40.0" right="80.0"/>
+                            </padding>
+                        </JFXTextField>
+                    </VBox>
+                    <VBox>
+                        <padding>
+                            <Insets bottom="20" left="20" top="30"/>
+                        </padding>
+                        <JFXTextField fx:id="clientDefaultOperator" editable="false" onMouseClicked="#selectEmployee"
+                                      prefWidth="150" promptText="默认业务员" labelFloat="true">
+                            <padding>
+                                <Insets bottom="5.0" left="40.0" right="80.0"/>
+                            </padding>
+                        </JFXTextField>
+                    </VBox>
+                </VBox>
+            </children>
+        </GridPane>
+    </VBox>
+
+    <Separator/>
+    <HBox spacing="20">
+        <JFXButton fx:id="btnSubmit" buttonType="RAISED" onAction="#onBtnSubmitClicked"
+                   style="-fx-background-color: #3F51B5; -fx-text-fill: #FFFFFF;" text="提交">
+            <graphic>
+                <MaterialIconView glyphName="CHECK" glyphSize="24" glyphStyle="-fx-fill: #FFFFFF"/>
+            </graphic>
+        </JFXButton>
+        <JFXButton fx:id="btnReset" buttonType="RAISED" onAction="#onBtnResetClicked"
+                   style="-fx-background-color: #e64a19; -fx-text-fill: #FFFFFF" text="重置">
+            <graphic>
+                <MaterialIconView glyphName="REFRESH" glyphSize="24"/>
+            </graphic>
+        </JFXButton>
+        <JFXButton fx:id="btnSaveAsDraft" buttonType="RAISED" onAction="#onBtnSaveAsDraftClicked"
+                   style="-fx-background-color: #9999CC; -fx-text-fill: #000000;" text="保存草稿">
+            <graphic>
+                <MaterialIconView glyphName="SAVE" glyphSize="24"/>
+            </graphic>
+        </JFXButton>
+        <JFXButton fx:id="btnCancel" buttonType="RAISED" onAction="#onBtnCancelClicked"
+                   style="-fx-background-color: #E8EAF6; -fx-text-fill: #000000;" text="取消">
+            <graphic>
+                <FontAwesomeIconView glyphName="HOME" glyphSize="24"/>
+            </graphic>
+        </JFXButton>
+    </HBox>
+
+</VBox>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="600.0" spacing="20" xmlns="http://javafx.com/javafx/8.0.121"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="trapx00.lightx00.client.presentation.clientui.ClientDetailUiController">
+    <padding>
+        <Insets bottom="20" left="20" right="20" top="10"/>
+    </padding>
+    <Label text="客户信息" textFill="#5e5e5e">
+        <font>
+            <Font name="System Bold" size="32.0"/>
+        </font>
+        <VBox.margin>
+            <Insets/>
+        </VBox.margin>
+    </Label>
+
+    <VBox>
+        <GridPane>
+            <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="250"/>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="250"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
+                <VBox alignment="CENTER" GridPane.columnIndex="0">
+                    <VBox>
+                        <padding>
+                            <Insets bottom="20" left="20" top="30"/>
+                        </padding>
+                        <JFXTextField fx:id="clientId" editable="false" labelFloat="true" prefHeight="20"
+                                      prefWidth="100.0" promptText="编号">
+                            <padding>
+                                <Insets bottom="5.0" left="40.0" right="80.0"/>
+                            </padding>
+                        </JFXTextField>
+                    </VBox>
+                    <VBox>
+                        <padding>
+                            <Insets bottom="20" left="20" top="30"/>
+                        </padding>
+                        <JFXTextField fx:id="clientName" editable="false" labelFloat="true" prefHeight="20"
+                                      prefWidth="100" promptText="姓名">
+                            <padding>
+                                <Insets bottom="5.0" left="40.0" right="80.0"/>
+                            </padding>
+                        </JFXTextField>
+                    </VBox>
+                    <VBox>
+                        <padding>
+                            <Insets bottom="20" left="20" top="30"/>
+                        </padding>
+                        <JFXTextField fx:id="clientType" editable="false" labelFloat="true" prefHeight="20"
+                                      prefWidth="100" promptText="分类">
+                            <padding>
+                                <Insets bottom="5.0" left="40.0" right="80.0"/>
+                            </padding>
+                        </JFXTextField>
+                    </VBox>
+                    <VBox>
+                        <padding>
+                            <Insets bottom="20" left="20" top="30"/>
+                        </padding>
+                        <JFXTextField fx:id="clientLevel" editable="false" labelFloat="true" prefHeight="20"
+                                      prefWidth="100" promptText="级别">
+                            <padding>
+                                <Insets bottom="5.0" left="40.0" right="80.0"/>
+                            </padding>
+                        </JFXTextField>
+                    </VBox>
+                    <VBox>
+                        <padding>
+                            <Insets bottom="20" left="20" top="30"/>
+                        </padding>
+                        <JFXTextField fx:id="clientPhone" editable="false" labelFloat="true" prefHeight="20"
+                                      prefWidth="100" promptText="电话">
+                            <padding>
+                                <Insets bottom="5.0" left="40.0" right="80.0"/>
+                            </padding>
+                        </JFXTextField>
+                    </VBox>
+                    <VBox>
+                        <padding>
+                            <Insets bottom="20" left="20" top="30"/>
+                        </padding>
+                        <JFXTextField fx:id="clientAddress" editable="false" labelFloat="true" prefHeight="20"
+                                      prefWidth="100" promptText="地址">
+                            <padding>
+                                <Insets bottom="5.0" left="40.0" right="80.0"/>
+                            </padding>
+                        </JFXTextField>
+                    </VBox>
+                </VBox>
+                <VBox alignment="CENTER" GridPane.columnIndex="1">
+                    <VBox>
+                        <padding>
+                            <Insets bottom="20" left="20" top="30"/>
+                        </padding>
+                        <JFXTextField fx:id="clientZipCode" editable="false" labelFloat="true" prefHeight="20"
+                                      prefWidth="100" promptText="邮编">
+                            <padding>
+                                <Insets bottom="5.0" left="40.0" right="80.0"/>
+                            </padding>
+                        </JFXTextField>
+                    </VBox>
+                    <VBox>
+                        <padding>
+                            <Insets bottom="20" left="20" top="30"/>
+                        </padding>
+                        <JFXTextField fx:id="clientEmail" editable="false" labelFloat="true" prefHeight="20"
+                                      prefWidth="100" promptText="电子邮箱">
+                            <padding>
+                                <Insets bottom="5.0" left="40.0" right="80.0"/>
+                            </padding>
+                        </JFXTextField>
+                    </VBox>
+                    <VBox>
+                        <padding>
+                            <Insets bottom="20" left="20" top="30"/>
+                        </padding>
+                        <JFXTextField fx:id="clientReceivableQuota" editable="false" labelFloat="true" prefHeight="20"
+                                      prefWidth="100" promptText="应收额度">
+                            <padding>
+                                <Insets bottom="5.0" left="40.0" right="80.0"/>
+                            </padding>
+                        </JFXTextField>
+                    </VBox>
+                    <VBox>
+                        <padding>
+                            <Insets bottom="20" left="20" top="30"/>
+                        </padding>
+                        <JFXTextField fx:id="clientReceivable" editable="false" labelFloat="true" prefHeight="20"
+                                      prefWidth="100" promptText="应收">
+                            <padding>
+                                <Insets bottom="5.0" left="40.0" right="80.0"/>
+                            </padding>
+                        </JFXTextField>
+                    </VBox>
+                    <VBox>
+                        <padding>
+                            <Insets bottom="20" left="20" top="30"/>
+                        </padding>
+                        <JFXTextField fx:id="clientPayable" editable="false" labelFloat="true" prefHeight="20"
+                                      prefWidth="100" promptText="应付">
+                            <padding>
+                                <Insets bottom="5.0" left="40.0" right="80.0"/>
+                            </padding>
+                        </JFXTextField>
+                    </VBox>
+                    <VBox>
+                        <padding>
+                            <Insets bottom="20" left="20" top="30"/>
+                        </padding>
+                        <JFXTextField fx:id="clientDefaultOperator" editable="false" labelFloat="true" prefHeight="20"
+                                      prefWidth="100" promptText="默认业务员">
+                            <padding>
+                                <Insets bottom="5.0" left="40.0" right="80.0"/>
+                            </padding>
+                        </JFXTextField>
+                    </VBox>
+                </VBox>
+            </children>
+        </GridPane>
+    </VBox>
+</VBox>

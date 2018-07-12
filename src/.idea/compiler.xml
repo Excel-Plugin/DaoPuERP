@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="Lightx00.Client_main" target="1.8" />
+      <module name="Lightx00.Client_test" target="1.8" />
+      <module name="Lightx00.Root_main" target="1.8" />
+      <module name="Lightx00.Root_test" target="1.8" />
+      <module name="Lightx00.Server_main" target="1.8" />
+      <module name="Lightx00.Server_test" target="1.8" />
+      <module name="Lightx00.Shared_main" target="1.8" />
+      <module name="Lightx00.Shared_test" target="1.8" />
+      <module name="src-Lightx00.Client_main" target="1.8" />
+      <module name="src-Lightx00.Client_test" target="1.8" />
+      <module name="src-Lightx00.Server_main" target="1.8" />
+      <module name="src-Lightx00.Server_test" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

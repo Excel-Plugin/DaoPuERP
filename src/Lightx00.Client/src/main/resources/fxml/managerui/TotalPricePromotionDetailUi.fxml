@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="trapx00.lightx00.client.presentation.promotionui.detail.TotalPricePromotionDetailUi"
+      prefHeight="800.0" prefWidth="600.0" spacing="20">
+    <padding>
+        <Insets top="10" left="20" bottom="20" right="20"/>
+    </padding>
+    <Label text="满额促销策略" textFill="#5e5e5e">
+        <font>
+            <Font name="System Bold" size="32.0"/>
+        </font>
+        <VBox.margin>
+            <Insets/>
+        </VBox.margin>
+    </Label>
+
+    <VBox maxWidth="500" spacing="30">
+        <JFXTextField maxWidth="200" promptText="ID" labelFloat="true" fx:id="tfId" editable="false"/>
+
+        <JFXTextField maxWidth="200" promptText="起始日期" labelFloat="true" fx:id="tfStartDate" editable="false"/>
+
+        <JFXTextField maxWidth="200" promptText="结束日期" labelFloat="true" fx:id="tfEndDate" editable="false"/>
+
+        <JFXTextField maxWidth="200" promptText="代金券面值" labelFloat="true" fx:id="tfCouponPrice" editable="false"/>
+
+        <JFXTextField maxWidth="200" promptText="总价条件" labelFloat="true" fx:id="tfTotalPrice" editable="false"/>
+
+    </VBox>
+
+
+    <Label text="赠品单" textFill="#5e5e5e">
+        <font>
+            <Font size="18.0" />
+        </font>
+    </Label>
+
+    <JFXTreeTableView fx:id="tbPromotionCommodity" prefHeight="350.0" prefWidth="400.0">
+        <columns>
+            <JFXTreeTableColumn fx:id="tcId" prefWidth="100" text="商品Id"/>
+            <JFXTreeTableColumn fx:id="tcName" prefWidth="100" text="商品名称"/>
+            <JFXTreeTableColumn fx:id="tcPrice" editable="false" prefWidth="100" resizable="false" text="价格"/>
+            <JFXTreeTableColumn fx:id="tcAmount" prefWidth="100" text="数量"/>
+        </columns>
+    </JFXTreeTableView>
+
+
+</VBox>

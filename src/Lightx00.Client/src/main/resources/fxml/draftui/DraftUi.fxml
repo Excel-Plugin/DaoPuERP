@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.121"
+      xmlns:fx="http://javafx.com/fxml/1" spacing="20"
+      fx:controller="trapx00.lightx00.client.presentation.draftui.DraftUiController">
+    <padding>
+        <Insets bottom="10" left="10" right="10" top="10"/>
+    </padding>
+    <HBox alignment="CENTER_LEFT" maxWidth="2000">
+        <MaterialIconView glyphName="CLASS" glyphSize="28"/>
+        <Label text="草稿箱" textFill="#5e5e5e">
+            <font>
+                <Font name="System Bold" size="32.0"/>
+            </font>
+        </Label>
+    </HBox>
+    <JFXTreeTableView fx:id="draftTable" prefHeight="2000.0" >
+        <columns>
+            <JFXTreeTableColumn fx:id="tableDateColumn" prefWidth="150" text="日期"/>
+            <JFXTreeTableColumn fx:id="tableIdColumn" editable="false" prefWidth="150" text="草稿ID"/>
+            <JFXTreeTableColumn fx:id="tableTypeColumn" prefWidth="150" text="草稿类型"/>
+            <JFXTreeTableColumn fx:id="tcDraftableId" prefWidth="150" text="草稿内容ID"/>
+        </columns>
+    </JFXTreeTableView>
+    <HBox alignment="CENTER_LEFT" maxHeight="60.0" maxWidth="2000.0" prefHeight="60.0" prefWidth="600.0">
+        <padding>
+            <Insets bottom="10" right="20" top="10"/>
+        </padding>
+        <JFXButton fx:id="selectAllButton" buttonType="RAISED" onAction="#onRefreshButtonClicked"
+                   style="-fx-background-color: #424242; -fx-text-fill: #FFFFFF" text="更新">
+            <graphic>
+                <MaterialIconView glyphName="REFRESH" glyphSize="24" glyphStyle="-fx-fill: #FFFFFF"/>
+            </graphic>
+            <HBox.margin>
+                <Insets right="10.0"/>
+            </HBox.margin>
+        </JFXButton>
+        <JFXButton fx:id="deleteButton" buttonType="RAISED" onAction="#onDeleteButtonClicked"
+                   style="-fx-background-color: #bf360c; -fx-text-fill: #FFFFFF" text="删除">
+            <graphic>
+                <MaterialIconView glyphName="DELETE" glyphSize="24" glyphStyle="-fx-fill: #FFFFFF"/>
+            </graphic>
+            <HBox.margin>
+                <Insets right="10.0"/>
+            </HBox.margin>
+        </JFXButton>
+        <JFXButton fx:id="continueWriteButton" buttonType="RAISED" onAction="#onContinueWriteButtonClicked"
+                   style="-fx-background-color: #232e5f; -fx-text-fill: #FFFFFF" text="继续填写">
+            <graphic>
+                <MaterialIconView glyphName="ARROW_FORWARD" glyphSize="24" glyphStyle="-fx-fill: #FFFFFF"/>
+            </graphic>
+            <HBox.margin>
+                <Insets right="10.0"/>
+            </HBox.margin>
+        </JFXButton>
+    </HBox>
+</VBox>
