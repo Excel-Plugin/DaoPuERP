@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<BorderPane xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="suwu.daopuerp.presentation.mainui.EmployeeHomeUiController">
+    <top>
+        <VBox>
+            <HBox>
+                <Text fx:id="textWelcome" fill="black" text="欢迎~,">
+                    <font>
+                        <Font size="32.00"/>
+                    </font>
+                </Text>
+                <padding>
+                    <Insets bottom="20.0" left="50.0" right="50.0" top="20.0"/>
+                </padding>
+            </HBox>
+            <!--<HBox>-->
+            <!--<Text fx:id="textLoginTime" fill="black" text="登录时间：">-->
+            <!--<font>-->
+            <!--<Font size="32.00"/>-->
+            <!--</font>-->
+            <!--</Text>-->
+            <!--<padding>-->
+            <!--<Insets bottom="20.0" left="50.0" right="50.0" top="20.0"/>-->
+            <!--</padding>-->
+            <!--</HBox>-->
+        </VBox>
+    </top>
+    <center>
+        <HBox alignment="TOP_CENTER">
+            <VBox spacing="10" alignment="CENTER">
+                <JFXButton buttonType="RAISED" onAction="#onManageFormulaTemplate" prefHeight="100.0"
+                           prefWidth="100.0"
+                           style="-fx-background-color: #1A217E; -fx-text-fill: #FFFFFF;-fx-background-radius: 25;-fx-border-radius:25;"
+                           text="">
+                    <graphic>
+                        <MaterialIconView glyphName="RECEIPT" glyphSize="90" fill="white"/>
+                    </graphic>
+                    <VBox.margin>
+                        <Insets left="10.0"/>
+                    </VBox.margin>
+                </JFXButton>
+                <HBox alignment="CENTER">
+                    <Text fill="black" text="管理配方模板">
+                        <font>
+                            <Font size="22.00"/>
+                        </font>
+                        <HBox.margin>
+                            <Insets left="10.0"/>
+                        </HBox.margin>
+                    </Text>
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                    </padding>
+                </HBox>
+                <padding>
+                    <Insets bottom="20.0" top="20.0"/>
+                </padding>
+            </VBox>
+            <VBox spacing="10" alignment="CENTER">
+                <JFXButton buttonType="RAISED" onAction="#onManageProductionBill" prefHeight="100.0"
+                           prefWidth="100.0"
+                           style="-fx-background-color: #1A217E; -fx-text-fill: #FFFFFF;-fx-background-radius: 25;-fx-border-radius:25;"
+                           text="">
+                    <graphic>
+                        <MaterialDesignIconView glyphName="CASH_100" glyphSize="90" fill="white"/>
+                    </graphic>
+                    <VBox.margin>
+                        <Insets left="10.0"/>
+                    </VBox.margin>
+                </JFXButton>
+                <HBox alignment="CENTER">
+                    <Text fill="black" text="管理生产原始单">
+                        <font>
+                            <Font size="22.00"/>
+                        </font>
+                        <HBox.margin>
+                            <Insets left="10.0"/>
+                        </HBox.margin>
+                    </Text>
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                    </padding>
+                </HBox>
+                <padding>
+                    <Insets bottom="20.0" top="20.0"/>
+                </padding>
+            </VBox>
+            <VBox spacing="10" alignment="CENTER">
+                <JFXButton buttonType="RAISED" onAction="#onGenerateTotalBill"
+                           style="-fx-background-color: #1A217E; -fx-text-fill: #FFFFFF;-fx-background-radius: 25;-fx-border-radius:25;"
+                           text="">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="LINE_CHART" glyphSize="90" fill="white"/>
+                    </graphic>
+                    <VBox.margin>
+                        <Insets left="10.0"/>
+                    </VBox.margin>
+                </JFXButton>
+                <HBox alignment="CENTER">
+                    <Text fill="black" text="生成Bom表">
+                        <font>
+                            <Font size="22.00"/>
+                        </font>
+                        <HBox.margin>
+                            <Insets left="10.0"/>
+                        </HBox.margin>
+                    </Text>
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                    </padding>
+                </HBox>
+                <padding>
+                    <Insets bottom="20.0" top="20.0"/>
+                </padding>
+            </VBox>
+        </HBox>
+    </center>
+    <padding>
+        <Insets bottom="50.0" left="50.0" right="50.0" top="50.0"/>
+    </padding>
+</BorderPane>
