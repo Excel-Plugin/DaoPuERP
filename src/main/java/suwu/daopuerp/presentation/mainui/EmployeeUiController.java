@@ -1,5 +1,7 @@
 package suwu.daopuerp.presentation.mainui;
 
+import suwu.daopuerp.presentation.formulaui.FormulaUiController;
+
 public class EmployeeUiController extends FrameworkUiController {
     public void initialize() {
         // 必须有。调用基类初始化来初始化基类的元素。
@@ -8,7 +10,7 @@ public class EmployeeUiController extends FrameworkUiController {
     }
 
     public void onManageFormulaTemplate() {
-
+        switchFunction(FormulaUiController.class, "管理配方模板", true);
     }
 
     public void onManageProductionBill() {

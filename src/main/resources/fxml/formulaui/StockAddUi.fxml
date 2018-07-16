@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="suwu.daopuerp.presentation.formulaui.StockAddUiController"
+      prefHeight="600.0" prefWidth="600.0" spacing="20">
+    <padding>
+        <Insets top="10" left="20" bottom="20" right="20"/>
+    </padding>
+    <Label text="原料信息" textFill="#5e5e5e">
+        <font>
+            <Font name="System Bold" size="32.0"/>
+        </font>
+        <VBox.margin>
+            <Insets/>
+        </VBox.margin>
+    </Label>
+
+    <VBox maxWidth="500" spacing="30">
+        <VBox alignment="CENTER">
+            <VBox>
+                <padding>
+                    <Insets bottom="20" left="20" top="30"/>
+                </padding>
+                <JFXTextField fx:id="stockIdColumn" editable="false" prefWidth="150" promptText="原料代码"
+                              labelFloat="true">
+                    <padding>
+                        <Insets bottom="5.0" left="40.0" right="80.0"/>
+                    </padding>
+                </JFXTextField>
+            </VBox>
+            <VBox>
+                <padding>
+                    <Insets bottom="20" left="20" top="30"/>
+                </padding>
+                <JFXTextField fx:id="stockNameColumn" editable="true" prefWidth="150" promptText="原料名称"
+                              labelFloat="true">
+                    <padding>
+                        <Insets bottom="5.0" left="40.0" right="80.0"/>
+                    </padding>
+                </JFXTextField>
+            </VBox>
+            <VBox>
+                <padding>
+                    <Insets bottom="20" left="20" top="30"/>
+                </padding>
+                <JFXTextField fx:id="stockPercentColumn" editable="true" prefWidth="150" promptText="比例"
+                              labelFloat="true">
+                    <padding>
+                        <Insets bottom="5.0" left="40.0"/>
+                    </padding>
+                </JFXTextField>
+            </VBox>
+            <VBox>
+                <padding>
+                    <Insets bottom="20" left="20" top="30"/>
+                </padding>
+                <JFXTextField fx:id="stockPriceColumn" editable="true" prefWidth="150" promptText="单价"
+                              labelFloat="true">
+                    <padding>
+                        <Insets bottom="5.0" left="40.0"/>
+                    </padding>
+                </JFXTextField>
+            </VBox>
+        </VBox>
+    </VBox>
+    <Separator/>
+    <HBox spacing="20">
+        <JFXButton fx:id="btnSubmit" buttonType="RAISED" onAction="#onBtnConfirmClicked"
+                   style="-fx-background-color: #3F51B5; -fx-text-fill: #FFFFFF;" text="确认">
+            <graphic>
+                <MaterialIconView glyphName="CHECK" glyphSize="24" glyphStyle="-fx-fill: #FFFFFF"/>
+            </graphic>
+        </JFXButton>
+        <JFXButton fx:id="btnCancel" buttonType="RAISED" onAction="#onBtnCancelClicked"
+                   style="-fx-background-color: #E8EAF6; -fx-text-fill: #000000;" text="取消">
+            <graphic>
+                <FontAwesomeIconView glyphName="HOME" glyphSize="24"/>
+            </graphic>
+        </JFXButton>
+    </HBox>
+
+</VBox>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="suwu.daopuerp.presentation.formulaui.FormulaAddUiController"
+      prefHeight="600.0" prefWidth="600.0" spacing="20">
+    <padding>
+        <Insets top="10" left="20" bottom="20" right="20"/>
+    </padding>
+    <Label text="原料单信息" textFill="#5e5e5e">
+        <font>
+            <Font name="System Bold" size="32.0"/>
+        </font>
+        <VBox.margin>
+            <Insets/>
+        </VBox.margin>
+    </Label>
+
+    <VBox maxWidth="500" spacing="30">
+        <VBox alignment="CENTER">
+            <VBox>
+                <padding>
+                    <Insets bottom="20" left="20" top="30"/>
+                </padding>
+                <JFXTextField fx:id="formulaId" editable="false" prefWidth="150" promptText="成品编码"
+                              labelFloat="true">
+                    <padding>
+                        <Insets bottom="5.0" left="40.0" right="80.0"/>
+                    </padding>
+                </JFXTextField>
+            </VBox>
+            <VBox>
+                <padding>
+                    <Insets bottom="20" left="20" top="30"/>
+                </padding>
+                <JFXTextField fx:id="formulaName" editable="true" prefWidth="150" promptText="成品名称"
+                              labelFloat="true">
+                    <padding>
+                        <Insets bottom="5.0" left="40.0" right="80.0"/>
+                    </padding>
+                </JFXTextField>
+            </VBox>
+            <VBox>
+                <padding>
+                    <Insets bottom="20" left="20" top="30"/>
+                </padding>
+                <JFXTextField fx:id="formulaType" editable="true" prefWidth="150" promptText="型号"
+                              labelFloat="true">
+                    <padding>
+                        <Insets bottom="5.0" left="40.0"/>
+                    </padding>
+                </JFXTextField>
+            </VBox>
+        </VBox>
+        <VBox alignment="CENTER">
+            <JFXTreeTableView fx:id="stockTable" prefHeight="500.0" prefWidth="750.0">
+                <columns>
+                    <JFXTreeTableColumn fx:id="stockIdColumn" editable="true" text="原料代码"/>
+                    <JFXTreeTableColumn fx:id="stockNameColumn" editable="true" text="原料名称"/>
+                    <JFXTreeTableColumn fx:id="stockPercentColumn" editable="true" text="比例"/>
+                    <JFXTreeTableColumn fx:id="stockPriceColumn" editable="true" text="单价"/>
+                </columns>
+            </JFXTreeTableView>
+            <HBox alignment="BASELINE_RIGHT" prefWidth="100" spacing="10">
+                <JFXButton fx:id="btnAdd" onAction="#onBtnAddItemClicked" style="-fx-text-fill: #000000" text="添加原料">
+                    <graphic>
+                        <MaterialIconView glyphName="ADD" glyphSize="24"/>
+                    </graphic>
+                    <HBox.margin>
+                        <Insets right="10.0"/>
+                    </HBox.margin>
+                </JFXButton>
+                <JFXButton fx:id="btnDelete" onAction="#onBtnDeleteItemClicked" style="-fx-text-fill: #000000;"
+                           text="删除原料">
+                    <graphic>
+                        <MaterialIconView glyphName="DELETE" glyphSize="24"/>
+                    </graphic>
+                    <HBox.margin>
+                        <Insets right="10.0"/>
+                    </HBox.margin>
+                </JFXButton>
+            </HBox>
+        </VBox>
+    </VBox>
+    <Separator/>
+    <HBox spacing="20">
+        <JFXButton fx:id="btnSubmit" buttonType="RAISED" onAction="#onBtnSubmitClicked"
+                   style="-fx-background-color: #3F51B5; -fx-text-fill: #FFFFFF;" text="提交">
+            <graphic>
+                <MaterialIconView glyphName="CHECK" glyphSize="24" glyphStyle="-fx-fill: #FFFFFF"/>
+            </graphic>
+        </JFXButton>
+        <JFXButton fx:id="btnReset" buttonType="RAISED" onAction="#onBtnResetClicked"
+                   style="-fx-background-color: #e64a19; -fx-text-fill: #FFFFFF" text="重置">
+            <graphic>
+                <MaterialIconView glyphName="REFRESH" glyphSize="24"/>
+            </graphic>
+        </JFXButton>
+        <JFXButton fx:id="btnCancel" buttonType="RAISED" onAction="#onBtnCancelClicked"
+                   style="-fx-background-color: #E8EAF6; -fx-text-fill: #000000;" text="取消">
+            <graphic>
+                <FontAwesomeIconView glyphName="HOME" glyphSize="24"/>
+            </graphic>
+        </JFXButton>
+    </HBox>
+
+</VBox>

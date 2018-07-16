@@ -1,4 +1,4 @@
-package suwu.daopuerp.dto;
+package suwu.daopuerp.dto.account;
 
 public class UserDto {
     private String username;

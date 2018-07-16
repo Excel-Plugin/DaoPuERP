@@ -2,7 +2,7 @@ package suwu.daopuerp.bl.account.mock;
 
 import org.springframework.stereotype.Service;
 import suwu.daopuerp.blservice.account.AccountBlService;
-import suwu.daopuerp.dto.UserDto;
+import suwu.daopuerp.dto.account.UserDto;
 import suwu.daopuerp.exception.PasswordWrongException;
 import suwu.daopuerp.exception.UserDoesNotExistException;
 

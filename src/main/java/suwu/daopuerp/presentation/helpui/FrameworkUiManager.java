@@ -2,7 +2,7 @@ package suwu.daopuerp.presentation.helpui;
 
 import com.jfoenix.controls.JFXDialog;
 import javafx.scene.layout.StackPane;
-import suwu.daopuerp.dto.UserDto;
+import suwu.daopuerp.dto.account.UserDto;
 import suwu.daopuerp.presentation.mainui.FrameworkUiController;
 
 public class FrameworkUiManager {

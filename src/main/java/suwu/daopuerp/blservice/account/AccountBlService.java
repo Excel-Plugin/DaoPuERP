@@ -1,6 +1,6 @@
 package suwu.daopuerp.blservice.account;
 
-import suwu.daopuerp.dto.UserDto;
+import suwu.daopuerp.dto.account.UserDto;
 import suwu.daopuerp.exception.PasswordWrongException;
 import suwu.daopuerp.exception.UserDoesNotExistException;
 

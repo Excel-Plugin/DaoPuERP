@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import suwu.daopuerp.bl.account.factory.AccountBlServiceFactory;
 import suwu.daopuerp.blservice.account.AccountBlService;
-import suwu.daopuerp.dto.UserDto;
+import suwu.daopuerp.dto.account.UserDto;
 import suwu.daopuerp.exception.PasswordWrongException;
 import suwu.daopuerp.exception.UserDoesNotExistException;
 import suwu.daopuerp.presentation.helpui.*;
