@@ -8,12 +8,10 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="suwu.daopuerp.presentation.formulaui.FormulaAddUiController"
-      prefHeight="600.0" prefWidth="600.0" spacing="20">
+<VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="600.0" spacing="20" xmlns="http://javafx.com/javafx/8.0.121"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="suwu.daopuerp.presentation.formulaui.FormulaAddUiController">
     <padding>
-        <Insets top="10" left="20" bottom="20" right="20"/>
+        <Insets bottom="20" left="20" right="20" top="10"/>
     </padding>
     <Label text="原料单信息" textFill="#5e5e5e">
         <font>
@@ -25,15 +23,14 @@
     </Label>
 
     <VBox maxWidth="500" spacing="30">
-        <VBox alignment="CENTER">
+        <HBox alignment="CENTER">
             <VBox>
                 <padding>
                     <Insets bottom="20" left="20" top="30"/>
                 </padding>
-                <JFXTextField fx:id="formulaId" editable="false" prefWidth="150" promptText="成品编码"
-                              labelFloat="true">
+                <JFXTextField fx:id="formulaId" editable="true" labelFloat="true" prefWidth="150" promptText="成品编码">
                     <padding>
-                        <Insets bottom="5.0" left="40.0" right="80.0"/>
+                        <Insets bottom="5.0" left="10.0" right="10.0"/>
                     </padding>
                 </JFXTextField>
             </VBox>
@@ -41,10 +38,9 @@
                 <padding>
                     <Insets bottom="20" left="20" top="30"/>
                 </padding>
-                <JFXTextField fx:id="formulaName" editable="true" prefWidth="150" promptText="成品名称"
-                              labelFloat="true">
+                <JFXTextField fx:id="formulaName" editable="true" labelFloat="true" prefWidth="150" promptText="成品名称">
                     <padding>
-                        <Insets bottom="5.0" left="40.0" right="80.0"/>
+                        <Insets bottom="5.0" left="10.0" right="10.0"/>
                     </padding>
                 </JFXTextField>
             </VBox>
@@ -52,14 +48,13 @@
                 <padding>
                     <Insets bottom="20" left="20" top="30"/>
                 </padding>
-                <JFXTextField fx:id="formulaType" editable="true" prefWidth="150" promptText="型号"
-                              labelFloat="true">
+                <JFXTextField fx:id="formulaType" editable="true" labelFloat="true" prefWidth="150" promptText="型号">
                     <padding>
-                        <Insets bottom="5.0" left="40.0"/>
+                        <Insets bottom="5.0" left="10.0" right="10.0"/>
                     </padding>
                 </JFXTextField>
             </VBox>
-        </VBox>
+        </HBox>
         <VBox alignment="CENTER">
             <JFXTreeTableView fx:id="stockTable" prefHeight="500.0" prefWidth="750.0">
                 <columns>
@@ -67,6 +62,7 @@
                     <JFXTreeTableColumn fx:id="stockNameColumn" editable="true" text="原料名称"/>
                     <JFXTreeTableColumn fx:id="stockPercentColumn" editable="true" text="比例"/>
                     <JFXTreeTableColumn fx:id="stockPriceColumn" editable="true" text="单价"/>
+                    <JFXTreeTableColumn fx:id="stockProcessColumn" editable="true" text="生产工艺"/>
                 </columns>
             </JFXTreeTableView>
             <HBox alignment="BASELINE_RIGHT" prefWidth="100" spacing="10">

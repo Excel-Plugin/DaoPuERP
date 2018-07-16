@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="suwu.daopuerp.presentation.formulaui.StockAddUiController"
+      fx:controller="suwu.daopuerp.presentation.stockui.StockAddUiController"
       prefHeight="600.0" prefWidth="600.0" spacing="20">
     <padding>
         <Insets top="10" left="20" bottom="20" right="20"/>
@@ -30,7 +30,7 @@
                 <padding>
                     <Insets bottom="20" left="20" top="30"/>
                 </padding>
-                <JFXTextField fx:id="stockIdColumn" editable="false" prefWidth="150" promptText="原料代码"
+                <JFXTextField fx:id="stockIdColumn" editable="true" prefWidth="150" promptText="原料代码"
                               labelFloat="true">
                     <padding>
                         <Insets bottom="5.0" left="40.0" right="80.0"/>
@@ -64,6 +64,17 @@
                     <Insets bottom="20" left="20" top="30"/>
                 </padding>
                 <JFXTextField fx:id="stockPriceColumn" editable="true" prefWidth="150" promptText="单价"
+                              labelFloat="true">
+                    <padding>
+                        <Insets bottom="5.0" left="40.0"/>
+                    </padding>
+                </JFXTextField>
+            </VBox>
+            <VBox>
+                <padding>
+                    <Insets bottom="20" left="20" top="30"/>
+                </padding>
+                <JFXTextField fx:id="stockProcessColumn" editable="true" prefWidth="150" promptText="生产工艺"
                               labelFloat="true">
                     <padding>
                         <Insets bottom="5.0" left="40.0"/>

@@ -1,4 +1,4 @@
-package suwu.daopuerp.presentation.formulaui;
+package suwu.daopuerp.presentation.productionbillui.liquid;
 
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableColumn;
@@ -24,7 +24,7 @@ import suwu.daopuerp.presentation.stockui.factory.StackAddUiControllerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FormulaModifyUiController extends FormulaModifyUi implements ExternalLoadableUiController {
+public class ProductionBillLiquidAddUiController implements ExternalLoadableUiController {
     @FXML
     private JFXTextField formulaId;
     @FXML
@@ -41,8 +41,6 @@ public class FormulaModifyUiController extends FormulaModifyUi implements Extern
     private JFXTreeTableColumn<StockItemModel, String> stockPercentColumn;
     @FXML
     private JFXTreeTableColumn<StockItemModel, String> stockPriceColumn;
-    @FXML
-    private JFXTreeTableColumn<StockItemModel, String> stockProcessColumn;
 
     private ObservableList<StockItemModel> stockItemModelObservableList = FXCollections.observableArrayList();
     private StringProperty formulaIdProperty = new SimpleStringProperty("");
@@ -58,7 +56,7 @@ public class FormulaModifyUiController extends FormulaModifyUi implements Extern
      */
     @Override
     public ExternalLoadedUiPackage load() {
-        return new UiLoader("/fxml/formulaui/FormulaModifyUi.fxml").loadAndGetPackageWithoutException();
+        return new UiLoader("/fxml/formulaui/FormulaAddUi.fxml").loadAndGetPackageWithoutException();
     }
 
     public void initialize() {
@@ -66,7 +64,6 @@ public class FormulaModifyUiController extends FormulaModifyUi implements Extern
         stockNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getStockItemObjectProperty().getStockName()));
         stockPercentColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getStockItemObjectProperty().getStockPercent() + ""));
         stockPriceColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getStockItemObjectProperty().getStockPrice() + ""));
-        stockProcessColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getStockItemObjectProperty().getStockProcess()));
         TreeItem<StockItemModel> root = new RecursiveTreeItem<>(stockItemModelObservableList, RecursiveTreeObject::getChildren);
         stockTable.setRoot(root);
         stockTable.setShowRoot(false);
@@ -81,60 +78,8 @@ public class FormulaModifyUiController extends FormulaModifyUi implements Extern
         requiredValidator.setMessage("请输入信息");
     }
 
-
-    @Override
-    public ExternalLoadedUiPackage showContent(FormulaDto formulaDto) {
-        ExternalLoadedUiPackage externalLoadedUiPackage = load();
-        FormulaModifyUiController formulaModifyUiController = externalLoadedUiPackage.getController();
-        formulaModifyUiController.formulaId.setText(formulaDto.getFormulaId());
-        formulaModifyUiController.formulaName.setText(formulaDto.getFormulaName());
-        formulaModifyUiController.formulaType.setText(formulaDto.getFormulaType());
-        for (StockItem stockItem : formulaDto.getStockItems()) {
-            formulaModifyUiController.stockItemModelObservableList.add(new StockItemModel(stockItem));
-        }
-        return externalLoadedUiPackage;
-    }
-
-    public void onBtnAddItemClicked(ActionEvent actionEvent) {
-        stockAddUiController.showStockAdd(stockItem -> stockItemModelObservableList.add(new StockItemModel(stockItem)));
-    }
-
-    public void onBtnDeleteItemClicked(ActionEvent actionEvent) {
-        int selectedIndex = stockTable.getSelectionModel().getSelectedIndex();
-        stockItemModelObservableList.remove(selectedIndex);
-    }
-
-    public void onBtnSubmitClicked(ActionEvent actionEvent) {
-        submit();
-        FrameworkUiManager.getCurrentDialogStack().closeCurrentAndPopAndShowNext();
-//        FormulaDto formulaDto = getCurrentFormulaDto();
-//
-//        PromptDialogHelper.start("确认配方单", "").setContent(
-//                purchaseBillVo.billDetailUi().showContent(purchaseBillVo).getComponent())
-//                .addCloseButton("确定", "CHECK", e -> {
-//                    submit();
-//                })
-//                .addCloseButton("取消", "CLOSE", null)
-//                .createAndShow();
-//        FrameworkUiManager.getWholePane().setOnKeyPressed(event -> {
-//            if (event.getCode() == KeyCode.ENTER) {
-//                initHotKey();
-//                FrameworkUiManager.getCurrentDialogStack().closeCurrentAndPopAndShowNext();
-//                submit();
-//            }
-//        });
-    }
-
-    private void submit() {
-
-    }
-
-    private FormulaDto getCurrentFormulaDto() {
-        List<StockItem> stockItemList = stockItemModelObservableList.stream().collect(ArrayList::new, (list, stockItemModel) -> list.add(stockItemModel.getStockItemObjectProperty()), ArrayList::addAll);
-        return new FormulaDto(formulaIdProperty.get(), formulaNameProperty.get(), formulaTypeProperty.get(), stockItemList);
-    }
-
-    public void onBtnResetClicked(ActionEvent actionEvent) {
+    @FXML
+    private void onBtnResetClicked() {
         PromptDialogHelper.start("是否要重置", null)
                 .addCloseButton("确定", "DONE", e -> reset())
                 .addCloseButton("取消", "UNDO", null)
@@ -148,7 +93,31 @@ public class FormulaModifyUiController extends FormulaModifyUi implements Extern
         stockItemModelObservableList.clear();
     }
 
+    public void onBtnSubmitClicked(ActionEvent actionEvent) {
+        submit();
+        FrameworkUiManager.getCurrentDialogStack().closeCurrentAndPopAndShowNext();
+    }
+
+    private void submit() {
+
+    }
+
+    private FormulaDto getCurrentFormulaDto() {
+        List<StockItem> stockItemList = stockItemModelObservableList.stream().collect(ArrayList::new, (list, stockItemModel) -> list.add(stockItemModel.getStockItemObjectProperty()), ArrayList::addAll);
+        return new FormulaDto(formulaIdProperty.get(), formulaNameProperty.get(), formulaTypeProperty.get(), stockItemList);
+    }
+
     public void onBtnCancelClicked(ActionEvent actionEvent) {
         FrameworkUiManager.getCurrentDialogStack().closeCurrentAndPopAndShowNext();
+        FrameworkUiManager.switchFunction(ProductionBillLiquidUiController.class, "管理配方单", true);
+    }
+
+    public void onBtnAddItemClicked(ActionEvent actionEvent) {
+        stockAddUiController.showStockAdd(stockItem -> stockItemModelObservableList.add(new StockItemModel(stockItem)));
+    }
+
+    public void onBtnDeleteItemClicked(ActionEvent actionEvent) {
+        int selectedIndex = stockTable.getSelectionModel().getSelectedIndex();
+        stockItemModelObservableList.remove(selectedIndex);
     }
 }

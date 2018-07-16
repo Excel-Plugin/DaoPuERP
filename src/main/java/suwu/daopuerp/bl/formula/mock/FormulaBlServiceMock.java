@@ -19,7 +19,7 @@ public class FormulaBlServiceMock implements FormulaBlService {
     @Override
     public FormulaDto getFormulaById(String formulaId) {
         List<StockItem> stockItems = new ArrayList<>();
-        stockItems.add(new StockItem("1", "2", 0.5, 1.2));
+        stockItems.add(new StockItem("1", "2", 0.5, 1.2, "站上蛋黄酱"));
         return new FormulaDto("4", "5", "6", stockItems);
     }
 }

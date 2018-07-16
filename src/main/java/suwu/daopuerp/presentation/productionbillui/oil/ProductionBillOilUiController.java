@@ -1,4 +1,4 @@
-package suwu.daopuerp.presentation.formulaui;
+package suwu.daopuerp.presentation.productionbillui.oil;
 
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableColumn;
@@ -20,19 +20,19 @@ import suwu.daopuerp.presentation.helpui.*;
 
 import java.util.List;
 
-public class FormulaUiController implements ExternalLoadableUiController {
+public class ProductionBillOilUiController implements ExternalLoadableUiController {
     @FXML
     private JFXTextField tfSearch;
     @FXML
-    private JFXTreeTableView<FormulaItemModel> formulaTable;
+    private JFXTreeTableView<ProductionBillOilItemModel> formulaTable;
     @FXML
-    private JFXTreeTableColumn<FormulaItemModel, String> formulaIdColumn;
+    private JFXTreeTableColumn<ProductionBillOilItemModel, String> formulaIdColumn;
     @FXML
-    private JFXTreeTableColumn<FormulaItemModel, String> formulaNameColumn;
+    private JFXTreeTableColumn<ProductionBillOilItemModel, String> formulaNameColumn;
     @FXML
-    private JFXTreeTableColumn<FormulaItemModel, String> formulaTypeColumn;
+    private JFXTreeTableColumn<ProductionBillOilItemModel, String> formulaTypeColumn;
 
-    private ObservableList<FormulaItemModel> formulaItemModelObservableList = FXCollections.observableArrayList();
+    private ObservableList<ProductionBillOilItemModel> productionBillOilItemModelObservableList = FXCollections.observableArrayList();
     private StringProperty tfSearchProperty = new SimpleStringProperty("");
 
     private FormulaBlService formulaBlService = FormulaBlServiceFactory.getFormulaBlService();
@@ -51,7 +51,7 @@ public class FormulaUiController implements ExternalLoadableUiController {
         formulaIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getFormulaItemObjectProperty().getFormulaId()));
         formulaNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getFormulaItemObjectProperty().getFormulaName()));
         formulaTypeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getFormulaItemObjectProperty().getFormulaType()));
-        TreeItem<FormulaItemModel> root = new RecursiveTreeItem<>(formulaItemModelObservableList, RecursiveTreeObject::getChildren);
+        TreeItem<ProductionBillOilItemModel> root = new RecursiveTreeItem<>(productionBillOilItemModelObservableList, RecursiveTreeObject::getChildren);
         formulaTable.setRoot(root);
         formulaTable.setShowRoot(false);
 
@@ -63,18 +63,18 @@ public class FormulaUiController implements ExternalLoadableUiController {
     private void initFormulas() {
         List<FormulaItem> formulaItems = formulaBlService.getAllFormulas();
         for (FormulaItem formulaItem : formulaItems) {
-            formulaItemModelObservableList.add(new FormulaItemModel(formulaItem));
+            productionBillOilItemModelObservableList.add(new ProductionBillOilItemModel(formulaItem));
         }
     }
 
     @FXML
     private void onBtnAddClicked(ActionEvent actionEvent) {
-        FrameworkUiManager.switchFunction(FormulaAddUiController.class, "增加配方单", true);
+        FrameworkUiManager.switchFunction(ProductionBillOilAddUiController.class, "增加配方单", true);
     }
 
     @FXML
     private void onBtnModifyClicked(ActionEvent actionEvent) {
-        FormulaItemModel model = formulaTable.getSelectionModel().getSelectedItem().getValue();
+        ProductionBillOilItemModel model = formulaTable.getSelectionModel().getSelectedItem().getValue();
         if (model != null) {
             FormulaItem selected = model.getFormulaItemObjectProperty();
             FormulaDto formulaDto = formulaBlService.getFormulaById(selected.getFormulaId());
@@ -128,7 +128,7 @@ public class FormulaUiController implements ExternalLoadableUiController {
 
     @FXML
     private void onBtnSelectClicked(ActionEvent actionEvent) {
-        FormulaItemModel model = formulaTable.getSelectionModel().getSelectedItem().getValue();
+        ProductionBillOilItemModel model = formulaTable.getSelectionModel().getSelectedItem().getValue();
         if (model != null) {
             FormulaItem selected = model.getFormulaItemObjectProperty();
             FormulaDto formulaDto = formulaBlService.getFormulaById(selected.getFormulaId());

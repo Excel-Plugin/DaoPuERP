@@ -5,15 +5,17 @@ public class StockItem {
     private String stockName;
     private double stockPercent;
     private double stockPrice;
+    private String stockProcess;
 
     public StockItem() {
     }
 
-    public StockItem(String stockId, String stockName, double stockPercent, double stockPrice) {
+    public StockItem(String stockId, String stockName, double stockPercent, double stockPrice, String stockProcess) {
         this.stockId = stockId;
         this.stockName = stockName;
         this.stockPercent = stockPercent;
         this.stockPrice = stockPrice;
+        this.stockProcess = stockProcess;
     }
 
     public String getStockId() {
@@ -46,5 +48,13 @@ public class StockItem {
 
     public void setStockPrice(double stockPrice) {
         this.stockPrice = stockPrice;
+    }
+
+    public String getStockProcess() {
+        return stockProcess;
+    }
+
+    public void setStockProcess(String stockProcess) {
+        this.stockProcess = stockProcess;
     }
 }

@@ -1,4 +1,4 @@
-package suwu.daopuerp.presentation.formulaui;
+package suwu.daopuerp.presentation.productionbillui.oil;
 
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableColumn;
@@ -24,7 +24,7 @@ import suwu.daopuerp.presentation.stockui.factory.StackAddUiControllerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FormulaModifyUiController extends FormulaModifyUi implements ExternalLoadableUiController {
+public class ProductionBillOilModifyUiController extends ProductionBillOilModifyUi implements ExternalLoadableUiController {
     @FXML
     private JFXTextField formulaId;
     @FXML
@@ -41,8 +41,6 @@ public class FormulaModifyUiController extends FormulaModifyUi implements Extern
     private JFXTreeTableColumn<StockItemModel, String> stockPercentColumn;
     @FXML
     private JFXTreeTableColumn<StockItemModel, String> stockPriceColumn;
-    @FXML
-    private JFXTreeTableColumn<StockItemModel, String> stockProcessColumn;
 
     private ObservableList<StockItemModel> stockItemModelObservableList = FXCollections.observableArrayList();
     private StringProperty formulaIdProperty = new SimpleStringProperty("");
@@ -66,7 +64,6 @@ public class FormulaModifyUiController extends FormulaModifyUi implements Extern
         stockNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getStockItemObjectProperty().getStockName()));
         stockPercentColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getStockItemObjectProperty().getStockPercent() + ""));
         stockPriceColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getStockItemObjectProperty().getStockPrice() + ""));
-        stockProcessColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getStockItemObjectProperty().getStockProcess()));
         TreeItem<StockItemModel> root = new RecursiveTreeItem<>(stockItemModelObservableList, RecursiveTreeObject::getChildren);
         stockTable.setRoot(root);
         stockTable.setShowRoot(false);
@@ -85,7 +82,7 @@ public class FormulaModifyUiController extends FormulaModifyUi implements Extern
     @Override
     public ExternalLoadedUiPackage showContent(FormulaDto formulaDto) {
         ExternalLoadedUiPackage externalLoadedUiPackage = load();
-        FormulaModifyUiController formulaModifyUiController = externalLoadedUiPackage.getController();
+        ProductionBillOilModifyUiController formulaModifyUiController = externalLoadedUiPackage.getController();
         formulaModifyUiController.formulaId.setText(formulaDto.getFormulaId());
         formulaModifyUiController.formulaName.setText(formulaDto.getFormulaName());
         formulaModifyUiController.formulaType.setText(formulaDto.getFormulaType());

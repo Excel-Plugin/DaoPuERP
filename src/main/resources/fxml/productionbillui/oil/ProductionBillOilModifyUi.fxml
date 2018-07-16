@@ -67,7 +67,6 @@
                     <JFXTreeTableColumn fx:id="stockNameColumn" editable="true" text="原料名称"/>
                     <JFXTreeTableColumn fx:id="stockPercentColumn" editable="true" text="比例"/>
                     <JFXTreeTableColumn fx:id="stockPriceColumn" editable="true" text="单价"/>
-                    <JFXTreeTableColumn fx:id="stockProcessColumn" editable="true" text="生产工艺"/>
                 </columns>
             </JFXTreeTableView>
             <HBox alignment="BASELINE_RIGHT" prefWidth="100" spacing="10">

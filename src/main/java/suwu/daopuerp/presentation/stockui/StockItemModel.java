@@ -1,4 +1,4 @@
-package suwu.daopuerp.presentation.formulaui;
+package suwu.daopuerp.presentation.stockui;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.beans.property.ObjectProperty;

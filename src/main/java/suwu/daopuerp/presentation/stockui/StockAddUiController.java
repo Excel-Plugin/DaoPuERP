@@ -1,7 +1,9 @@
-package suwu.daopuerp.presentation.formulaui;
+package suwu.daopuerp.presentation.stockui;
 
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXTextField;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
@@ -19,9 +21,16 @@ public class StockAddUiController implements ExternalLoadableUiController, Stock
     private JFXTextField stockPercentColumn;
     @FXML
     private JFXTextField stockPriceColumn;
+    @FXML
+    private JFXTextField stockProcessColumn;
+
+    private StringProperty stockIdProperty = new SimpleStringProperty("");
+    private StringProperty stockNameProperty = new SimpleStringProperty("");
+    private StringProperty stockPercentProperty = new SimpleStringProperty("");
+    private StringProperty stockPriceProperty = new SimpleStringProperty("");
+    private StringProperty stockProcessProperty = new SimpleStringProperty("");
 
     private Consumer<StockItem> callback;
-    private StockItem stockItem;
 
     /**
      * Loads the controller.
@@ -31,6 +40,14 @@ public class StockAddUiController implements ExternalLoadableUiController, Stock
     @Override
     public ExternalLoadedUiPackage load() {
         return new UiLoader("/fxml/formulaui/StockAddUi.fxml").loadAndGetPackageWithoutException();
+    }
+
+    public void initialize() {
+        stockIdColumn.textProperty().bindBidirectional(stockIdProperty);
+        stockNameColumn.textProperty().bindBidirectional(stockNameProperty);
+        stockPercentColumn.textProperty().bindBidirectional(stockPercentProperty);
+        stockPriceColumn.textProperty().bindBidirectional(stockPriceProperty);
+        stockProcessColumn.textProperty().bindBidirectional(stockProcessProperty);
     }
 
     @Override
@@ -61,6 +78,6 @@ public class StockAddUiController implements ExternalLoadableUiController, Stock
     }
 
     private StockItem getStockItem() {
-        return stockItem;
+        return new StockItem(stockIdProperty.get(), stockNameProperty.get(), Double.parseDouble(stockPercentProperty.get()), Double.parseDouble(stockPriceProperty.get()), stockProcessProperty.get());
     }
 }

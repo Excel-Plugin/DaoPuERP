@@ -1,5 +1,7 @@
 package suwu.daopuerp.dto.formula;
 
+import suwu.daopuerp.presentation.formulaui.FormulaDetailUi;
+import suwu.daopuerp.presentation.formulaui.FormulaDetailUiController;
 import suwu.daopuerp.presentation.formulaui.FormulaModifyUi;
 import suwu.daopuerp.presentation.formulaui.FormulaModifyUiController;
 
@@ -55,5 +57,9 @@ public class FormulaDto {
 
     public FormulaModifyUi modifyUi() {
         return new FormulaModifyUiController();
+    }
+
+    public FormulaDetailUi detailUi() {
+        return new FormulaDetailUiController();
     }
 }
