@@ -16,7 +16,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import suwu.daopuerp.dto.formula.FormulaDto;
 import suwu.daopuerp.dto.formula.StockItem;
+import suwu.daopuerp.dto.productionbill.ProductionBillDto;
 import suwu.daopuerp.presentation.helpui.*;
+import suwu.daopuerp.presentation.productionbillui.ProductionBillModifyUi;
 import suwu.daopuerp.presentation.stockui.StockAddUiController;
 import suwu.daopuerp.presentation.stockui.StockItemModel;
 import suwu.daopuerp.presentation.stockui.factory.StackAddUiControllerFactory;
@@ -24,7 +26,7 @@ import suwu.daopuerp.presentation.stockui.factory.StackAddUiControllerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductionBillOilModifyUiController extends ProductionBillOilModifyUi implements ExternalLoadableUiController {
+public class ProductionBillOilModifyUiController extends ProductionBillModifyUi implements ExternalLoadableUiController {
     @FXML
     private JFXTextField formulaId;
     @FXML
@@ -80,7 +82,7 @@ public class ProductionBillOilModifyUiController extends ProductionBillOilModify
 
 
     @Override
-    public ExternalLoadedUiPackage showContent(FormulaDto formulaDto) {
+    public ExternalLoadedUiPackage showContent(ProductionBillDto productionBillDto) {
         ExternalLoadedUiPackage externalLoadedUiPackage = load();
         ProductionBillOilModifyUiController formulaModifyUiController = externalLoadedUiPackage.getController();
         formulaModifyUiController.formulaId.setText(formulaDto.getFormulaId());

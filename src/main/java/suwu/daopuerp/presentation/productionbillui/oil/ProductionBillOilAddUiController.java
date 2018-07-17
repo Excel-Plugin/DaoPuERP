@@ -17,6 +17,7 @@ import javafx.scene.control.TreeItem;
 import suwu.daopuerp.dto.formula.FormulaDto;
 import suwu.daopuerp.dto.formula.StockItem;
 import suwu.daopuerp.presentation.helpui.*;
+import suwu.daopuerp.presentation.productionbillui.ProductionBillUiController;
 import suwu.daopuerp.presentation.stockui.StockAddUiController;
 import suwu.daopuerp.presentation.stockui.StockItemModel;
 import suwu.daopuerp.presentation.stockui.factory.StackAddUiControllerFactory;
@@ -109,7 +110,7 @@ public class ProductionBillOilAddUiController implements ExternalLoadableUiContr
 
     public void onBtnCancelClicked(ActionEvent actionEvent) {
         FrameworkUiManager.getCurrentDialogStack().closeCurrentAndPopAndShowNext();
-        FrameworkUiManager.switchFunction(ProductionBillOilUiController.class, "管理配方单", true);
+        FrameworkUiManager.switchFunction(ProductionBillUiController.class, "管理生产原始单", true);
     }
 
     public void onBtnAddItemClicked(ActionEvent actionEvent) {

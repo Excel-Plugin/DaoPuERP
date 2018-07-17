@@ -13,14 +13,15 @@
     <padding>
         <Insets top="10" right="10" bottom="10" left="10"/>
     </padding>
-    <Label text="选择配方单" textFill="#5e5e5e">
+    <Label text="选择生产原始单" textFill="#5e5e5e">
         <font>
             <Font name="System Bold" size="32.0"/>
         </font>
     </Label>
     <JFXTextField fx:id="tfSearch" promptText="按列表项搜索，按回车执行搜索"/>
-    <JFXTreeTableView fx:id="formulaTable" prefHeight="500.0" prefWidth="750.0">
+    <JFXTreeTableView fx:id="billTable" prefHeight="500.0" prefWidth="750.0">
         <columns>
+            <JFXTreeTableColumn fx:id="billTypeColumn" editable="false" prefWidth="150" text="生产单类型（油/液）"/>
             <JFXTreeTableColumn fx:id="billIdColumn" editable="false" prefWidth="150" text="文件编号"/>
             <JFXTreeTableColumn fx:id="productionNameColumn" editable="false" prefWidth="150" text="品名"/>
             <JFXTreeTableColumn fx:id="billDateColumn" editable="false" prefWidth="150" text="开单日期"/>
