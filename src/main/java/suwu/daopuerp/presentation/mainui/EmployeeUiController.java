@@ -1,6 +1,7 @@
 package suwu.daopuerp.presentation.mainui;
 
 import suwu.daopuerp.presentation.formulaui.FormulaUiController;
+import suwu.daopuerp.presentation.productionbillui.ProductionBillUiController;
 
 public class EmployeeUiController extends FrameworkUiController {
     public void initialize() {
@@ -14,7 +15,7 @@ public class EmployeeUiController extends FrameworkUiController {
     }
 
     public void onManageProductionBill() {
-
+        switchFunction(ProductionBillUiController.class, "管理生产原始单", true);
     }
 
     public void onGenerateTotalBill() {

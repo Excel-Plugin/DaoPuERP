@@ -7,12 +7,12 @@
 <?import javafx.scene.text.Font?>
 <VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="suwu.daopuerp.presentation.formulaui.FormulaDetailUiController"
+      fx:controller="suwu.daopuerp.presentation.productionbillui.liquid.ProductionBillLiquidDetailUiController"
       prefHeight="600.0" prefWidth="600.0" spacing="20">
     <padding>
         <Insets top="10" left="20" bottom="20" right="20"/>
     </padding>
-    <Label text="原料单信息" textFill="#5e5e5e">
+    <Label text="生产原始单（液）信息" textFill="#5e5e5e">
         <font>
             <Font name="System Bold" size="32.0"/>
         </font>

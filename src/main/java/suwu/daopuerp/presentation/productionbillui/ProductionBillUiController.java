@@ -53,7 +53,7 @@ public class ProductionBillUiController implements ExternalLoadableUiController 
      */
     @Override
     public ExternalLoadedUiPackage load() {
-        return new UiLoader("/fxml/formulaui/FormulaUi.fxml").loadAndGetPackageWithoutException();
+        return new UiLoader("/fxml/productionbillui/ProductionBillUi.fxml").loadAndGetPackageWithoutException();
     }
 
     public void initialize() {
@@ -69,10 +69,10 @@ public class ProductionBillUiController implements ExternalLoadableUiController 
 
         tfSearch.textProperty().bindBidirectional(tfSearchProperty);
 
-        initFormulas();
+        initProductionBills();
     }
 
-    private void initFormulas() {
+    private void initProductionBills() {
         List<ProductionBillItem> productionBillItems = productionBillService.getAllProductionBillItems();
         for (ProductionBillItem productionBillItem : productionBillItems) {
             productionBillItemModelObservableList.add(new ProductionBillItemModel(productionBillItem));

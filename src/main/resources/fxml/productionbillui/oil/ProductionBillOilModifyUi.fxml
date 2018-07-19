@@ -191,80 +191,52 @@
                     </JFXTextField>
                 </VBox>
             </HBox>
+            <HBox alignment="CENTER">
+                <VBox>
+                    <padding>
+                        <Insets bottom="20" left="20" top="30"/>
+                    </padding>
+                    <Label prefWidth="150">质量指标：
+                        <padding>
+                            <Insets bottom="5.0" left="10.0" right="10.0"/>
+                        </padding>
+                    </Label>
+                </VBox>
+                <VBox>
+                    <padding>
+                        <Insets bottom="20" left="20" top="30"/>
+                    </padding>
+                    <JFXTextField fx:id="outLooking" editable="false" prefWidth="150" promptText="外观"
+                                  labelFloat="true">
+                        <padding>
+                            <Insets bottom="5.0" left="10.0" right="10.0"/>
+                        </padding>
+                    </JFXTextField>
+                </VBox>
+                <VBox>
+                    <padding>
+                        <Insets bottom="20" left="20" top="30"/>
+                    </padding>
+                    <JFXTextField fx:id="flashPoint" editable="false" prefWidth="150" promptText="开口闪点"
+                                  labelFloat="true">
+                        <padding>
+                            <Insets bottom="5.0" left="10.0" right="10.0"/>
+                        </padding>
+                    </JFXTextField>
+                </VBox>
+                <VBox>
+                    <padding>
+                        <Insets bottom="20" left="20" top="30"/>
+                    </padding>
+                    <JFXTextField fx:id="viscosity" editable="false" prefWidth="150" promptText="粘度40℃"
+                                  labelFloat="true">
+                        <padding>
+                            <Insets bottom="5.0" left="10.0" right="10.0"/>
+                        </padding>
+                    </JFXTextField>
+                </VBox>
+            </HBox>
         </VBox>
-        <!--<VBox alignment="CENTER">-->
-        <!--<HBox alignment="CENTER">-->
-        <!--<Label>质量指标</Label>-->
-        <!--<VBox>-->
-        <!--<padding>-->
-        <!--<Insets bottom="20" left="20" top="30"/>-->
-        <!--</padding>-->
-        <!--<JFXTextField fx:id="productionAppearance" editable="false" prefWidth="150" promptText="外观"-->
-        <!--labelFloat="true">-->
-        <!--<padding>-->
-        <!--<Insets bottom="5.0" left="10.0" right="10.0"/>-->
-        <!--</padding>-->
-        <!--</JFXTextField>-->
-        <!--</VBox>-->
-        <!--<VBox>-->
-        <!--<padding>-->
-        <!--<Insets bottom="20" left="20" top="30"/>-->
-        <!--</padding>-->
-        <!--<JFXTextField fx:id="productionOpenFlash" editable="false" prefWidth="150" promptText="开口闪电"-->
-        <!--labelFloat="true">-->
-        <!--<padding>-->
-        <!--<Insets bottom="5.0" left="10.0" right="10.0"/>-->
-        <!--</padding>-->
-        <!--</JFXTextField>-->
-        <!--</VBox>-->
-        <!--<VBox>-->
-        <!--<padding>-->
-        <!--<Insets bottom="20" left="20" top="30"/>-->
-        <!--</padding>-->
-        <!--<JFXTextField fx:id="productionViscosity" editable="false" prefWidth="150" promptText="粘度40℃"-->
-        <!--labelFloat="true">-->
-        <!--<padding>-->
-        <!--<Insets bottom="5.0" left="10.0" right="10.0"/>-->
-        <!--</padding>-->
-        <!--</JFXTextField>-->
-        <!--</VBox>-->
-        <!--</HBox>-->
-        <!--<HBox alignment="CENTER">-->
-        <!--<VBox>-->
-        <!--<padding>-->
-        <!--<Insets bottom="20" left="20" top="30"/>-->
-        <!--</padding>-->
-        <!--<JFXTextField fx:id="productionConclusion" editable="true" prefWidth="150" promptText="结论"-->
-        <!--labelFloat="true">-->
-        <!--<padding>-->
-        <!--<Insets bottom="5.0" left="10.0" right="10.0"/>-->
-        <!--</padding>-->
-        <!--</JFXTextField>-->
-        <!--</VBox>-->
-        <!--<VBox>-->
-        <!--<padding>-->
-        <!--<Insets bottom="20" left="20" top="30"/>-->
-        <!--</padding>-->
-        <!--<JFXTextField editable="false" prefWidth="150" promptText="主管批示"-->
-        <!--labelFloat="true">-->
-        <!--<padding>-->
-        <!--<Insets bottom="5.0" left="10.0" right="10.0"/>-->
-        <!--</padding>-->
-        <!--</JFXTextField>-->
-        <!--</VBox>-->
-        <!--<VBox>-->
-        <!--<padding>-->
-        <!--<Insets bottom="20" left="20" top="30"/>-->
-        <!--</padding>-->
-        <!--<JFXTextField editable="false" prefWidth="150" promptText="生产负责人"-->
-        <!--labelFloat="true">-->
-        <!--<padding>-->
-        <!--<Insets bottom="5.0" left="10.0" right="10.0"/>-->
-        <!--</padding>-->
-        <!--</JFXTextField>-->
-        <!--</VBox>-->
-        <!--</HBox>-->
-        <!--</VBox>-->
     </VBox>
     <Separator/>
     <HBox spacing="20">

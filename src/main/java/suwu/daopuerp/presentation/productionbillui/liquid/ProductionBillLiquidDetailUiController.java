@@ -11,7 +11,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
-import suwu.daopuerp.dto.formula.StockItem;
 import suwu.daopuerp.dto.productionbill.ProductionBillDto;
 import suwu.daopuerp.presentation.helpui.ExternalLoadableUiController;
 import suwu.daopuerp.presentation.helpui.ExternalLoadedUiPackage;
@@ -49,7 +48,7 @@ public class ProductionBillLiquidDetailUiController extends ProductionBillDetail
      */
     @Override
     public ExternalLoadedUiPackage load() {
-        return new UiLoader("/fxml/formulaui/FormulaDetailUi.fxml").loadAndGetPackageWithoutException();
+        return new UiLoader("/fxml/productionbillui/liquid/ProductionBillLiquidDetailUi.fxml").loadAndGetPackageWithoutException();
     }
 
     public void initialize() {
@@ -68,14 +67,6 @@ public class ProductionBillLiquidDetailUiController extends ProductionBillDetail
 
     @Override
     public ExternalLoadedUiPackage showContent(ProductionBillDto productionBillDto) {
-        ExternalLoadedUiPackage externalLoadedUiPackage = load();
-        ProductionBillLiquidDetailUiController formulaDetailUiController = externalLoadedUiPackage.getController();
-        formulaDetailUiController.formulaId.setText(formulaDto.getFormulaId());
-        formulaDetailUiController.formulaName.setText(formulaDto.getFormulaName());
-        formulaDetailUiController.formulaType.setText(formulaDto.getFormulaType());
-        for (StockItem stockItem : formulaDto.getStockItems()) {
-            formulaDetailUiController.stockItemModelObservableList.add(new StockItemModel(stockItem));
-        }
-        return externalLoadedUiPackage;
+        return null;
     }
 }

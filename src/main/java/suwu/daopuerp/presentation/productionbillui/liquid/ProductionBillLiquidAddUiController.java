@@ -57,7 +57,7 @@ public class ProductionBillLiquidAddUiController implements ExternalLoadableUiCo
      */
     @Override
     public ExternalLoadedUiPackage load() {
-        return new UiLoader("/fxml/formulaui/FormulaAddUi.fxml").loadAndGetPackageWithoutException();
+        return new UiLoader("/fxml/productionbillui/liquid/ProductionBillLiquidAddUi.fxml").loadAndGetPackageWithoutException();
     }
 
     public void initialize() {

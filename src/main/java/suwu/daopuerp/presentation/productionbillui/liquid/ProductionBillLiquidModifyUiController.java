@@ -58,7 +58,7 @@ public class ProductionBillLiquidModifyUiController extends ProductionBillModify
      */
     @Override
     public ExternalLoadedUiPackage load() {
-        return new UiLoader("/fxml/formulaui/FormulaModifyUi.fxml").loadAndGetPackageWithoutException();
+        return new UiLoader("/fxml/productionbillui/liquid/ProductionBillLiquidModifyUi.fxml").loadAndGetPackageWithoutException();
     }
 
     public void initialize() {
@@ -83,15 +83,7 @@ public class ProductionBillLiquidModifyUiController extends ProductionBillModify
 
     @Override
     public ExternalLoadedUiPackage showContent(ProductionBillDto productionBillDto) {
-        ExternalLoadedUiPackage externalLoadedUiPackage = load();
-        ProductionBillLiquidModifyUiController formulaModifyUiController = externalLoadedUiPackage.getController();
-        formulaModifyUiController.formulaId.setText(formulaDto.getFormulaId());
-        formulaModifyUiController.formulaName.setText(formulaDto.getFormulaName());
-        formulaModifyUiController.formulaType.setText(formulaDto.getFormulaType());
-        for (StockItem stockItem : formulaDto.getStockItems()) {
-            formulaModifyUiController.stockItemModelObservableList.add(new StockItemModel(stockItem));
-        }
-        return externalLoadedUiPackage;
+        return null;
     }
 
     public void onBtnAddItemClicked(ActionEvent actionEvent) {
