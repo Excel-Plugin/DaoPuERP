@@ -3,7 +3,7 @@ package suwu.daopuerp.bl.formula.mock;
 import suwu.daopuerp.blservice.formula.FormulaBlService;
 import suwu.daopuerp.dto.formula.FormulaDto;
 import suwu.daopuerp.dto.formula.FormulaItem;
-import suwu.daopuerp.dto.formula.StockItem;
+import suwu.daopuerp.dto.stock.StockItem;
 
 import java.util.ArrayList;
 import java.util.List;

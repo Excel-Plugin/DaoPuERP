@@ -119,7 +119,6 @@
                 <columns>
                     <JFXTreeTableColumn fx:id="stockIdColumn" editable="true" text="原料代码"/>
                     <JFXTreeTableColumn fx:id="stockPredictAmountColumn" editable="true" text="加入量"/>
-                    <JFXTreeTableColumn fx:id="stockRealAmountColumn" editable="true" text="实际加入量"/>
                     <JFXTreeTableColumn fx:id="stockProcessColumn" editable="true" text="生产工艺"/>
                 </columns>
             </JFXTreeTableView>

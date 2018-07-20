@@ -1,4 +1,4 @@
-package suwu.daopuerp.dto.formula;
+package suwu.daopuerp.dto.stock;
 
 public class StockItem {
     private String stockId;

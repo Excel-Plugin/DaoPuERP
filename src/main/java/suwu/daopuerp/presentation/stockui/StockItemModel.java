@@ -3,7 +3,7 @@ package suwu.daopuerp.presentation.stockui;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import suwu.daopuerp.dto.formula.StockItem;
+import suwu.daopuerp.dto.stock.StockItem;
 
 public class StockItemModel extends RecursiveTreeObject<StockItemModel> {
     ObjectProperty<StockItem> stockItemObjectProperty;

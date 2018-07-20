@@ -15,7 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import suwu.daopuerp.dto.formula.FormulaDto;
-import suwu.daopuerp.dto.formula.StockItem;
+import suwu.daopuerp.dto.stock.StockItem;
 import suwu.daopuerp.presentation.helpui.*;
 import suwu.daopuerp.presentation.productionbillui.ProductionBillUiController;
 import suwu.daopuerp.presentation.stockui.StockAddUiController;
@@ -27,26 +27,54 @@ import java.util.List;
 
 public class ProductionBillLiquidAddUiController implements ExternalLoadableUiController {
     @FXML
-    private JFXTextField formulaId;
+    private JFXTextField billId;
     @FXML
-    private JFXTextField formulaName;
+    private JFXTextField productionDate;
     @FXML
-    private JFXTextField formulaType;
+    private JFXTextField productionName;
     @FXML
-    private JFXTreeTableView<StockItemModel> stockTable;
+    private JFXTextField billDate;
     @FXML
-    private JFXTreeTableColumn<StockItemModel, String> stockIdColumn;
+    private JFXTextField client;
     @FXML
-    private JFXTreeTableColumn<StockItemModel, String> stockNameColumn;
+    private JFXTextField productionType;
     @FXML
-    private JFXTreeTableColumn<StockItemModel, String> stockPercentColumn;
+    private JFXTextField machineId;
     @FXML
-    private JFXTreeTableColumn<StockItemModel, String> stockPriceColumn;
+    private JFXTextField productionId;
+    @FXML
+    private JFXTextField totalQuantity;
+    @FXML
+    private JFXTextField modifyRecord;
+    @FXML
+    private JFXTextField comment;
+    @FXML
+    private JFXTextField liquidLooking;
+    @FXML
+    private JFXTextField phValue;
+    @FXML
+    private JFXTextField stableAttr1;
+    @FXML
+    private JFXTextField stableAttr2;
+    @FXML
+    private JFXTreeTableView<ProductionBillStockItemModel> stockTable;
+    @FXML
+    private JFXTreeTableColumn<ProductionBillStockItemModel, String> stockIdColumn;
+    @FXML
+    private JFXTreeTableColumn<ProductionBillStockItemModel, String> stockPredictAmountColumn;
+    @FXML
+    private JFXTreeTableColumn<ProductionBillStockItemModel, String> stockProcessColumn;
 
-    private ObservableList<StockItemModel> stockItemModelObservableList = FXCollections.observableArrayList();
-    private StringProperty formulaIdProperty = new SimpleStringProperty("");
-    private StringProperty formulaNameProperty = new SimpleStringProperty("");
-    private StringProperty formulaTypeProperty = new SimpleStringProperty("");
+    private ObservableList<ProductionBillStockItemModel> productionBillStockItemModelObservableList = FXCollections.observableArrayList();
+    private StringProperty billIdProperty = new SimpleStringProperty("");
+    private StringProperty productionDateProperty = new SimpleStringProperty("");
+    private StringProperty productionNameProperty = new SimpleStringProperty("");
+    private StringProperty billDateProperty = new SimpleStringProperty("");
+    private StringProperty clientProperty = new SimpleStringProperty("");
+    private StringProperty productionTypeProperty = new SimpleStringProperty("");
+    private StringProperty machineIdProperty = new SimpleStringProperty("");
+    private StringProperty productionIdProperty = new SimpleStringProperty("");
+
 
     private StockAddUiController stockAddUiController = StackAddUiControllerFactory.getStackAddUiController();
 
@@ -61,11 +89,10 @@ public class ProductionBillLiquidAddUiController implements ExternalLoadableUiCo
     }
 
     public void initialize() {
-        stockIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getStockItemObjectProperty().getStockId()));
-        stockNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getStockItemObjectProperty().getStockName()));
-        stockPercentColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getStockItemObjectProperty().getStockPercent() + ""));
-        stockPriceColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getStockItemObjectProperty().getStockPrice() + ""));
-        TreeItem<StockItemModel> root = new RecursiveTreeItem<>(stockItemModelObservableList, RecursiveTreeObject::getChildren);
+        stockIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getProductionBillStockItemObjectProperty().getStockId()));
+        stockPredictAmountColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getProductionBillStockItemObjectProperty().getStockAmount() + ""));
+        stockProcessColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getProductionBillStockItemObjectProperty().getStockProcess()));
+        TreeItem<ProductionBillStockItemModel> root = new RecursiveTreeItem<>(productionBillStockItemModelObservableList, RecursiveTreeObject::getChildren);
         stockTable.setRoot(root);
         stockTable.setShowRoot(false);
 

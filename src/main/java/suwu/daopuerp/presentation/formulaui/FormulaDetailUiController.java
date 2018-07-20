@@ -12,7 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import suwu.daopuerp.dto.formula.FormulaDto;
-import suwu.daopuerp.dto.formula.StockItem;
+import suwu.daopuerp.dto.stock.StockItem;
 import suwu.daopuerp.presentation.helpui.ExternalLoadableUiController;
 import suwu.daopuerp.presentation.helpui.ExternalLoadedUiPackage;
 import suwu.daopuerp.presentation.helpui.UiLoader;

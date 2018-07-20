@@ -7,7 +7,7 @@ import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
-import suwu.daopuerp.dto.formula.StockItem;
+import suwu.daopuerp.dto.stock.StockItem;
 import suwu.daopuerp.presentation.helpui.*;
 
 import java.util.function.Consumer;

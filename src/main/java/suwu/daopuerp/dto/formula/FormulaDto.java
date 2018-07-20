@@ -1,5 +1,6 @@
 package suwu.daopuerp.dto.formula;
 
+import suwu.daopuerp.dto.stock.StockItem;
 import suwu.daopuerp.presentation.formulaui.FormulaDetailUi;
 import suwu.daopuerp.presentation.formulaui.FormulaDetailUiController;
 import suwu.daopuerp.presentation.formulaui.FormulaModifyUi;
