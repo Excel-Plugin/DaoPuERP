@@ -30,10 +30,10 @@
     </JFXTreeTableView>
     <Separator/>
     <HBox spacing="20">
-        <JFXButton buttonType="RAISED" onAction="#onBtnAddClicked"
-                   style="-fx-background-color: #3F51B5; -fx-text-fill: #FFFFFF;" text="添加">
+        <JFXButton buttonType="RAISED" onAction="#onBtnTestClicked"
+                   style="-fx-background-color: #339900; -fx-text-fill: #FFFFFF;" text="试验单">
             <graphic>
-                <MaterialIconView glyphName="ADD" glyphSize="24" glyphStyle="-fx-fill: #FFFFFF"/>
+                <MaterialIconView glyphName="CHECK" glyphSize="24" glyphStyle="-fx-fill: #FFFFFF"/>
             </graphic>
         </JFXButton>
         <JFXButton buttonType="RAISED" onAction="#onBtnSelectClicked"

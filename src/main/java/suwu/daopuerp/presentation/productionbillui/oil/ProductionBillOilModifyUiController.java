@@ -14,18 +14,25 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
+import javafx.scene.input.MouseEvent;
 import suwu.daopuerp.bl.productionbill.factory.ProductionBillBlServiceFactory;
 import suwu.daopuerp.blservice.productionbill.ProductionBillService;
+import suwu.daopuerp.dto.formula.FormulaOilDto;
 import suwu.daopuerp.dto.productionbill.ProductionBillDto;
 import suwu.daopuerp.dto.productionbill.ProductionBillOilDto;
 import suwu.daopuerp.dto.stock.ProductionBillStockItem;
+import suwu.daopuerp.dto.stock.StockItem;
+import suwu.daopuerp.presentation.formulaui.FormulaSelectUi;
+import suwu.daopuerp.presentation.formulaui.FormulaSelectUiController;
 import suwu.daopuerp.presentation.helpui.*;
 import suwu.daopuerp.presentation.productionbillui.ProductionBillModifyUi;
-import suwu.daopuerp.presentation.productionbillui.liquid.ProductionBillStockItemModel;
+import suwu.daopuerp.presentation.productionbillui.ProductionBillStockItemModel;
 import suwu.daopuerp.presentation.stockui.StockAddUiController;
 import suwu.daopuerp.presentation.stockui.factory.StackAddUiControllerFactory;
+import suwu.daopuerp.util.FormatDateTime;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ProductionBillOilModifyUiController extends ProductionBillModifyUi implements ExternalLoadableUiController {
@@ -88,6 +95,7 @@ public class ProductionBillOilModifyUiController extends ProductionBillModifyUi 
     private StringProperty stableAttr1Property = new SimpleStringProperty("");
     private StringProperty stableAttr2Property = new SimpleStringProperty("");
 
+    private FormulaSelectUi formulaSelectUi = new FormulaSelectUiController();
     private StockAddUiController stockAddUiController = StackAddUiControllerFactory.getStackAddUiController();
     private ProductionBillService productionBillService = ProductionBillBlServiceFactory.getProductionBillService();
 
@@ -237,5 +245,26 @@ public class ProductionBillOilModifyUiController extends ProductionBillModifyUi 
 
     public void onBtnCancelClicked(ActionEvent actionEvent) {
         FrameworkUiManager.getCurrentDialogStack().closeCurrentAndPopAndShowNext();
+    }
+
+    public void onSelectProductionClicked(MouseEvent mouseEvent) {
+        formulaSelectUi.showFormulaSelectDialog(formulaDto -> {
+            FormulaOilDto formulaOilDto = (FormulaOilDto) formulaDto;
+            billId.setText(formulaOilDto.getFormulaCode());
+            productionName.setText(formulaOilDto.getFormulaName());
+            billDate.setText(FormatDateTime.toLongTimeString(new Date()));
+            productionType.setText(formulaOilDto.getFormulaType());
+            productionId.setText(formulaOilDto.getFormulaCode());
+            outLooking.setText(formulaOilDto.getOutLooking());
+            flashPoint.setText(formulaOilDto.getFlashPoint());
+            viscosity.setText(formulaOilDto.getViscosity());
+            stableAttr1.setText(formulaOilDto.getStableAttr1());
+            stableAttr2.setText(formulaOilDto.getStableAttr2());
+            List<ProductionBillStockItemModel> productionBillStockItemModels = new ArrayList<>();
+            for (StockItem stockItem : formulaDto.getStockItems()) {
+                productionBillStockItemModels.add(new ProductionBillStockItemModel(new ProductionBillStockItem(stockItem.getStockId(), stockItem.getStockPercent(), stockItem.getStockProcess())));
+            }
+            productionBillStockItemModelObservableList.addAll(productionBillStockItemModels);
+        });
     }
 }

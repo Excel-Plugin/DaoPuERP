@@ -14,15 +14,13 @@ import javafx.scene.control.TreeItem;
 import suwu.daopuerp.bl.productionbill.factory.ProductionBillBlServiceFactory;
 import suwu.daopuerp.blservice.productionbill.ProductionBillService;
 import suwu.daopuerp.dto.productionbill.ProductionBillDto;
-import suwu.daopuerp.dto.productionbill.ProductionBillLiquidDto;
 import suwu.daopuerp.dto.productionbill.ProductionBillOilDto;
 import suwu.daopuerp.dto.stock.ProductionBillStockItem;
 import suwu.daopuerp.presentation.helpui.ExternalLoadableUiController;
 import suwu.daopuerp.presentation.helpui.ExternalLoadedUiPackage;
 import suwu.daopuerp.presentation.helpui.UiLoader;
 import suwu.daopuerp.presentation.productionbillui.ProductionBillDetailUi;
-import suwu.daopuerp.presentation.productionbillui.liquid.ProductionBillLiquidDetailUiController;
-import suwu.daopuerp.presentation.productionbillui.liquid.ProductionBillStockItemModel;
+import suwu.daopuerp.presentation.productionbillui.ProductionBillStockItemModel;
 import suwu.daopuerp.presentation.stockui.StockAddUiController;
 import suwu.daopuerp.presentation.stockui.factory.StackAddUiControllerFactory;
 

@@ -30,7 +30,8 @@
             <padding>
                 <Insets bottom="20" left="20" top="30"/>
             </padding>
-            <JFXTextField fx:id="selectedProductionId" editable="true" prefWidth="150" promptText="成品编码"
+            <JFXTextField fx:id="selectedProductionId" onMouseClicked="#onSelectProductionClicked" editable="true"
+                          prefWidth="150" promptText="成品编码"
                           labelFloat="true">
                 <padding>
                     <Insets bottom="5.0" left="10.0" right="10.0"/>

@@ -17,11 +17,14 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.input.MouseEvent;
 import suwu.daopuerp.bl.productionbill.factory.ProductionBillBlServiceFactory;
 import suwu.daopuerp.blservice.productionbill.ProductionBillService;
+import suwu.daopuerp.dto.formula.FormulaLiquidDto;
 import suwu.daopuerp.dto.productionbill.ProductionBillLiquidDto;
 import suwu.daopuerp.dto.stock.ProductionBillStockItem;
+import suwu.daopuerp.dto.stock.StockItem;
 import suwu.daopuerp.presentation.formulaui.FormulaSelectUi;
 import suwu.daopuerp.presentation.formulaui.FormulaSelectUiController;
 import suwu.daopuerp.presentation.helpui.*;
+import suwu.daopuerp.presentation.productionbillui.ProductionBillStockItemModel;
 import suwu.daopuerp.presentation.productionbillui.ProductionBillUiController;
 import suwu.daopuerp.presentation.stockui.StockAddUiController;
 import suwu.daopuerp.presentation.stockui.factory.StackAddUiControllerFactory;
@@ -92,7 +95,6 @@ public class ProductionBillLiquidAddUiController implements ExternalLoadableUiCo
     private StringProperty stableAttr2Property = new SimpleStringProperty("");
 
     private FormulaSelectUi formulaSelectUi = new FormulaSelectUiController();
-
     private StockAddUiController stockAddUiController = StackAddUiControllerFactory.getStackAddUiController();
     private ProductionBillService productionBillService = ProductionBillBlServiceFactory.getProductionBillService();
 
@@ -196,17 +198,22 @@ public class ProductionBillLiquidAddUiController implements ExternalLoadableUiCo
 
     public void onSelectProductionClicked(MouseEvent mouseEvent) {
         formulaSelectUi.showFormulaSelectDialog(formulaDto -> {
-            billId.setText(formulaDto.getFormulaId());
-            productionName.setText(formulaDto.getFormulaName());
+            FormulaLiquidDto formulaLiquidDto = (FormulaLiquidDto) formulaDto;
+            billId.setText(formulaLiquidDto.getFormulaCode());
+            productionName.setText(formulaLiquidDto.getFormulaName());
             billDate.setText(FormatDateTime.toLongTimeString(new Date()));
-            productionType.setText(formulaDto.getFormulaType());
-            productionId.setText(formulaDto.getFormulaCode());
-            liquidLooking.clear();
-            phValue.clear();
-            lightValue.clear();
-            stableAttr1.clear();
-            stableAttr2.clear();
-            productionBillStockItemModelObservableList.clear();
+            productionType.setText(formulaLiquidDto.getFormulaType());
+            productionId.setText(formulaLiquidDto.getFormulaCode());
+            liquidLooking.setText(formulaLiquidDto.getLiquidLooking());
+            phValue.setText(formulaLiquidDto.getPhValue());
+            lightValue.setText(formulaLiquidDto.getLightValue());
+            stableAttr1.setText(formulaLiquidDto.getStableAttr1());
+            stableAttr2.setText(formulaLiquidDto.getStableAttr2());
+            List<ProductionBillStockItemModel> productionBillStockItemModels = new ArrayList<>();
+            for (StockItem stockItem : formulaDto.getStockItems()) {
+                productionBillStockItemModels.add(new ProductionBillStockItemModel(new ProductionBillStockItem(stockItem.getStockId(), stockItem.getStockPercent(), stockItem.getStockProcess())));
+            }
+            productionBillStockItemModelObservableList.addAll(productionBillStockItemModels);
         });
     }
 }

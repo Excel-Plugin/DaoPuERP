@@ -28,4 +28,14 @@ public class FormulaBlServiceMock implements FormulaBlService {
     public void submit(FormulaDto formulaDto) {
 
     }
+
+    /**
+     * 获得下一个测试配方单Id
+     *
+     * @return
+     */
+    @Override
+    public String getNextTestId() {
+        return "test0";
+    }
 }

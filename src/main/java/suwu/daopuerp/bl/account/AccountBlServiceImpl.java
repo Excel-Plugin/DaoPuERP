@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import suwu.daopuerp.blservice.account.AccountBlService;
 import suwu.daopuerp.dataservice.account.AccountDataService;
 import suwu.daopuerp.dto.account.UserDto;
-import suwu.daopuerp.entity.User;
+import suwu.daopuerp.entity.account.User;
 import suwu.daopuerp.exception.PasswordWrongException;
 import suwu.daopuerp.exception.UserDoesNotExistException;
 

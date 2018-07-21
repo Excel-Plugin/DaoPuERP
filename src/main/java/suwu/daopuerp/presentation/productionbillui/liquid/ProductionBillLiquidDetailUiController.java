@@ -20,6 +20,7 @@ import suwu.daopuerp.presentation.helpui.ExternalLoadableUiController;
 import suwu.daopuerp.presentation.helpui.ExternalLoadedUiPackage;
 import suwu.daopuerp.presentation.helpui.UiLoader;
 import suwu.daopuerp.presentation.productionbillui.ProductionBillDetailUi;
+import suwu.daopuerp.presentation.productionbillui.ProductionBillStockItemModel;
 import suwu.daopuerp.presentation.stockui.StockAddUiController;
 import suwu.daopuerp.presentation.stockui.factory.StackAddUiControllerFactory;
 

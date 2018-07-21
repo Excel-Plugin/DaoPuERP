@@ -14,17 +14,25 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
+import javafx.scene.input.MouseEvent;
 import suwu.daopuerp.bl.productionbill.factory.ProductionBillBlServiceFactory;
 import suwu.daopuerp.blservice.productionbill.ProductionBillService;
+import suwu.daopuerp.dto.formula.FormulaLiquidDto;
 import suwu.daopuerp.dto.productionbill.ProductionBillDto;
 import suwu.daopuerp.dto.productionbill.ProductionBillLiquidDto;
 import suwu.daopuerp.dto.stock.ProductionBillStockItem;
+import suwu.daopuerp.dto.stock.StockItem;
+import suwu.daopuerp.presentation.formulaui.FormulaSelectUi;
+import suwu.daopuerp.presentation.formulaui.FormulaSelectUiController;
 import suwu.daopuerp.presentation.helpui.*;
 import suwu.daopuerp.presentation.productionbillui.ProductionBillModifyUi;
+import suwu.daopuerp.presentation.productionbillui.ProductionBillStockItemModel;
 import suwu.daopuerp.presentation.stockui.StockAddUiController;
 import suwu.daopuerp.presentation.stockui.factory.StackAddUiControllerFactory;
+import suwu.daopuerp.util.FormatDateTime;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ProductionBillLiquidModifyUiController extends ProductionBillModifyUi implements ExternalLoadableUiController {
@@ -87,6 +95,7 @@ public class ProductionBillLiquidModifyUiController extends ProductionBillModify
     private StringProperty stableAttr1Property = new SimpleStringProperty("");
     private StringProperty stableAttr2Property = new SimpleStringProperty("");
 
+    private FormulaSelectUi formulaSelectUi = new FormulaSelectUiController();
     private StockAddUiController stockAddUiController = StackAddUiControllerFactory.getStackAddUiController();
     private ProductionBillService productionBillService = ProductionBillBlServiceFactory.getProductionBillService();
 
@@ -212,5 +221,26 @@ public class ProductionBillLiquidModifyUiController extends ProductionBillModify
 
     public void onBtnCancelClicked(ActionEvent actionEvent) {
         FrameworkUiManager.getCurrentDialogStack().closeCurrentAndPopAndShowNext();
+    }
+
+    public void onSelectProductionClicked(MouseEvent mouseEvent) {
+        formulaSelectUi.showFormulaSelectDialog(formulaDto -> {
+            FormulaLiquidDto formulaLiquidDto = (FormulaLiquidDto) formulaDto;
+            billId.setText(formulaLiquidDto.getFormulaCode());
+            productionName.setText(formulaLiquidDto.getFormulaName());
+            billDate.setText(FormatDateTime.toLongTimeString(new Date()));
+            productionType.setText(formulaLiquidDto.getFormulaType());
+            productionId.setText(formulaLiquidDto.getFormulaCode());
+            liquidLooking.setText(formulaLiquidDto.getLiquidLooking());
+            phValue.setText(formulaLiquidDto.getPhValue());
+            lightValue.setText(formulaLiquidDto.getLightValue());
+            stableAttr1.setText(formulaLiquidDto.getStableAttr1());
+            stableAttr2.setText(formulaLiquidDto.getStableAttr2());
+            List<ProductionBillStockItemModel> productionBillStockItemModels = new ArrayList<>();
+            for (StockItem stockItem : formulaDto.getStockItems()) {
+                productionBillStockItemModels.add(new ProductionBillStockItemModel(new ProductionBillStockItem(stockItem.getStockId(), stockItem.getStockPercent(), stockItem.getStockProcess())));
+            }
+            productionBillStockItemModelObservableList.addAll(productionBillStockItemModels);
+        });
     }
 }

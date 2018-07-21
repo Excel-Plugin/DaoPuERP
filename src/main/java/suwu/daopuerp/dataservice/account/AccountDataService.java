@@ -1,6 +1,6 @@
 package suwu.daopuerp.dataservice.account;
 
-import suwu.daopuerp.entity.User;
+import suwu.daopuerp.entity.account.User;
 import suwu.daopuerp.exception.UserDoesNotExistException;
 
 public interface AccountDataService {

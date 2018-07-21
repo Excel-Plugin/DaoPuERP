@@ -126,4 +126,10 @@ public class FormulaSelectUiController extends SelectingDialog implements Formul
         return formulaBlService.getFormulaById(id);
     }
 
+    public void onBtnTestClicked(ActionEvent actionEvent) {
+        onClose(); //一定要调用这个来把弹出框关了。
+        if (callback != null) {
+            callback.accept(getSelected()); //选择结束，调用回调方法。
+        }
+    }
 }

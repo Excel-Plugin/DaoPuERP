@@ -1,4 +1,4 @@
-package suwu.daopuerp.entity;
+package suwu.daopuerp.entity.account;
 
 import javax.persistence.*;
 

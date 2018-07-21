@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import suwu.daopuerp.dao.UserDao;
 import suwu.daopuerp.dataservice.account.AccountDataService;
-import suwu.daopuerp.entity.User;
+import suwu.daopuerp.entity.account.User;
 import suwu.daopuerp.exception.UserDoesNotExistException;
 
 @Service

@@ -1,4 +1,4 @@
-package suwu.daopuerp.presentation.productionbillui.liquid;
+package suwu.daopuerp.presentation.productionbillui;
 
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import javafx.beans.property.ObjectProperty;
