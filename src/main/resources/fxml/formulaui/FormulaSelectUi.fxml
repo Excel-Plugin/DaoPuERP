@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.*?>
-<?import de.jensd.fx.glyphs.materialicons.*?>
+<?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
@@ -9,7 +9,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="600.0" spacing="20" xmlns="http://javafx.com/javafx/8.0.121"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="suwu.daopuerp.presentation.formulaui.FormulaUiController">
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="suwu.daopuerp.presentation.formulaui.FormulaSelectUiController">
     <padding>
         <Insets top="10" right="10" bottom="10" left="10"/>
     </padding>
@@ -35,18 +36,6 @@
                 <MaterialIconView glyphName="ADD" glyphSize="24" glyphStyle="-fx-fill: #FFFFFF"/>
             </graphic>
         </JFXButton>
-        <JFXButton buttonType="RAISED" onAction="#onBtnModifyClicked"
-                   style="-fx-background-color: #e64a19; -fx-text-fill: #FFFFFF;" text="修改">
-            <graphic>
-                <MaterialIconView glyphName="BORDER_COLOR" glyphSize="24" glyphStyle="-fx-fill: #FFFFFF"/>
-            </graphic>
-        </JFXButton>
-        <JFXButton buttonType="RAISED" onAction="#onBtnDeleteClicked"
-                   style="-fx-background-color: #9999CC; -fx-text-fill: #FFFFFF;" text="删除">
-            <graphic>
-                <MaterialIconView glyphName="CLEAR" glyphSize="24" glyphStyle="-fx-fill: #FFFFFF"/>
-            </graphic>
-        </JFXButton>
         <JFXButton buttonType="RAISED" onAction="#onBtnSelectClicked"
                    style="-fx-background-color: #339900; -fx-text-fill: #FFFFFF;" text="选择">
             <graphic>
@@ -61,3 +50,4 @@
         </JFXButton>
     </HBox>
 </VBox>
+

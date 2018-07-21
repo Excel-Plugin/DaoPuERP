@@ -16,4 +16,9 @@ public class FormulaBlServiceImpl implements FormulaBlService {
     public FormulaDto getFormulaById(String formulaId) {
         return null;
     }
+
+    @Override
+    public void submit(FormulaDto formulaDto) {
+
+    }
 }

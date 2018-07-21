@@ -1,4 +1,4 @@
-package suwu.daopuerp.presentation.formulaui;
+package suwu.daopuerp.presentation.formulaui.oil;
 
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableColumn;
@@ -14,8 +14,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
+import suwu.daopuerp.bl.formula.factory.FormulaBlServiceFactory;
+import suwu.daopuerp.blservice.formula.FormulaBlService;
 import suwu.daopuerp.dto.formula.FormulaDto;
+import suwu.daopuerp.dto.formula.FormulaOilDto;
 import suwu.daopuerp.dto.stock.StockItem;
+import suwu.daopuerp.presentation.formulaui.FormulaModifyUi;
 import suwu.daopuerp.presentation.helpui.*;
 import suwu.daopuerp.presentation.stockui.StockAddUiController;
 import suwu.daopuerp.presentation.stockui.StockItemModel;
@@ -24,13 +28,25 @@ import suwu.daopuerp.presentation.stockui.factory.StackAddUiControllerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FormulaModifyUiController extends FormulaModifyUi implements ExternalLoadableUiController {
+public class FormulaOilModifyUiController extends FormulaModifyUi implements ExternalLoadableUiController {
     @FXML
     private JFXTextField formulaId;
+    @FXML
+    private JFXTextField formulaCode;
     @FXML
     private JFXTextField formulaName;
     @FXML
     private JFXTextField formulaType;
+    @FXML
+    private JFXTextField outLooking;
+    @FXML
+    private JFXTextField flashPoint;
+    @FXML
+    private JFXTextField viscosity;
+    @FXML
+    private JFXTextField stableAttr1;
+    @FXML
+    private JFXTextField stableAttr2;
     @FXML
     private JFXTreeTableView<StockItemModel> stockTable;
     @FXML
@@ -46,9 +62,16 @@ public class FormulaModifyUiController extends FormulaModifyUi implements Extern
 
     private ObservableList<StockItemModel> stockItemModelObservableList = FXCollections.observableArrayList();
     private StringProperty formulaIdProperty = new SimpleStringProperty("");
+    private StringProperty formulaCodeProperty = new SimpleStringProperty("");
     private StringProperty formulaNameProperty = new SimpleStringProperty("");
     private StringProperty formulaTypeProperty = new SimpleStringProperty("");
+    private StringProperty outLookingProperty = new SimpleStringProperty("");
+    private StringProperty flashPointProperty = new SimpleStringProperty("");
+    private StringProperty viscosityProperty = new SimpleStringProperty("");
+    private StringProperty stableAttr1Property = new SimpleStringProperty("");
+    private StringProperty stableAttr2Property = new SimpleStringProperty("");
 
+    private FormulaBlService formulaBlService = FormulaBlServiceFactory.getFormulaBlService();
     private StockAddUiController stockAddUiController = StackAddUiControllerFactory.getStackAddUiController();
 
     /**
@@ -58,7 +81,7 @@ public class FormulaModifyUiController extends FormulaModifyUi implements Extern
      */
     @Override
     public ExternalLoadedUiPackage load() {
-        return new UiLoader("/fxml/formulaui/FormulaModifyUi.fxml").loadAndGetPackageWithoutException();
+        return new UiLoader("/fxml/formulaui/oil/FormulaOilAddUi.fxml").loadAndGetPackageWithoutException();
     }
 
     public void initialize() {
@@ -72,8 +95,14 @@ public class FormulaModifyUiController extends FormulaModifyUi implements Extern
         stockTable.setShowRoot(false);
 
         formulaId.textProperty().bindBidirectional(formulaIdProperty);
+        formulaCode.textProperty().bindBidirectional(formulaCodeProperty);
         formulaName.textProperty().bindBidirectional(formulaNameProperty);
         formulaType.textProperty().bindBidirectional(formulaTypeProperty);
+        outLooking.textProperty().bindBidirectional(outLookingProperty);
+        flashPoint.textProperty().bindBidirectional(flashPointProperty);
+        viscosity.textProperty().bindBidirectional(viscosityProperty);
+        stableAttr1.textProperty().bindBidirectional(stableAttr1Property);
+        stableAttr2.textProperty().bindBidirectional(stableAttr2Property);
 
         NumberValidator numberValidator = new NumberValidator();
         numberValidator.setMessage("请输入数字类型");
@@ -81,16 +110,44 @@ public class FormulaModifyUiController extends FormulaModifyUi implements Extern
         requiredValidator.setMessage("请输入信息");
     }
 
+    @FXML
+    private void onBtnResetClicked() {
+        PromptDialogHelper.start("是否要重置", null)
+                .addCloseButton("确定", "DONE", e -> reset())
+                .addCloseButton("取消", "UNDO", null)
+                .createAndShow();
+    }
+
+    private void reset() {
+        formulaId.clear();
+        formulaCode.clear();
+        formulaName.clear();
+        formulaType.clear();
+        outLooking.clear();
+        flashPoint.clear();
+        viscosity.clear();
+        stableAttr1.clear();
+        stableAttr2.clear();
+        stockItemModelObservableList.clear();
+    }
+
 
     @Override
     public ExternalLoadedUiPackage showContent(FormulaDto formulaDto) {
         ExternalLoadedUiPackage externalLoadedUiPackage = load();
-        FormulaModifyUiController formulaModifyUiController = externalLoadedUiPackage.getController();
-        formulaModifyUiController.formulaId.setText(formulaDto.getFormulaId());
-        formulaModifyUiController.formulaName.setText(formulaDto.getFormulaName());
-        formulaModifyUiController.formulaType.setText(formulaDto.getFormulaType());
+        FormulaOilDto formulaOilDto = (FormulaOilDto) formulaDto;
+        FormulaOilModifyUiController formulaOilModifyUiController = externalLoadedUiPackage.getController();
+        formulaOilModifyUiController.formulaId.setText(formulaOilDto.getFormulaId());
+        formulaOilModifyUiController.formulaCode.setText(formulaOilDto.getFormulaCode());
+        formulaOilModifyUiController.formulaName.setText(formulaOilDto.getFormulaName());
+        formulaOilModifyUiController.formulaType.setText(formulaOilDto.getFormulaType());
+        formulaOilModifyUiController.outLooking.setText(formulaOilDto.getOutLooking());
+        formulaOilModifyUiController.flashPoint.setText(formulaOilDto.getFlashPoint());
+        formulaOilModifyUiController.viscosity.setText(formulaOilDto.getViscosity());
+        formulaOilModifyUiController.stableAttr1.setText(formulaOilDto.getStableAttr1());
+        formulaOilModifyUiController.stableAttr2.setText(formulaOilDto.getStableAttr2());
         for (StockItem stockItem : formulaDto.getStockItems()) {
-            formulaModifyUiController.stockItemModelObservableList.add(new StockItemModel(stockItem));
+            formulaOilModifyUiController.stockItemModelObservableList.add(new StockItemModel(stockItem));
         }
         return externalLoadedUiPackage;
     }
@@ -126,26 +183,12 @@ public class FormulaModifyUiController extends FormulaModifyUi implements Extern
     }
 
     private void submit() {
-
+        formulaBlService.submit(getCurrentFormulaOilDto());
     }
 
-    private FormulaDto getCurrentFormulaDto() {
+    private FormulaOilDto getCurrentFormulaOilDto() {
         List<StockItem> stockItemList = stockItemModelObservableList.stream().collect(ArrayList::new, (list, stockItemModel) -> list.add(stockItemModel.getStockItemObjectProperty()), ArrayList::addAll);
-        return new FormulaDto(formulaIdProperty.get(), formulaNameProperty.get(), formulaTypeProperty.get(), stockItemList);
-    }
-
-    public void onBtnResetClicked(ActionEvent actionEvent) {
-        PromptDialogHelper.start("是否要重置", null)
-                .addCloseButton("确定", "DONE", e -> reset())
-                .addCloseButton("取消", "UNDO", null)
-                .createAndShow();
-    }
-
-    private void reset() {
-        formulaId.clear();
-        formulaName.clear();
-        formulaType.clear();
-        stockItemModelObservableList.clear();
+        return new FormulaOilDto(formulaIdProperty.get(), formulaCodeProperty.get(), formulaNameProperty.get(), formulaTypeProperty.get(), stockItemList, outLookingProperty.get(), flashPointProperty.get(), viscosityProperty.get(), stableAttr1Property.get(), stableAttr2Property.get());
     }
 
     public void onBtnCancelClicked(ActionEvent actionEvent) {

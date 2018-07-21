@@ -16,7 +16,10 @@ import suwu.daopuerp.bl.formula.factory.FormulaBlServiceFactory;
 import suwu.daopuerp.blservice.formula.FormulaBlService;
 import suwu.daopuerp.dto.formula.FormulaDto;
 import suwu.daopuerp.dto.formula.FormulaItem;
+import suwu.daopuerp.presentation.formulaui.liquid.FormulaLiquidAddUiController;
+import suwu.daopuerp.presentation.formulaui.oil.FormulaOilAddUiController;
 import suwu.daopuerp.presentation.helpui.*;
+import suwu.daopuerp.publicdata.BillType;
 
 import java.util.List;
 
@@ -27,6 +30,8 @@ public class FormulaUiController implements ExternalLoadableUiController {
     private JFXTreeTableView<FormulaItemModel> formulaTable;
     @FXML
     private JFXTreeTableColumn<FormulaItemModel, String> formulaIdColumn;
+    @FXML
+    private JFXTreeTableColumn<FormulaItemModel, String> formulaCodeColumn;
     @FXML
     private JFXTreeTableColumn<FormulaItemModel, String> formulaNameColumn;
     @FXML
@@ -49,6 +54,7 @@ public class FormulaUiController implements ExternalLoadableUiController {
 
     public void initialize() {
         formulaIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getFormulaItemObjectProperty().getFormulaId()));
+        formulaCodeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getFormulaItemObjectProperty().getFormulaCode()));
         formulaNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getFormulaItemObjectProperty().getFormulaName()));
         formulaTypeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getFormulaItemObjectProperty().getFormulaType()));
         TreeItem<FormulaItemModel> root = new RecursiveTreeItem<>(formulaItemModelObservableList, RecursiveTreeObject::getChildren);
@@ -69,7 +75,11 @@ public class FormulaUiController implements ExternalLoadableUiController {
 
     @FXML
     private void onBtnAddClicked(ActionEvent actionEvent) {
-        FrameworkUiManager.switchFunction(FormulaAddUiController.class, "增加配方单", true);
+        PromptDialogHelper.start("选择生产原始单类型", null)
+                .addCloseButton(BillType.LIQUID.getName(), "ATTACHMENT", e -> FrameworkUiManager.switchFunction(FormulaLiquidAddUiController.class, "增加配方单（液）", true))
+                .addCloseButton(BillType.OIL.getName(), "ASSESSMENT", e -> FrameworkUiManager.switchFunction(FormulaOilAddUiController.class, "增加配方单（油）", true))
+                .addCloseButton("取消", "UNDO", null)
+                .createAndShow();
     }
 
     @FXML
@@ -132,7 +142,7 @@ public class FormulaUiController implements ExternalLoadableUiController {
         if (model != null) {
             FormulaItem selected = model.getFormulaItemObjectProperty();
             FormulaDto formulaDto = formulaBlService.getFormulaById(selected.getFormulaId());
-            PromptDialogHelper.start("客户详细信息", "")
+            PromptDialogHelper.start("配方单详细信息", "")
                     .setContent(formulaDto.detailUi().showContent(formulaDto).getComponent())
                     .addCloseButton("好的", "CHECK", null)
                     .createAndShow();

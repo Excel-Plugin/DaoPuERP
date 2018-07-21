@@ -39,7 +39,7 @@ public class StockAddUiController implements ExternalLoadableUiController, Stock
      */
     @Override
     public ExternalLoadedUiPackage load() {
-        return new UiLoader("/fxml/formulaui/StockAddUi.fxml").loadAndGetPackageWithoutException();
+        return new UiLoader("/fxml/stockui/StockAddUi.fxml").loadAndGetPackageWithoutException();
     }
 
     public void initialize() {
@@ -58,7 +58,7 @@ public class StockAddUiController implements ExternalLoadableUiController, Stock
     public void onBtnConfirmClicked(ActionEvent actionEvent) {
         onClose();
         StockItem stockItem = getStockItem();
-        if (callback != null && stockItem != null) {
+        if (callback != null) {
             callback.accept(stockItem);
         }
     }

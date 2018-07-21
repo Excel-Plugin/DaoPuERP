@@ -14,15 +14,21 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
-import suwu.daopuerp.dto.formula.FormulaDto;
-import suwu.daopuerp.dto.stock.StockItem;
+import javafx.scene.input.MouseEvent;
+import suwu.daopuerp.bl.productionbill.factory.ProductionBillBlServiceFactory;
+import suwu.daopuerp.blservice.productionbill.ProductionBillService;
+import suwu.daopuerp.dto.productionbill.ProductionBillLiquidDto;
+import suwu.daopuerp.dto.stock.ProductionBillStockItem;
+import suwu.daopuerp.presentation.formulaui.FormulaSelectUi;
+import suwu.daopuerp.presentation.formulaui.FormulaSelectUiController;
 import suwu.daopuerp.presentation.helpui.*;
 import suwu.daopuerp.presentation.productionbillui.ProductionBillUiController;
 import suwu.daopuerp.presentation.stockui.StockAddUiController;
-import suwu.daopuerp.presentation.stockui.StockItemModel;
 import suwu.daopuerp.presentation.stockui.factory.StackAddUiControllerFactory;
+import suwu.daopuerp.util.FormatDateTime;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ProductionBillLiquidAddUiController implements ExternalLoadableUiController {
@@ -53,6 +59,8 @@ public class ProductionBillLiquidAddUiController implements ExternalLoadableUiCo
     @FXML
     private JFXTextField phValue;
     @FXML
+    private JFXTextField lightValue;
+    @FXML
     private JFXTextField stableAttr1;
     @FXML
     private JFXTextField stableAttr2;
@@ -74,9 +82,19 @@ public class ProductionBillLiquidAddUiController implements ExternalLoadableUiCo
     private StringProperty productionTypeProperty = new SimpleStringProperty("");
     private StringProperty machineIdProperty = new SimpleStringProperty("");
     private StringProperty productionIdProperty = new SimpleStringProperty("");
+    private StringProperty totalQuantityProperty = new SimpleStringProperty("");
+    private StringProperty modifyRecordProperty = new SimpleStringProperty("");
+    private StringProperty commentProperty = new SimpleStringProperty("");
+    private StringProperty liquidLookingProperty = new SimpleStringProperty("");
+    private StringProperty phValueProperty = new SimpleStringProperty("");
+    private StringProperty lightValueProperty = new SimpleStringProperty("");
+    private StringProperty stableAttr1Property = new SimpleStringProperty("");
+    private StringProperty stableAttr2Property = new SimpleStringProperty("");
 
+    private FormulaSelectUi formulaSelectUi = new FormulaSelectUiController();
 
     private StockAddUiController stockAddUiController = StackAddUiControllerFactory.getStackAddUiController();
+    private ProductionBillService productionBillService = ProductionBillBlServiceFactory.getProductionBillService();
 
     /**
      * Loads the controller.
@@ -96,9 +114,22 @@ public class ProductionBillLiquidAddUiController implements ExternalLoadableUiCo
         stockTable.setRoot(root);
         stockTable.setShowRoot(false);
 
-        formulaId.textProperty().bindBidirectional(formulaIdProperty);
-        formulaName.textProperty().bindBidirectional(formulaNameProperty);
-        formulaType.textProperty().bindBidirectional(formulaTypeProperty);
+        billId.textProperty().bindBidirectional(billIdProperty);
+        productionDate.textProperty().bindBidirectional(productionDateProperty);
+        productionName.textProperty().bindBidirectional(productionNameProperty);
+        billDate.textProperty().bindBidirectional(billDateProperty);
+        client.textProperty().bindBidirectional(clientProperty);
+        productionType.textProperty().bindBidirectional(productionTypeProperty);
+        machineId.textProperty().bindBidirectional(machineIdProperty);
+        productionId.textProperty().bindBidirectional(productionIdProperty);
+        totalQuantity.textProperty().bindBidirectional(totalQuantityProperty);
+        modifyRecord.textProperty().bindBidirectional(modifyRecordProperty);
+        comment.textProperty().bindBidirectional(commentProperty);
+        liquidLooking.textProperty().bindBidirectional(liquidLookingProperty);
+        phValue.textProperty().bindBidirectional(phValueProperty);
+        lightValue.textProperty().bindBidirectional(lightValueProperty);
+        stableAttr1.textProperty().bindBidirectional(stableAttr1Property);
+        stableAttr2.textProperty().bindBidirectional(stableAttr2Property);
 
         NumberValidator numberValidator = new NumberValidator();
         numberValidator.setMessage("请输入数字类型");
@@ -115,10 +146,23 @@ public class ProductionBillLiquidAddUiController implements ExternalLoadableUiCo
     }
 
     private void reset() {
-        formulaId.clear();
-        formulaName.clear();
-        formulaType.clear();
-        stockItemModelObservableList.clear();
+        billId.clear();
+        productionDate.clear();
+        productionName.clear();
+        billDate.clear();
+        client.clear();
+        productionType.clear();
+        machineId.clear();
+        productionId.clear();
+        totalQuantity.clear();
+        modifyRecord.clear();
+        comment.clear();
+        liquidLooking.clear();
+        phValue.clear();
+        lightValue.clear();
+        stableAttr1.clear();
+        stableAttr2.clear();
+        productionBillStockItemModelObservableList.clear();
     }
 
     public void onBtnSubmitClicked(ActionEvent actionEvent) {
@@ -127,12 +171,13 @@ public class ProductionBillLiquidAddUiController implements ExternalLoadableUiCo
     }
 
     private void submit() {
-
+        productionBillService.submit(getCurrentProductionBillLiquidDto());
     }
 
-    private FormulaDto getCurrentFormulaDto() {
-        List<StockItem> stockItemList = stockItemModelObservableList.stream().collect(ArrayList::new, (list, stockItemModel) -> list.add(stockItemModel.getStockItemObjectProperty()), ArrayList::addAll);
-        return new FormulaDto(formulaIdProperty.get(), formulaNameProperty.get(), formulaTypeProperty.get(), stockItemList);
+    private ProductionBillLiquidDto getCurrentProductionBillLiquidDto() {
+        List<ProductionBillStockItem> productionBillStockItems = productionBillStockItemModelObservableList.stream().collect(ArrayList::new, (list, item) -> list.add(item.getProductionBillStockItemObjectProperty()), ArrayList::addAll);
+        ProductionBillLiquidDto productionBillLiquidDto = new ProductionBillLiquidDto(billIdProperty.get(), productionDateProperty.get(), productionNameProperty.get(), billDateProperty.get(), clientProperty.get(), productionTypeProperty.get(), machineIdProperty.get(), productionIdProperty.get(), Double.parseDouble(totalQuantityProperty.get()), modifyRecordProperty.get(), commentProperty.get(), stableAttr1Property.get(), stableAttr2Property.get(), productionBillStockItems, liquidLookingProperty.get(), phValueProperty.get(), lightValueProperty.get());
+        return productionBillLiquidDto;
     }
 
     public void onBtnCancelClicked(ActionEvent actionEvent) {
@@ -141,11 +186,27 @@ public class ProductionBillLiquidAddUiController implements ExternalLoadableUiCo
     }
 
     public void onBtnAddItemClicked(ActionEvent actionEvent) {
-        stockAddUiController.showStockAdd(stockItem -> stockItemModelObservableList.add(new StockItemModel(stockItem)));
+        stockAddUiController.showStockAdd(stockItem -> productionBillStockItemModelObservableList.add(new ProductionBillStockItemModel(new ProductionBillStockItem(stockItem.getStockId(), stockItem.getStockPercent() * Double.parseDouble(totalQuantityProperty.get()), stockItem.getStockProcess()))));
     }
 
     public void onBtnDeleteItemClicked(ActionEvent actionEvent) {
         int selectedIndex = stockTable.getSelectionModel().getSelectedIndex();
-        stockItemModelObservableList.remove(selectedIndex);
+        productionBillStockItemModelObservableList.remove(selectedIndex);
+    }
+
+    public void onSelectProductionClicked(MouseEvent mouseEvent) {
+        formulaSelectUi.showFormulaSelectDialog(formulaDto -> {
+            billId.setText(formulaDto.getFormulaId());
+            productionName.setText(formulaDto.getFormulaName());
+            billDate.setText(FormatDateTime.toLongTimeString(new Date()));
+            productionType.setText(formulaDto.getFormulaType());
+            productionId.setText(formulaDto.getFormulaCode());
+            liquidLooking.clear();
+            phValue.clear();
+            lightValue.clear();
+            stableAttr1.clear();
+            stableAttr2.clear();
+            productionBillStockItemModelObservableList.clear();
+        });
     }
 }

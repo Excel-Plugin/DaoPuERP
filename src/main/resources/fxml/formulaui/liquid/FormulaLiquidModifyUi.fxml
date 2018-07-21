@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="suwu.daopuerp.presentation.formulaui.FormulaModifyUiController"
+      fx:controller="suwu.daopuerp.presentation.formulaui.liquid.FormulaLiquidModifyUiController"
       prefHeight="600.0" prefWidth="600.0" spacing="20">
     <padding>
         <Insets top="10" left="20" bottom="20" right="20"/>
@@ -30,7 +30,17 @@
                 <padding>
                     <Insets bottom="20" left="20" top="30"/>
                 </padding>
-                <JFXTextField fx:id="formulaId" editable="false" prefWidth="150" promptText="成品编码"
+                <JFXTextField fx:id="formulaId" editable="false" labelFloat="true" prefWidth="150" promptText="成品ID">
+                    <padding>
+                        <Insets bottom="5.0" left="10.0" right="10.0"/>
+                    </padding>
+                </JFXTextField>
+            </VBox>
+            <VBox>
+                <padding>
+                    <Insets bottom="20" left="20" top="30"/>
+                </padding>
+                <JFXTextField fx:id="formulaCode" editable="false" prefWidth="150" promptText="成品编码"
                               labelFloat="true">
                     <padding>
                         <Insets bottom="5.0" left="10.0" right="10.0"/>
@@ -88,6 +98,85 @@
                         <Insets right="10.0"/>
                     </HBox.margin>
                 </JFXButton>
+            </HBox>
+            <HBox alignment="CENTER">
+                <VBox>
+                    <padding>
+                        <Insets bottom="20" left="20" top="30"/>
+                    </padding>
+                    <Label prefWidth="150">质量指标：
+                        <padding>
+                            <Insets bottom="5.0" left="10.0" right="10.0"/>
+                        </padding>
+                    </Label>
+                </VBox>
+                <VBox>
+                    <padding>
+                        <Insets bottom="20" left="20" top="30"/>
+                    </padding>
+                    <JFXTextField fx:id="liquidLooking" editable="false" prefWidth="150" promptText="原液外观"
+                                  labelFloat="true">
+                        <padding>
+                            <Insets bottom="5.0" left="10.0" right="10.0"/>
+                        </padding>
+                    </JFXTextField>
+                </VBox>
+                <VBox>
+                    <padding>
+                        <Insets bottom="20" left="20" top="30"/>
+                    </padding>
+                    <JFXTextField fx:id="phValue" editable="false" prefWidth="150" promptText="PH值"
+                                  labelFloat="true">
+                        <padding>
+                            <Insets bottom="5.0" left="10.0" right="10.0"/>
+                        </padding>
+                    </JFXTextField>
+                </VBox>
+                <VBox>
+                    <padding>
+                        <Insets bottom="20" left="20" top="30"/>
+                    </padding>
+                    <JFXTextField fx:id="lightValue" editable="false" prefWidth="150" promptText="折光系数"
+                                  labelFloat="true">
+                        <padding>
+                            <Insets bottom="5.0" left="10.0" right="10.0"/>
+                        </padding>
+                    </JFXTextField>
+                </VBox>
+            </HBox>
+            <HBox alignment="CENTER">
+                <VBox>
+                    <padding>
+                        <Insets bottom="20" left="20" top="30"/>
+                    </padding>
+                    <Label prefWidth="150">原液安定性：
+                        <padding>
+                            <Insets bottom="5.0" left="10.0" right="10.0"/>
+                        </padding>
+                    </Label>
+                </VBox>
+                <VBox>
+                    <padding>
+                        <Insets bottom="20" left="20" top="30"/>
+                    </padding>
+                    <JFXTextField fx:id="stableAttr1" editable="false" prefWidth="150" promptText="原液安定性1"
+                                  labelFloat="true">
+                        <padding>
+                            <Insets bottom="5.0" left="10.0" right="10.0"/>
+                        </padding>
+                    </JFXTextField>
+                </VBox>
+                <VBox>
+                    <padding>
+                        <Insets bottom="20" left="20" top="30"/>
+                    </padding>
+                    <JFXTextField fx:id="stableAttr2" editable="false" prefWidth="150" promptText="原液安定性2"
+                                  labelFloat="true">
+                        <padding>
+                            <Insets bottom="5.0" left="10.0" right="10.0"/>
+                        </padding>
+                    </JFXTextField>
+                </VBox>
             </HBox>
         </VBox>
     </VBox>

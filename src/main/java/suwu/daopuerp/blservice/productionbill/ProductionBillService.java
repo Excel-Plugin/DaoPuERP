@@ -9,4 +9,8 @@ public interface ProductionBillService {
     List<ProductionBillItem> getAllProductionBillItems();
 
     ProductionBillDto getProductionBillDtoById(String billId);
+
+    void submit(ProductionBillDto productionBillDto);
+
+    void delete(String billId);
 }

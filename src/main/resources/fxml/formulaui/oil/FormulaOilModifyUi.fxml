@@ -8,36 +8,21 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="600.0" spacing="20" xmlns="http://javafx.com/javafx/8.0.121"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="suwu.daopuerp.presentation.productionbillui.liquid.ProductionBillLiquidAddUiController">
+<VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="suwu.daopuerp.presentation.formulaui.oil.FormulaOilModifyUiController"
+      prefHeight="600.0" prefWidth="600.0" spacing="20">
     <padding>
-        <Insets bottom="20" left="20" right="20" top="10"/>
+        <Insets top="10" left="20" bottom="20" right="20"/>
     </padding>
-    <HBox alignment="CENTER">
-        <VBox>
-            <Label text="生产原始单（液）信息" textFill="#5e5e5e">
-                <font>
-                    <Font name="System Bold" size="32.0"/>
-                </font>
-                <VBox.margin>
-                    <Insets/>
-                </VBox.margin>
-            </Label>
-        </VBox>
-        <VBox>
-            <padding>
-                <Insets bottom="20" left="20" top="30"/>
-            </padding>
-            <JFXTextField fx:id="selectedProductionId" editable="true" onMouseClicked="#onSelectProductionClicked"
-                          prefWidth="150" promptText="成品编码"
-                          labelFloat="true">
-                <padding>
-                    <Insets bottom="5.0" left="10.0" right="10.0"/>
-                </padding>
-            </JFXTextField>
-        </VBox>
-    </HBox>
+    <Label text="原料单信息" textFill="#5e5e5e">
+        <font>
+            <Font name="System Bold" size="32.0"/>
+        </font>
+        <VBox.margin>
+            <Insets/>
+        </VBox.margin>
+    </Label>
 
     <VBox maxWidth="500" spacing="30">
         <HBox alignment="CENTER">
@@ -45,7 +30,17 @@
                 <padding>
                     <Insets bottom="20" left="20" top="30"/>
                 </padding>
-                <JFXTextField fx:id="billId" editable="false" prefWidth="150" promptText="文件编号"
+                <JFXTextField fx:id="formulaId" editable="false" labelFloat="true" prefWidth="150" promptText="成品ID">
+                    <padding>
+                        <Insets bottom="5.0" left="10.0" right="10.0"/>
+                    </padding>
+                </JFXTextField>
+            </VBox>
+            <VBox>
+                <padding>
+                    <Insets bottom="20" left="20" top="30"/>
+                </padding>
+                <JFXTextField fx:id="formulaCode" editable="false" prefWidth="150" promptText="成品编码"
                               labelFloat="true">
                     <padding>
                         <Insets bottom="5.0" left="10.0" right="10.0"/>
@@ -56,7 +51,7 @@
                 <padding>
                     <Insets bottom="20" left="20" top="30"/>
                 </padding>
-                <JFXTextField fx:id="productionDate" editable="true" prefWidth="150" promptText="生产日期"
+                <JFXTextField fx:id="formulaName" editable="true" prefWidth="150" promptText="成品名称"
                               labelFloat="true">
                     <padding>
                         <Insets bottom="5.0" left="10.0" right="10.0"/>
@@ -67,64 +62,7 @@
                 <padding>
                     <Insets bottom="20" left="20" top="30"/>
                 </padding>
-                <JFXTextField fx:id="productionName" editable="true" prefWidth="150" promptText="品名"
-                              labelFloat="true">
-                    <padding>
-                        <Insets bottom="5.0" left="10.0" right="10.0"/>
-                    </padding>
-                </JFXTextField>
-            </VBox>
-            <VBox>
-                <padding>
-                    <Insets bottom="20" left="20" top="30"/>
-                </padding>
-                <JFXTextField fx:id="billDate" editable="true" prefWidth="150" promptText="开单日期"
-                              labelFloat="true">
-                    <padding>
-                        <Insets bottom="5.0" left="10.0" right="10.0"/>
-                    </padding>
-                </JFXTextField>
-            </VBox>
-        </HBox>
-        <HBox alignment="CENTER">
-            <VBox>
-                <padding>
-                    <Insets bottom="20" left="20" top="30"/>
-                </padding>
-                <JFXTextField fx:id="client" editable="true" prefWidth="150" promptText="客户"
-                              labelFloat="true">
-                    <padding>
-                        <Insets bottom="5.0" left="10.0" right="10.0"/>
-                    </padding>
-                </JFXTextField>
-            </VBox>
-            <VBox>
-                <padding>
-                    <Insets bottom="20" left="20" top="30"/>
-                </padding>
-                <JFXTextField fx:id="productionType" editable="true" prefWidth="150" promptText="型号"
-                              labelFloat="true">
-                    <padding>
-                        <Insets bottom="5.0" left="10.0" right="10.0"/>
-                    </padding>
-                </JFXTextField>
-            </VBox>
-            <VBox>
-                <padding>
-                    <Insets bottom="20" left="20" top="30"/>
-                </padding>
-                <JFXTextField fx:id="machineId" editable="true" prefWidth="150" promptText="设备编号"
-                              labelFloat="true">
-                    <padding>
-                        <Insets bottom="5.0" left="10.0" right="10.0"/>
-                    </padding>
-                </JFXTextField>
-            </VBox>
-            <VBox>
-                <padding>
-                    <Insets bottom="20" left="20" top="30"/>
-                </padding>
-                <JFXTextField fx:id="productionId" editable="true" prefWidth="150" promptText="编号"
+                <JFXTextField fx:id="formulaType" editable="true" prefWidth="150" promptText="型号"
                               labelFloat="true">
                     <padding>
                         <Insets bottom="5.0" left="10.0" right="10.0"/>
@@ -136,7 +74,9 @@
             <JFXTreeTableView fx:id="stockTable" prefHeight="500.0" prefWidth="750.0">
                 <columns>
                     <JFXTreeTableColumn fx:id="stockIdColumn" editable="true" text="原料代码"/>
-                    <JFXTreeTableColumn fx:id="stockPredictAmountColumn" editable="true" text="加入量"/>
+                    <JFXTreeTableColumn fx:id="stockNameColumn" editable="true" text="原料名称"/>
+                    <JFXTreeTableColumn fx:id="stockPercentColumn" editable="true" text="比例"/>
+                    <JFXTreeTableColumn fx:id="stockPriceColumn" editable="true" text="单价"/>
                     <JFXTreeTableColumn fx:id="stockProcessColumn" editable="true" text="生产工艺"/>
                 </columns>
             </JFXTreeTableView>
@@ -164,41 +104,6 @@
                     <padding>
                         <Insets bottom="20" left="20" top="30"/>
                     </padding>
-                    <JFXTextField fx:id="totalQuantity" editable="false" prefWidth="150" promptText="合计(KG/桶)"
-                                  labelFloat="true">
-                        <padding>
-                            <Insets bottom="5.0" left="10.0" right="10.0"/>
-                        </padding>
-                    </JFXTextField>
-                </VBox>
-                <VBox>
-                    <padding>
-                        <Insets bottom="20" left="20" top="30"/>
-                    </padding>
-                    <JFXTextField fx:id="modifyRecord" editable="false" prefWidth="150" promptText="调整记录"
-                                  labelFloat="true">
-                        <padding>
-                            <Insets bottom="5.0" left="10.0" right="10.0"/>
-                        </padding>
-                    </JFXTextField>
-                </VBox>
-                <VBox>
-                    <padding>
-                        <Insets bottom="20" left="20" top="30"/>
-                    </padding>
-                    <JFXTextField fx:id="comment" editable="false" prefWidth="150" promptText="备注"
-                                  labelFloat="true">
-                        <padding>
-                            <Insets bottom="5.0" left="10.0" right="10.0"/>
-                        </padding>
-                    </JFXTextField>
-                </VBox>
-            </HBox>
-            <HBox alignment="CENTER">
-                <VBox>
-                    <padding>
-                        <Insets bottom="20" left="20" top="30"/>
-                    </padding>
                     <Label prefWidth="150">质量指标：
                         <padding>
                             <Insets bottom="5.0" left="10.0" right="10.0"/>
@@ -209,7 +114,7 @@
                     <padding>
                         <Insets bottom="20" left="20" top="30"/>
                     </padding>
-                    <JFXTextField fx:id="liquidLooking" editable="false" prefWidth="150" promptText="原液外观"
+                    <JFXTextField fx:id="outLooking" editable="false" prefWidth="150" promptText="外观"
                                   labelFloat="true">
                         <padding>
                             <Insets bottom="5.0" left="10.0" right="10.0"/>
@@ -220,7 +125,7 @@
                     <padding>
                         <Insets bottom="20" left="20" top="30"/>
                     </padding>
-                    <JFXTextField fx:id="phValue" editable="false" prefWidth="150" promptText="PH值"
+                    <JFXTextField fx:id="flashPoint" editable="false" prefWidth="150" promptText="开口闪点"
                                   labelFloat="true">
                         <padding>
                             <Insets bottom="5.0" left="10.0" right="10.0"/>
@@ -231,7 +136,7 @@
                     <padding>
                         <Insets bottom="20" left="20" top="30"/>
                     </padding>
-                    <JFXTextField fx:id="lightValue" editable="false" prefWidth="150" promptText="折光系数"
+                    <JFXTextField fx:id="viscosity" editable="false" prefWidth="150" promptText="粘度40℃"
                                   labelFloat="true">
                         <padding>
                             <Insets bottom="5.0" left="10.0" right="10.0"/>

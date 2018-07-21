@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="600.0" spacing="20" xmlns="http://javafx.com/javafx/8.0.121"
@@ -12,14 +14,29 @@
     <padding>
         <Insets bottom="20" left="20" right="20" top="10"/>
     </padding>
-    <Label text="生产原始单（油）信息" textFill="#5e5e5e">
-        <font>
-            <Font name="System Bold" size="32.0"/>
-        </font>
-        <VBox.margin>
-            <Insets/>
-        </VBox.margin>
-    </Label>
+    <HBox alignment="CENTER">
+        <VBox>
+            <Label text="生产原始单（油）信息" textFill="#5e5e5e">
+                <font>
+                    <Font name="System Bold" size="32.0"/>
+                </font>
+                <VBox.margin>
+                    <Insets/>
+                </VBox.margin>
+            </Label>
+        </VBox>
+        <VBox>
+            <padding>
+                <Insets bottom="20" left="20" top="30"/>
+            </padding>
+            <JFXTextField fx:id="selectedProductionId" editable="true" prefWidth="150" promptText="成品编码"
+                          labelFloat="true">
+                <padding>
+                    <Insets bottom="5.0" left="10.0" right="10.0"/>
+                </padding>
+            </JFXTextField>
+        </VBox>
+    </HBox>
 
     <VBox maxWidth="500" spacing="30">
         <HBox alignment="CENTER">
@@ -157,17 +174,6 @@
                     <padding>
                         <Insets bottom="20" left="20" top="30"/>
                     </padding>
-                    <JFXTextField fx:id="realQuantity" editable="false" prefWidth="150" promptText="实际入库数量"
-                                  labelFloat="true">
-                        <padding>
-                            <Insets bottom="5.0" left="10.0" right="10.0"/>
-                        </padding>
-                    </JFXTextField>
-                </VBox>
-                <VBox>
-                    <padding>
-                        <Insets bottom="20" left="20" top="30"/>
-                    </padding>
                     <JFXTextField fx:id="modifyRecord" editable="false" prefWidth="150" promptText="调整记录"
                                   labelFloat="true">
                         <padding>
@@ -232,7 +238,62 @@
                     </JFXTextField>
                 </VBox>
             </HBox>
+            <HBox alignment="CENTER">
+                <VBox>
+                    <padding>
+                        <Insets bottom="20" left="20" top="30"/>
+                    </padding>
+                    <Label prefWidth="150">原液安定性：
+                        <padding>
+                            <Insets bottom="5.0" left="10.0" right="10.0"/>
+                        </padding>
+                    </Label>
+                </VBox>
+                <VBox>
+                    <padding>
+                        <Insets bottom="20" left="20" top="30"/>
+                    </padding>
+                    <JFXTextField fx:id="stableAttr1" editable="false" prefWidth="150" promptText="原液安定性1"
+                                  labelFloat="true">
+                        <padding>
+                            <Insets bottom="5.0" left="10.0" right="10.0"/>
+                        </padding>
+                    </JFXTextField>
+                </VBox>
+                <VBox>
+                    <padding>
+                        <Insets bottom="20" left="20" top="30"/>
+                    </padding>
+                    <JFXTextField fx:id="stableAttr2" editable="false" prefWidth="150" promptText="原液安定性2"
+                                  labelFloat="true">
+                        <padding>
+                            <Insets bottom="5.0" left="10.0" right="10.0"/>
+                        </padding>
+                    </JFXTextField>
+                </VBox>
+            </HBox>
         </VBox>
     </VBox>
+    <Separator/>
+    <HBox spacing="20">
+        <JFXButton fx:id="btnSubmit" buttonType="RAISED" onAction="#onBtnSubmitClicked"
+                   style="-fx-background-color: #3F51B5; -fx-text-fill: #FFFFFF;" text="提交">
+            <graphic>
+                <MaterialIconView glyphName="CHECK" glyphSize="24" glyphStyle="-fx-fill: #FFFFFF"/>
+            </graphic>
+        </JFXButton>
+        <JFXButton fx:id="btnReset" buttonType="RAISED" onAction="#onBtnResetClicked"
+                   style="-fx-background-color: #e64a19; -fx-text-fill: #FFFFFF" text="重置">
+            <graphic>
+                <MaterialIconView glyphName="REFRESH" glyphSize="24"/>
+            </graphic>
+        </JFXButton>
+        <JFXButton fx:id="btnCancel" buttonType="RAISED" onAction="#onBtnCancelClicked"
+                   style="-fx-background-color: #E8EAF6; -fx-text-fill: #000000;" text="取消">
+            <graphic>
+                <FontAwesomeIconView glyphName="HOME" glyphSize="24"/>
+            </graphic>
+        </JFXButton>
+    </HBox>
 
 </VBox>

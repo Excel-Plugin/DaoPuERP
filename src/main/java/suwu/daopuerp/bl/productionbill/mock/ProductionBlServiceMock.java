@@ -20,4 +20,14 @@ public class ProductionBlServiceMock implements ProductionBillService {
     public ProductionBillDto getProductionBillDtoById(String billId) {
         return null;
     }
+
+    @Override
+    public void submit(ProductionBillDto productionBillDto) {
+
+    }
+
+    @Override
+    public void delete(String billId) {
+
+    }
 }

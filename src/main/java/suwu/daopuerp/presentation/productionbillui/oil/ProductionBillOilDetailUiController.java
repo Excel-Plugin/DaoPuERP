@@ -11,35 +11,83 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
+import suwu.daopuerp.bl.productionbill.factory.ProductionBillBlServiceFactory;
+import suwu.daopuerp.blservice.productionbill.ProductionBillService;
 import suwu.daopuerp.dto.productionbill.ProductionBillDto;
+import suwu.daopuerp.dto.productionbill.ProductionBillLiquidDto;
+import suwu.daopuerp.dto.productionbill.ProductionBillOilDto;
+import suwu.daopuerp.dto.stock.ProductionBillStockItem;
 import suwu.daopuerp.presentation.helpui.ExternalLoadableUiController;
 import suwu.daopuerp.presentation.helpui.ExternalLoadedUiPackage;
 import suwu.daopuerp.presentation.helpui.UiLoader;
 import suwu.daopuerp.presentation.productionbillui.ProductionBillDetailUi;
-import suwu.daopuerp.presentation.stockui.StockItemModel;
+import suwu.daopuerp.presentation.productionbillui.liquid.ProductionBillLiquidDetailUiController;
+import suwu.daopuerp.presentation.productionbillui.liquid.ProductionBillStockItemModel;
+import suwu.daopuerp.presentation.stockui.StockAddUiController;
+import suwu.daopuerp.presentation.stockui.factory.StackAddUiControllerFactory;
 
 public class ProductionBillOilDetailUiController extends ProductionBillDetailUi implements ExternalLoadableUiController {
     @FXML
-    private JFXTextField formulaId;
+    private JFXTextField billId;
     @FXML
-    private JFXTextField formulaName;
+    private JFXTextField productionDate;
     @FXML
-    private JFXTextField formulaType;
+    private JFXTextField productionName;
     @FXML
-    private JFXTreeTableView<StockItemModel> stockTable;
+    private JFXTextField billDate;
     @FXML
-    private JFXTreeTableColumn<StockItemModel, String> stockIdColumn;
+    private JFXTextField client;
     @FXML
-    private JFXTreeTableColumn<StockItemModel, String> stockNameColumn;
+    private JFXTextField productionType;
     @FXML
-    private JFXTreeTableColumn<StockItemModel, String> stockPercentColumn;
+    private JFXTextField machineId;
     @FXML
-    private JFXTreeTableColumn<StockItemModel, String> stockPriceColumn;
+    private JFXTextField productionId;
+    @FXML
+    private JFXTextField totalQuantity;
+    @FXML
+    private JFXTextField modifyRecord;
+    @FXML
+    private JFXTextField comment;
+    @FXML
+    private JFXTextField outLooking;
+    @FXML
+    private JFXTextField flashPoint;
+    @FXML
+    private JFXTextField viscosity;
+    @FXML
+    private JFXTextField stableAttr1;
+    @FXML
+    private JFXTextField stableAttr2;
+    @FXML
+    private JFXTreeTableView<ProductionBillStockItemModel> stockTable;
+    @FXML
+    private JFXTreeTableColumn<ProductionBillStockItemModel, String> stockIdColumn;
+    @FXML
+    private JFXTreeTableColumn<ProductionBillStockItemModel, String> stockPredictAmountColumn;
+    @FXML
+    private JFXTreeTableColumn<ProductionBillStockItemModel, String> stockProcessColumn;
 
-    private ObservableList<StockItemModel> stockItemModelObservableList = FXCollections.observableArrayList();
-    private StringProperty formulaIdProperty = new SimpleStringProperty("");
-    private StringProperty formulaNameProperty = new SimpleStringProperty("");
-    private StringProperty formulaTypeProperty = new SimpleStringProperty("");
+    private ObservableList<ProductionBillStockItemModel> productionBillStockItemModelObservableList = FXCollections.observableArrayList();
+    private StringProperty billIdProperty = new SimpleStringProperty("");
+    private StringProperty productionDateProperty = new SimpleStringProperty("");
+    private StringProperty productionNameProperty = new SimpleStringProperty("");
+    private StringProperty billDateProperty = new SimpleStringProperty("");
+    private StringProperty clientProperty = new SimpleStringProperty("");
+    private StringProperty productionTypeProperty = new SimpleStringProperty("");
+    private StringProperty machineIdProperty = new SimpleStringProperty("");
+    private StringProperty productionIdProperty = new SimpleStringProperty("");
+    private StringProperty totalQuantityProperty = new SimpleStringProperty("");
+    private StringProperty modifyRecordProperty = new SimpleStringProperty("");
+    private StringProperty outLookingProperty = new SimpleStringProperty("");
+    private StringProperty flashPointProperty = new SimpleStringProperty("");
+    private StringProperty commentProperty = new SimpleStringProperty("");
+    private StringProperty viscosityProperty = new SimpleStringProperty("");
+    private StringProperty stableAttr1Property = new SimpleStringProperty("");
+    private StringProperty stableAttr2Property = new SimpleStringProperty("");
+
+    private StockAddUiController stockAddUiController = StackAddUiControllerFactory.getStackAddUiController();
+    private ProductionBillService productionBillService = ProductionBillBlServiceFactory.getProductionBillService();
 
     /**
      * Loads the controller.
@@ -52,22 +100,56 @@ public class ProductionBillOilDetailUiController extends ProductionBillDetailUi 
     }
 
     public void initialize() {
-        stockIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getStockItemObjectProperty().getStockId()));
-        stockNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getStockItemObjectProperty().getStockName()));
-        stockPercentColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getStockItemObjectProperty().getStockPercent() + ""));
-        stockPriceColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getStockItemObjectProperty().getStockPrice() + ""));
-        TreeItem<StockItemModel> root = new RecursiveTreeItem<>(stockItemModelObservableList, RecursiveTreeObject::getChildren);
+        stockIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getProductionBillStockItemObjectProperty().getStockId()));
+        stockPredictAmountColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getProductionBillStockItemObjectProperty().getStockAmount() + ""));
+        stockProcessColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getProductionBillStockItemObjectProperty().getStockProcess()));
+        TreeItem<ProductionBillStockItemModel> root = new RecursiveTreeItem<>(productionBillStockItemModelObservableList, RecursiveTreeObject::getChildren);
         stockTable.setRoot(root);
         stockTable.setShowRoot(false);
 
-        formulaId.textProperty().bindBidirectional(formulaIdProperty);
-        formulaName.textProperty().bindBidirectional(formulaNameProperty);
-        formulaType.textProperty().bindBidirectional(formulaTypeProperty);
+        billId.textProperty().bindBidirectional(billIdProperty);
+        productionDate.textProperty().bindBidirectional(productionDateProperty);
+        productionName.textProperty().bindBidirectional(productionNameProperty);
+        billDate.textProperty().bindBidirectional(billDateProperty);
+        client.textProperty().bindBidirectional(clientProperty);
+        productionType.textProperty().bindBidirectional(productionTypeProperty);
+        machineId.textProperty().bindBidirectional(machineIdProperty);
+        productionId.textProperty().bindBidirectional(productionIdProperty);
+        totalQuantity.textProperty().bindBidirectional(totalQuantityProperty);
+        modifyRecord.textProperty().bindBidirectional(modifyRecordProperty);
+        comment.textProperty().bindBidirectional(commentProperty);
+        outLooking.textProperty().bindBidirectional(outLookingProperty);
+        flashPoint.textProperty().bindBidirectional(flashPointProperty);
+        viscosity.textProperty().bindBidirectional(viscosityProperty);
+        stableAttr1.textProperty().bindBidirectional(stableAttr1Property);
+        stableAttr2.textProperty().bindBidirectional(stableAttr2Property);
     }
 
 
     @Override
-    public ExternalLoadedUiPackage showContent(ProductionBillDto arg) {
-        return null;
+    public ExternalLoadedUiPackage showContent(ProductionBillDto productionBillDto) {
+        ExternalLoadedUiPackage externalLoadedUiPackage = load();
+        ProductionBillOilDto productionBillOilDto = (ProductionBillOilDto) productionBillDto;
+        ProductionBillOilDetailUiController productionBillOilDetailUiController = externalLoadedUiPackage.getController();
+        productionBillOilDetailUiController.billId.setText(productionBillOilDto.getBillId());
+        productionBillOilDetailUiController.productionDate.setText(productionBillOilDto.getBillDate());
+        productionBillOilDetailUiController.productionName.setText(productionBillOilDto.getProductionName());
+        productionBillOilDetailUiController.billDate.setText(productionBillOilDto.getBillDate());
+        productionBillOilDetailUiController.client.setText(productionBillOilDto.getClient());
+        productionBillOilDetailUiController.productionType.setText(productionBillOilDto.getMachineId());
+        productionBillOilDetailUiController.machineId.setText(productionBillOilDto.getMachineId());
+        productionBillOilDetailUiController.productionId.setText(productionBillOilDto.getProductionId());
+        productionBillOilDetailUiController.totalQuantity.setText(productionBillOilDto.getTotalQuantity() + "");
+        productionBillOilDetailUiController.modifyRecord.setText(productionBillOilDto.getModifyRecord());
+        productionBillOilDetailUiController.comment.setText(productionBillOilDto.getComment());
+        productionBillOilDetailUiController.outLooking.setText(productionBillOilDto.getOutLooking());
+        productionBillOilDetailUiController.flashPoint.setText(productionBillOilDto.getFlashPoint());
+        productionBillOilDetailUiController.viscosity.setText(productionBillOilDto.getViscosity());
+        productionBillOilDetailUiController.stableAttr1.setText(productionBillOilDto.getStableAttr1());
+        productionBillOilDetailUiController.stableAttr2.setText(productionBillOilDto.getStableAttr2());
+        for (ProductionBillStockItem productionBillStockItem : productionBillDto.getProductionBillStockItems()) {
+            productionBillOilDetailUiController.productionBillStockItemModelObservableList.add(new ProductionBillStockItemModel(productionBillStockItem));
+        }
+        return externalLoadedUiPackage;
     }
 }

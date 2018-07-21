@@ -15,14 +15,29 @@
     <padding>
         <Insets top="10" left="20" bottom="20" right="20"/>
     </padding>
-    <Label text="生产原始单（液）信息" textFill="#5e5e5e">
-        <font>
-            <Font name="System Bold" size="32.0"/>
-        </font>
-        <VBox.margin>
-            <Insets/>
-        </VBox.margin>
-    </Label>
+    <HBox alignment="CENTER">
+        <VBox>
+            <Label text="生产原始单（液）信息" textFill="#5e5e5e">
+                <font>
+                    <Font name="System Bold" size="32.0"/>
+                </font>
+                <VBox.margin>
+                    <Insets/>
+                </VBox.margin>
+            </Label>
+        </VBox>
+        <VBox>
+            <padding>
+                <Insets bottom="20" left="20" top="30"/>
+            </padding>
+            <JFXTextField fx:id="selectedProductionId" editable="true" prefWidth="150" promptText="成品编码"
+                          labelFloat="true">
+                <padding>
+                    <Insets bottom="5.0" left="10.0" right="10.0"/>
+                </padding>
+            </JFXTextField>
+        </VBox>
+    </HBox>
 
     <VBox maxWidth="500" spacing="30">
         <HBox alignment="CENTER">
@@ -122,7 +137,6 @@
                 <columns>
                     <JFXTreeTableColumn fx:id="stockIdColumn" editable="true" text="原料代码"/>
                     <JFXTreeTableColumn fx:id="stockPredictAmountColumn" editable="true" text="加入量"/>
-                    <JFXTreeTableColumn fx:id="stockRealAmountColumn" editable="true" text="实际加入量"/>
                     <JFXTreeTableColumn fx:id="stockProcessColumn" editable="true" text="生产工艺"/>
                 </columns>
             </JFXTreeTableView>
@@ -151,17 +165,6 @@
                         <Insets bottom="20" left="20" top="30"/>
                     </padding>
                     <JFXTextField fx:id="totalQuantity" editable="false" prefWidth="150" promptText="合计(KG/桶)"
-                                  labelFloat="true">
-                        <padding>
-                            <Insets bottom="5.0" left="10.0" right="10.0"/>
-                        </padding>
-                    </JFXTextField>
-                </VBox>
-                <VBox>
-                    <padding>
-                        <Insets bottom="20" left="20" top="30"/>
-                    </padding>
-                    <JFXTextField fx:id="realQuantity" editable="false" prefWidth="150" promptText="实际入库数量"
                                   labelFloat="true">
                         <padding>
                             <Insets bottom="5.0" left="10.0" right="10.0"/>
@@ -229,6 +232,40 @@
                         <Insets bottom="20" left="20" top="30"/>
                     </padding>
                     <JFXTextField fx:id="lightValue" editable="false" prefWidth="150" promptText="折光系数"
+                                  labelFloat="true">
+                        <padding>
+                            <Insets bottom="5.0" left="10.0" right="10.0"/>
+                        </padding>
+                    </JFXTextField>
+                </VBox>
+            </HBox>
+            <HBox alignment="CENTER">
+                <VBox>
+                    <padding>
+                        <Insets bottom="20" left="20" top="30"/>
+                    </padding>
+                    <Label prefWidth="150">原液安定性：
+                        <padding>
+                            <Insets bottom="5.0" left="10.0" right="10.0"/>
+                        </padding>
+                    </Label>
+                </VBox>
+                <VBox>
+                    <padding>
+                        <Insets bottom="20" left="20" top="30"/>
+                    </padding>
+                    <JFXTextField fx:id="stableAttr1" editable="false" prefWidth="150" promptText="原液安定性1"
+                                  labelFloat="true">
+                        <padding>
+                            <Insets bottom="5.0" left="10.0" right="10.0"/>
+                        </padding>
+                    </JFXTextField>
+                </VBox>
+                <VBox>
+                    <padding>
+                        <Insets bottom="20" left="20" top="30"/>
+                    </padding>
+                    <JFXTextField fx:id="stableAttr2" editable="false" prefWidth="150" promptText="原液安定性2"
                                   labelFloat="true">
                         <padding>
                             <Insets bottom="5.0" left="10.0" right="10.0"/>

@@ -12,14 +12,29 @@
     <padding>
         <Insets top="10" left="20" bottom="20" right="20"/>
     </padding>
-    <Label text="生产原始单（油）信息" textFill="#5e5e5e">
-        <font>
-            <Font name="System Bold" size="32.0"/>
-        </font>
-        <VBox.margin>
-            <Insets/>
-        </VBox.margin>
-    </Label>
+    <HBox alignment="CENTER">
+        <VBox>
+            <Label text="生产原始单（油）信息" textFill="#5e5e5e">
+                <font>
+                    <Font name="System Bold" size="32.0"/>
+                </font>
+                <VBox.margin>
+                    <Insets/>
+                </VBox.margin>
+            </Label>
+        </VBox>
+        <VBox>
+            <padding>
+                <Insets bottom="20" left="20" top="30"/>
+            </padding>
+            <JFXTextField fx:id="selectedProductionId" editable="true" prefWidth="150" promptText="成品编码"
+                          labelFloat="true">
+                <padding>
+                    <Insets bottom="5.0" left="10.0" right="10.0"/>
+                </padding>
+            </JFXTextField>
+        </VBox>
+    </HBox>
 
     <VBox maxWidth="500" spacing="30">
         <HBox alignment="CENTER">
@@ -123,25 +138,6 @@
                     <JFXTreeTableColumn fx:id="stockProcessColumn" editable="true" text="生产工艺"/>
                 </columns>
             </JFXTreeTableView>
-            <HBox alignment="BASELINE_RIGHT" prefWidth="100" spacing="10">
-                <JFXButton fx:id="btnAdd" onAction="#onBtnAddItemClicked" style="-fx-text-fill: #000000" text="添加原料">
-                    <graphic>
-                        <MaterialIconView glyphName="ADD" glyphSize="24"/>
-                    </graphic>
-                    <HBox.margin>
-                        <Insets right="10.0"/>
-                    </HBox.margin>
-                </JFXButton>
-                <JFXButton fx:id="btnDelete" onAction="#onBtnDeleteItemClicked" style="-fx-text-fill: #000000;"
-                           text="删除原料">
-                    <graphic>
-                        <MaterialIconView glyphName="DELETE" glyphSize="24"/>
-                    </graphic>
-                    <HBox.margin>
-                        <Insets right="10.0"/>
-                    </HBox.margin>
-                </JFXButton>
-            </HBox>
             <HBox alignment="CENTER">
                 <VBox>
                     <padding>
@@ -226,6 +222,28 @@
                         <Insets bottom="20" left="20" top="30"/>
                     </padding>
                     <JFXTextField fx:id="viscosity" editable="false" prefWidth="150" promptText="粘度40℃"
+                                  labelFloat="true">
+                        <padding>
+                            <Insets bottom="5.0" left="10.0" right="10.0"/>
+                        </padding>
+                    </JFXTextField>
+                </VBox>
+                <VBox>
+                    <padding>
+                        <Insets bottom="20" left="20" top="30"/>
+                    </padding>
+                    <JFXTextField fx:id="stableAttr1" editable="false" prefWidth="150" promptText="原液安定性1"
+                                  labelFloat="true">
+                        <padding>
+                            <Insets bottom="5.0" left="10.0" right="10.0"/>
+                        </padding>
+                    </JFXTextField>
+                </VBox>
+                <VBox>
+                    <padding>
+                        <Insets bottom="20" left="20" top="30"/>
+                    </padding>
+                    <JFXTextField fx:id="stableAttr2" editable="false" prefWidth="150" promptText="原液安定性2"
                                   labelFloat="true">
                         <padding>
                             <Insets bottom="5.0" left="10.0" right="10.0"/>

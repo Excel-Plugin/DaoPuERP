@@ -9,4 +9,6 @@ public interface FormulaBlService {
     List<FormulaItem> getAllFormulas();
 
     FormulaDto getFormulaById(String formulaId);
+
+    void submit(FormulaDto formulaDto);
 }
