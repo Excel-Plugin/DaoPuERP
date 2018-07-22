@@ -1,5 +1,6 @@
 package suwu.daopuerp.entity.productionbill;
 
+import suwu.daopuerp.dto.stock.StockItem;
 import suwu.daopuerp.entity.Entity;
 import suwu.daopuerp.entity.annotation.*;
 import suwu.daopuerp.publicdata.BillType;
@@ -39,13 +40,13 @@ public class ProductionBill extends Entity {
     @Column(name = "stableAttr2")
     private String stableAttr2;
     @JsonSerialize
-    @Column(name = "stockIds")
-    private List<String> stockIds;
+    @Column(name = "stockItems")
+    private List<StockItem> stockItems;
 
     public ProductionBill() {
     }
 
-    public ProductionBill(String billId, BillType billType, String productionDate, String productionName, String billDate, String client, String productionType, String machineId, String productionId, double totalQuantity, String modifyRecord, String comment, String stableAttr1, String stableAttr2, List<String> stockIds) {
+    public ProductionBill(String billId, BillType billType, String productionDate, String productionName, String billDate, String client, String productionType, String machineId, String productionId, double totalQuantity, String modifyRecord, String comment, String stableAttr1, String stableAttr2, List<StockItem> stockItems) {
         this.billId = billId;
         this.billType = billType;
         this.productionDate = productionDate;
@@ -60,7 +61,7 @@ public class ProductionBill extends Entity {
         this.comment = comment;
         this.stableAttr1 = stableAttr1;
         this.stableAttr2 = stableAttr2;
-        this.stockIds = stockIds;
+        this.stockItems = stockItems;
     }
 
     public String getBillId() {
@@ -175,11 +176,11 @@ public class ProductionBill extends Entity {
         this.stableAttr2 = stableAttr2;
     }
 
-    public List<String> getStockIds() {
-        return stockIds;
+    public List<StockItem> getStockItems() {
+        return stockItems;
     }
 
-    public void setStockIds(List<String> stockIds) {
-        this.stockIds = stockIds;
+    public void setStockItems(List<StockItem> stockItems) {
+        this.stockItems = stockItems;
     }
 }

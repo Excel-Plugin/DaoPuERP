@@ -2,6 +2,7 @@ package suwu.daopuerp.blservice.productionbill;
 
 import suwu.daopuerp.dto.productionbill.ProductionBillDto;
 import suwu.daopuerp.dto.productionbill.ProductionBillItem;
+import suwu.daopuerp.exception.IdDoesNotExistException;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public interface ProductionBillService {
      * @param billId
      * @return
      */
-    ProductionBillDto getProductionBillDtoById(String billId);
+    ProductionBillDto getProductionBillDtoById(String billId) throws IdDoesNotExistException;
 
     /**
      * 提交生产原始单
@@ -33,5 +34,5 @@ public interface ProductionBillService {
      *
      * @param billId
      */
-    void delete(String billId);
+    void delete(String billId) throws IdDoesNotExistException;
 }

@@ -2,6 +2,7 @@ package suwu.daopuerp.blservice.formula;
 
 import suwu.daopuerp.dto.formula.FormulaDto;
 import suwu.daopuerp.dto.formula.FormulaItem;
+import suwu.daopuerp.exception.IdDoesNotExistException;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public interface FormulaBlService {
      * @param formulaId
      * @return
      */
-    FormulaDto getFormulaById(String formulaId);
+    FormulaDto getFormulaById(String formulaId) throws IdDoesNotExistException;
 
     /**
      * 提交配方单

@@ -12,5 +12,5 @@ public interface ProductionBillDataService {
 
     void saveProductionBill(ProductionBill productionBill);
 
-    void deleteProductionBill(String id);
+    void deleteProductionBill(String id) throws IdDoesNotExistException;
 }
