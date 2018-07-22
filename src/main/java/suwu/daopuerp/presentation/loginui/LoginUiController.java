@@ -13,8 +13,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import suwu.daopuerp.bl.account.factory.AccountBlServiceFactory;
 import suwu.daopuerp.blservice.account.AccountBlService;
 import suwu.daopuerp.dto.account.UserDto;
@@ -25,7 +23,6 @@ import suwu.daopuerp.presentation.mainui.FrameworkUiController;
 
 import java.io.IOException;
 
-@Component
 public class LoginUiController implements ExternalLoadableUiController {
     public JFXPasswordField passwordField;
     public JFXTextField usernameField;
@@ -34,14 +31,6 @@ public class LoginUiController implements ExternalLoadableUiController {
     public BorderPane rootPane;
     public JFXButton loginButton;
     private AccountBlService accountBlService = AccountBlServiceFactory.getAccountBlService();
-
-    public LoginUiController() {
-    }
-
-    @Autowired
-    public LoginUiController(AccountBlService accountBlService) {
-        this.accountBlService = accountBlService;
-    }
 
     public void initializeBorderlessStuff() {
         Stage stage = StageManager.getStage();

@@ -1,21 +1,12 @@
 package suwu.daopuerp.bl.account;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import suwu.daopuerp.blservice.account.AccountBlService;
-import suwu.daopuerp.dataservice.account.AccountDataService;
 import suwu.daopuerp.dto.account.UserDto;
 import suwu.daopuerp.entity.account.User;
 import suwu.daopuerp.exception.PasswordWrongException;
 import suwu.daopuerp.exception.UserDoesNotExistException;
 
 public class AccountBlServiceImpl implements AccountBlService {
-    private final AccountDataService accountDataService;
-
-    @Autowired
-    public AccountBlServiceImpl(AccountDataService accountDataService) {
-        this.accountDataService = accountDataService;
-    }
-
     /**
      * Login with username and password provided.
      *

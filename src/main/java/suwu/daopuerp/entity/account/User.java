@@ -1,12 +1,13 @@
 package suwu.daopuerp.entity.account;
 
-import javax.persistence.*;
+import suwu.daopuerp.entity.Entity;
+import suwu.daopuerp.entity.annotation.*;
 
-@Entity
-@Table(name = "user")
-public class User {
+@Table(name = "User")
+public class User extends Entity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private int id;
     @Column(name = "username")
     private String username;

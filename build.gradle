@@ -34,14 +34,7 @@ repositories {
 
 
 dependencies {
-    compile 'org.springframework:spring-core'
-    compile 'org.springframework.boot:spring-boot-starter-web'
-    compile 'org.springframework.boot:spring-boot-autoconfigure'
-    compile 'org.springframework.boot:spring-boot-starter-tomcat'
-    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
-
-    compile 'mysql:mysql-connector-java'
-
+    compile 'net.sf.json-lib:json-lib:2.4:jdk15'
     compile 'com.jfoenix:jfoenix:1.9.1'
     compile 'de.jensd:fontawesomefx-commons:8.15'
     compile 'de.jensd:fontawesomefx-materialicons:2.2.0-5'
