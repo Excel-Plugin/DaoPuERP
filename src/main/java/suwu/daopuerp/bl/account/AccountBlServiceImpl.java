@@ -1,12 +1,17 @@
 package suwu.daopuerp.bl.account;
 
 import suwu.daopuerp.blservice.account.AccountBlService;
+import suwu.daopuerp.dataservice.account.AccountDataService;
+import suwu.daopuerp.dataservice.factory.AccountDataServiceFactory;
 import suwu.daopuerp.dto.account.UserDto;
 import suwu.daopuerp.entity.account.User;
 import suwu.daopuerp.exception.PasswordWrongException;
 import suwu.daopuerp.exception.UserDoesNotExistException;
 
 public class AccountBlServiceImpl implements AccountBlService {
+
+    private AccountDataService accountDataService = AccountDataServiceFactory.getAccountDataService();
+
     /**
      * Login with username and password provided.
      *

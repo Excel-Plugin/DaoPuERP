@@ -1,13 +1,13 @@
 package suwu.daopuerp.data.account;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import suwu.daopuerp.dao.factory.UserDaoFactory;
 import suwu.daopuerp.dao.user.UserDao;
 import suwu.daopuerp.dataservice.account.AccountDataService;
 import suwu.daopuerp.entity.account.User;
 import suwu.daopuerp.exception.UserDoesNotExistException;
 
 public class AccountDataServiceImpl implements AccountDataService {
-    private final UserDao userDao;
+    private UserDao userDao = UserDaoFactory.getUserDao();
 
     /**
      * get user by username
