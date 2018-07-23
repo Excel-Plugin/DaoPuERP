@@ -15,6 +15,7 @@ import suwu.daopuerp.blservice.productionbill.ProductionBillBlService;
 import suwu.daopuerp.dto.bom.IdAmountTuple;
 import suwu.daopuerp.dto.stock.ProductionBillStockItem;
 import suwu.daopuerp.entity.productionbill.ProductionBill;
+import suwu.daopuerp.exception.ExcelCreateFailException;
 import suwu.daopuerp.presentation.helpui.*;
 import suwu.daopuerp.util.ExcelOutput;
 import suwu.daopuerp.util.FormatDateTime;
@@ -145,10 +146,10 @@ public class BomUiController implements ExternalLoadableUiController {
         return id.charAt(1) >= '0' && id.charAt(1) <= '9';
     }
 
-    public void onExportClicked(ActionEvent actionEvent) {
+    public void onExportClicked(ActionEvent actionEvent) throws ExcelCreateFailException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("选择路径");
-        fileChooser.setInitialFileName(String.format("昆山道普润滑科技有限公司公司%s生产领料明细表.xls", FormatDateTime.currentDateString()));
+        fileChooser.setInitialFileName(String.format("昆山道普润滑科技有限公司%s生产领料明细表.xls", FormatDateTime.currentDateString()));
         File file = fileChooser.showSaveDialog(new Stage());
 
         if (file != null) {
@@ -159,18 +160,30 @@ public class BomUiController implements ExternalLoadableUiController {
         }
     }
 
-    public String[] toExcel() {
+    private String[] toExcel() {
         List<String> content = new ArrayList<>();
-        content.add("原料编号//用量（kg）");
-        for (BillTableItemModel record : billTableItemModels) {
-            content.add(String.format("%s//%s//%s//%s//%s\n",
-                    DateHelper.fromDate(record.getDate()),
-                    record.getId(),
-                    String.format("%s(id: %s)", record.getOperator().getName(), record.getOperator().getId()),
-                    record.getBill().getBillType(),
-                    record.getState()
+        content.add("原料编号//用量(单位:kg)");
+        for (IdAmountTupleModel idAmountTupleModel : stockTableObservableList) {
+            content.add(String.format("%s//%s\n",
+                    idAmountTupleModel.getIdAmountTupleObjectProperty().getId(),
+                    idAmountTupleModel.getIdAmountTupleObjectProperty().getAmount()
             ));
         }
+        content.add("成品编号//用量(单位:kg)");
+        for (IdAmountTupleModel idAmountTupleModel : productionTableObservableList) {
+            content.add(String.format("%s//%s\n",
+                    idAmountTupleModel.getIdAmountTupleObjectProperty().getId(),
+                    idAmountTupleModel.getIdAmountTupleObjectProperty().getAmount()
+            ));
+        }
+        content.add("半成品编号//用量(单位:kg)");
+        for (IdAmountTupleModel idAmountTupleModel : halfProductionTableObservableList) {
+            content.add(String.format("%s//%s\n",
+                    idAmountTupleModel.getIdAmountTupleObjectProperty().getId(),
+                    idAmountTupleModel.getIdAmountTupleObjectProperty().getAmount()
+            ));
+        }
+        content.add("总量（原料+成品）//" + totalOutput.getText());
         return content.toArray(new String[content.size()]);
     }
 
