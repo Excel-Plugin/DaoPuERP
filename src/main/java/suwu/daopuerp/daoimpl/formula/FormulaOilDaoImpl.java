@@ -4,6 +4,7 @@ import suwu.daopuerp.dao.formula.FormulaOilDao;
 import suwu.daopuerp.data.fileservice.FileService;
 import suwu.daopuerp.data.fileservice.FileServiceImpl;
 import suwu.daopuerp.entity.formula.FormulaOil;
+import suwu.daopuerp.exception.IdDoesNotExistException;
 
 import java.util.List;
 
@@ -23,5 +24,10 @@ public class FormulaOilDaoImpl implements FormulaOilDao {
     @Override
     public FormulaOil saveFormula(FormulaOil formula) {
         return fileService.saveTuple(formula);
+    }
+
+    @Override
+    public void deleteFormulaByFormulaId(String formulaId) throws IdDoesNotExistException {
+        fileService.delete(formulaId, FormulaOil.class);
     }
 }

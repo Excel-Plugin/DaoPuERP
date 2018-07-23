@@ -10,6 +10,7 @@ import com.jfoenix.validation.RequiredFieldValidator;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,15 +29,17 @@ import suwu.daopuerp.presentation.productionbillui.ProductionBillStockItemModel;
 import suwu.daopuerp.presentation.productionbillui.ProductionBillUiController;
 import suwu.daopuerp.presentation.stockui.StockAddUiController;
 import suwu.daopuerp.presentation.stockui.factory.StackAddUiControllerFactory;
+import suwu.daopuerp.publicdata.BillType;
 import suwu.daopuerp.util.FormatDateTime;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ProductionBillLiquidAddUiController implements ExternalLoadableUiController {
     @FXML
     private JFXTextField billId;
+    @FXML
+    private JFXTextField selectedProductionId;
     @FXML
     private JFXTextField productionDate;
     @FXML
@@ -116,6 +119,14 @@ public class ProductionBillLiquidAddUiController implements ExternalLoadableUiCo
         stockTable.setRoot(root);
         stockTable.setShowRoot(false);
 
+        productionBillStockItemModelObservableList.addListener((ListChangeListener<? super ProductionBillStockItemModel>) (productionBillStockItemModel) -> {
+            double total = 0;
+            for (ProductionBillStockItemModel stockItemModel : productionBillStockItemModelObservableList) {
+                total += stockItemModel.getProductionBillStockItemObjectProperty().getStockAmount();
+            }
+            totalQuantityProperty.setValue(total + "");
+        });
+
         billId.textProperty().bindBidirectional(billIdProperty);
         productionDate.textProperty().bindBidirectional(productionDateProperty);
         productionName.textProperty().bindBidirectional(productionNameProperty);
@@ -137,6 +148,20 @@ public class ProductionBillLiquidAddUiController implements ExternalLoadableUiCo
         numberValidator.setMessage("请输入数字类型");
         RequiredFieldValidator requiredValidator = new RequiredFieldValidator();
         requiredValidator.setMessage("请输入信息");
+
+        autoFill();
+    }
+
+    private void autoFill() {
+        try {
+            billId.setText(productionBillService.getNextId(BillType.LIQUID));
+            billDate.setText(FormatDateTime.toShortDateString());
+        } catch (Exception e) {
+            e.printStackTrace();
+            PromptDialogHelper.start("初始化失败！", "请重试！")
+                    .addCloseButton("好的", "CHECK", null)
+                    .createAndShow();
+        }
     }
 
     @FXML
@@ -149,6 +174,7 @@ public class ProductionBillLiquidAddUiController implements ExternalLoadableUiCo
 
     private void reset() {
         billId.clear();
+        selectedProductionId.clear();
         productionDate.clear();
         productionName.clear();
         billDate.clear();
@@ -165,11 +191,12 @@ public class ProductionBillLiquidAddUiController implements ExternalLoadableUiCo
         stableAttr1.clear();
         stableAttr2.clear();
         productionBillStockItemModelObservableList.clear();
+        autoFill();
     }
 
     public void onBtnSubmitClicked(ActionEvent actionEvent) {
         submit();
-        FrameworkUiManager.getCurrentDialogStack().closeCurrentAndPopAndShowNext();
+        reset();
     }
 
     private void submit() {
@@ -197,21 +224,23 @@ public class ProductionBillLiquidAddUiController implements ExternalLoadableUiCo
     }
 
     public void onSelectProductionClicked(MouseEvent mouseEvent) {
-        formulaSelectUi.showFormulaSelectDialog(formulaDto -> {
-            FormulaLiquidDto formulaLiquidDto = (FormulaLiquidDto) formulaDto;
-            billId.setText(formulaLiquidDto.getFormulaCode());
+        formulaSelectUi.showFormulaSelectDialog(formulaAndAmountDto -> {
+            double amount = formulaAndAmountDto.getAmount();
+            FormulaLiquidDto formulaLiquidDto = (FormulaLiquidDto) formulaAndAmountDto.getFormulaDto();
+            selectedProductionId.setText(formulaLiquidDto.getFormulaCode());
             productionName.setText(formulaLiquidDto.getFormulaName());
-            billDate.setText(FormatDateTime.toLongTimeString(new Date()));
+            billDate.setText(FormatDateTime.toLongTimeString());
             productionType.setText(formulaLiquidDto.getFormulaType());
             productionId.setText(formulaLiquidDto.getFormulaCode());
+            totalQuantity.setText(formulaAndAmountDto.getAmount() + "");
             liquidLooking.setText(formulaLiquidDto.getLiquidLooking());
             phValue.setText(formulaLiquidDto.getPhValue());
             lightValue.setText(formulaLiquidDto.getLightValue());
             stableAttr1.setText(formulaLiquidDto.getStableAttr1());
             stableAttr2.setText(formulaLiquidDto.getStableAttr2());
             List<ProductionBillStockItemModel> productionBillStockItemModels = new ArrayList<>();
-            for (StockItem stockItem : formulaDto.getStockItems()) {
-                productionBillStockItemModels.add(new ProductionBillStockItemModel(new ProductionBillStockItem(stockItem.getStockId(), stockItem.getStockPercent(), stockItem.getStockProcess())));
+            for (StockItem stockItem : formulaLiquidDto.getStockItems()) {
+                productionBillStockItemModels.add(new ProductionBillStockItemModel(new ProductionBillStockItem(stockItem.getStockId(), amount * stockItem.getStockPercent(), stockItem.getStockProcess())));
             }
             productionBillStockItemModelObservableList.addAll(productionBillStockItemModels);
         });

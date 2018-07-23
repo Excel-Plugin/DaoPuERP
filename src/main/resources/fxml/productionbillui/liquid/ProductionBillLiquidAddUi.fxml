@@ -164,7 +164,7 @@
                     <padding>
                         <Insets bottom="20" left="20" top="30"/>
                     </padding>
-                    <JFXTextField fx:id="totalQuantity" editable="false" prefWidth="150" promptText="合计(KG/桶)"
+                    <JFXTextField fx:id="totalQuantity" editable="true" prefWidth="150" promptText="合计(KG/桶)"
                                   labelFloat="true">
                         <padding>
                             <Insets bottom="5.0" left="10.0" right="10.0"/>
@@ -175,7 +175,7 @@
                     <padding>
                         <Insets bottom="20" left="20" top="30"/>
                     </padding>
-                    <JFXTextField fx:id="modifyRecord" editable="false" prefWidth="150" promptText="调整记录"
+                    <JFXTextField fx:id="modifyRecord" editable="true" prefWidth="150" promptText="调整记录"
                                   labelFloat="true">
                         <padding>
                             <Insets bottom="5.0" left="10.0" right="10.0"/>
@@ -186,7 +186,7 @@
                     <padding>
                         <Insets bottom="20" left="20" top="30"/>
                     </padding>
-                    <JFXTextField fx:id="comment" editable="false" prefWidth="150" promptText="备注"
+                    <JFXTextField fx:id="comment" editable="true" prefWidth="150" promptText="备注"
                                   labelFloat="true">
                         <padding>
                             <Insets bottom="5.0" left="10.0" right="10.0"/>
@@ -209,7 +209,7 @@
                     <padding>
                         <Insets bottom="20" left="20" top="30"/>
                     </padding>
-                    <JFXTextField fx:id="liquidLooking" editable="false" prefWidth="150" promptText="原液外观"
+                    <JFXTextField fx:id="liquidLooking" editable="true" prefWidth="150" promptText="原液外观"
                                   labelFloat="true">
                         <padding>
                             <Insets bottom="5.0" left="10.0" right="10.0"/>
@@ -220,7 +220,7 @@
                     <padding>
                         <Insets bottom="20" left="20" top="30"/>
                     </padding>
-                    <JFXTextField fx:id="phValue" editable="false" prefWidth="150" promptText="PH值"
+                    <JFXTextField fx:id="phValue" editable="true" prefWidth="150" promptText="PH值"
                                   labelFloat="true">
                         <padding>
                             <Insets bottom="5.0" left="10.0" right="10.0"/>
@@ -231,7 +231,7 @@
                     <padding>
                         <Insets bottom="20" left="20" top="30"/>
                     </padding>
-                    <JFXTextField fx:id="lightValue" editable="false" prefWidth="150" promptText="折光系数"
+                    <JFXTextField fx:id="lightValue" editable="true" prefWidth="150" promptText="折光系数"
                                   labelFloat="true">
                         <padding>
                             <Insets bottom="5.0" left="10.0" right="10.0"/>
@@ -254,7 +254,7 @@
                     <padding>
                         <Insets bottom="20" left="20" top="30"/>
                     </padding>
-                    <JFXTextField fx:id="stableAttr1" editable="false" prefWidth="150" promptText="原液安定性1"
+                    <JFXTextField fx:id="stableAttr1" editable="true" prefWidth="150" promptText="原液安定性1"
                                   labelFloat="true">
                         <padding>
                             <Insets bottom="5.0" left="10.0" right="10.0"/>
@@ -265,7 +265,7 @@
                     <padding>
                         <Insets bottom="20" left="20" top="30"/>
                     </padding>
-                    <JFXTextField fx:id="stableAttr2" editable="false" prefWidth="150" promptText="原液安定性2"
+                    <JFXTextField fx:id="stableAttr2" editable="true" prefWidth="150" promptText="原液安定性2"
                                   labelFloat="true">
                         <padding>
                             <Insets bottom="5.0" left="10.0" right="10.0"/>

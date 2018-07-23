@@ -107,6 +107,18 @@ public class FormulaLiquidAddUiController implements ExternalLoadableUiControlle
         numberValidator.setMessage("请输入数字类型");
         RequiredFieldValidator requiredValidator = new RequiredFieldValidator();
         requiredValidator.setMessage("请输入信息");
+
+        autoFill();
+    }
+
+    private void autoFill() {
+        try {
+            formulaId.setText(formulaBlService.getNextId());
+        } catch (Exception e) {
+            PromptDialogHelper.start("初始化失败！", "请重试！")
+                    .addCloseButton("好的", "CHECK", null)
+                    .createAndShow();
+        }
     }
 
     @FXML
@@ -128,11 +140,13 @@ public class FormulaLiquidAddUiController implements ExternalLoadableUiControlle
         stableAttr1.clear();
         stableAttr2.clear();
         stockItemModelObservableList.clear();
+
+        autoFill();
     }
 
     public void onBtnSubmitClicked(ActionEvent actionEvent) {
         submit();
-        FrameworkUiManager.getCurrentDialogStack().closeCurrentAndPopAndShowNext();
+        reset();
     }
 
     private void submit() {

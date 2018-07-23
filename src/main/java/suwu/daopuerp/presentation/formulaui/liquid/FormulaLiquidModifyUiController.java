@@ -18,6 +18,7 @@ import suwu.daopuerp.dto.formula.FormulaDto;
 import suwu.daopuerp.dto.formula.FormulaLiquidDto;
 import suwu.daopuerp.dto.stock.StockItem;
 import suwu.daopuerp.presentation.formulaui.FormulaModifyUi;
+import suwu.daopuerp.presentation.formulaui.FormulaUiController;
 import suwu.daopuerp.presentation.helpui.*;
 import suwu.daopuerp.presentation.stockui.StockAddUiController;
 import suwu.daopuerp.presentation.stockui.StockItemModel;
@@ -79,7 +80,7 @@ public class FormulaLiquidModifyUiController extends FormulaModifyUi implements 
      */
     @Override
     public ExternalLoadedUiPackage load() {
-        return new UiLoader("/fxml/formulaui/liquid/FormulaLiquidDetailUi.fxml").loadAndGetPackageWithoutException();
+        return new UiLoader("/fxml/formulaui/liquid/FormulaLiquidModifyUi.fxml").loadAndGetPackageWithoutException();
     }
 
     public void initialize() {
@@ -136,6 +137,7 @@ public class FormulaLiquidModifyUiController extends FormulaModifyUi implements 
     public void onBtnSubmitClicked(ActionEvent actionEvent) {
         submit();
         FrameworkUiManager.getCurrentDialogStack().closeCurrentAndPopAndShowNext();
+        FrameworkUiManager.switchFunction(FormulaUiController.class, "管理配方单", true);
 //        FormulaDto formulaDto = getCurrentFormulaDto();
 //
 //        PromptDialogHelper.start("确认配方单", "").setContent(

@@ -10,6 +10,7 @@ import com.jfoenix.validation.RequiredFieldValidator;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,17 +28,19 @@ import suwu.daopuerp.presentation.formulaui.FormulaSelectUiController;
 import suwu.daopuerp.presentation.helpui.*;
 import suwu.daopuerp.presentation.productionbillui.ProductionBillModifyUi;
 import suwu.daopuerp.presentation.productionbillui.ProductionBillStockItemModel;
+import suwu.daopuerp.presentation.productionbillui.ProductionBillUiController;
 import suwu.daopuerp.presentation.stockui.StockAddUiController;
 import suwu.daopuerp.presentation.stockui.factory.StackAddUiControllerFactory;
 import suwu.daopuerp.util.FormatDateTime;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ProductionBillOilModifyUiController extends ProductionBillModifyUi implements ExternalLoadableUiController {
     @FXML
     private JFXTextField billId;
+    @FXML
+    private JFXTextField selectedProductionId;
     @FXML
     private JFXTextField productionDate;
     @FXML
@@ -117,6 +120,14 @@ public class ProductionBillOilModifyUiController extends ProductionBillModifyUi 
         stockTable.setRoot(root);
         stockTable.setShowRoot(false);
 
+        productionBillStockItemModelObservableList.addListener((ListChangeListener<? super ProductionBillStockItemModel>) (productionBillStockItemModel) -> {
+            double total = 0;
+            for (ProductionBillStockItemModel stockItemModel : productionBillStockItemModelObservableList) {
+                total += stockItemModel.getProductionBillStockItemObjectProperty().getStockAmount();
+            }
+            totalQuantityProperty.setValue(total + "");
+        });
+
         billId.textProperty().bindBidirectional(billIdProperty);
         productionDate.textProperty().bindBidirectional(productionDateProperty);
         productionName.textProperty().bindBidirectional(productionNameProperty);
@@ -180,6 +191,7 @@ public class ProductionBillOilModifyUiController extends ProductionBillModifyUi 
     public void onBtnSubmitClicked(ActionEvent actionEvent) {
         submit();
         FrameworkUiManager.getCurrentDialogStack().closeCurrentAndPopAndShowNext();
+        FrameworkUiManager.switchFunction(ProductionBillUiController.class, "管理生产原始单", true);
 //        FormulaDto formulaDto = getCurrentFormulaDto();
 //
 //        PromptDialogHelper.start("确认配方单", "").setContent(
@@ -225,6 +237,7 @@ public class ProductionBillOilModifyUiController extends ProductionBillModifyUi 
 
     private void reset() {
         billId.clear();
+        selectedProductionId.clear();
         productionDate.clear();
         productionName.clear();
         billDate.clear();
@@ -248,21 +261,22 @@ public class ProductionBillOilModifyUiController extends ProductionBillModifyUi 
     }
 
     public void onSelectProductionClicked(MouseEvent mouseEvent) {
-        formulaSelectUi.showFormulaSelectDialog(formulaDto -> {
-            FormulaOilDto formulaOilDto = (FormulaOilDto) formulaDto;
-            billId.setText(formulaOilDto.getFormulaCode());
+        formulaSelectUi.showFormulaSelectDialog(formulaAndAmountDto -> {
+            FormulaOilDto formulaOilDto = (FormulaOilDto) formulaAndAmountDto.getFormulaDto();
+            selectedProductionId.setText(formulaOilDto.getFormulaCode());
             productionName.setText(formulaOilDto.getFormulaName());
-            billDate.setText(FormatDateTime.toLongTimeString(new Date()));
+            billDate.setText(FormatDateTime.toLongTimeString());
             productionType.setText(formulaOilDto.getFormulaType());
             productionId.setText(formulaOilDto.getFormulaCode());
+            totalQuantity.setText(formulaAndAmountDto.getAmount() + "");
             outLooking.setText(formulaOilDto.getOutLooking());
             flashPoint.setText(formulaOilDto.getFlashPoint());
             viscosity.setText(formulaOilDto.getViscosity());
             stableAttr1.setText(formulaOilDto.getStableAttr1());
             stableAttr2.setText(formulaOilDto.getStableAttr2());
             List<ProductionBillStockItemModel> productionBillStockItemModels = new ArrayList<>();
-            for (StockItem stockItem : formulaDto.getStockItems()) {
-                productionBillStockItemModels.add(new ProductionBillStockItemModel(new ProductionBillStockItem(stockItem.getStockId(), stockItem.getStockPercent(), stockItem.getStockProcess())));
+            for (StockItem stockItem : formulaOilDto.getStockItems()) {
+                productionBillStockItemModels.add(new ProductionBillStockItemModel(new ProductionBillStockItem(stockItem.getStockId(), formulaAndAmountDto.getAmount() * stockItem.getStockPercent(), stockItem.getStockProcess())));
             }
             productionBillStockItemModelObservableList.addAll(productionBillStockItemModels);
         });

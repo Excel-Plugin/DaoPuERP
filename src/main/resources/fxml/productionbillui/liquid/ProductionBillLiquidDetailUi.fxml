@@ -23,17 +23,6 @@
                 </VBox.margin>
             </Label>
         </VBox>
-        <VBox>
-            <padding>
-                <Insets bottom="20" left="20" top="30"/>
-            </padding>
-            <JFXTextField fx:id="selectedProductionId" editable="true" prefWidth="150" promptText="成品编码"
-                          labelFloat="true">
-                <padding>
-                    <Insets bottom="5.0" left="10.0" right="10.0"/>
-                </padding>
-            </JFXTextField>
-        </VBox>
     </HBox>
 
     <VBox maxWidth="500" spacing="30">
@@ -53,7 +42,7 @@
                 <padding>
                     <Insets bottom="20" left="20" top="30"/>
                 </padding>
-                <JFXTextField fx:id="productionDate" editable="true" prefWidth="150" promptText="生产日期"
+                <JFXTextField fx:id="productionDate" editable="false" prefWidth="150" promptText="生产日期"
                               labelFloat="true">
                     <padding>
                         <Insets bottom="5.0" left="10.0" right="10.0"/>
@@ -64,7 +53,7 @@
                 <padding>
                     <Insets bottom="20" left="20" top="30"/>
                 </padding>
-                <JFXTextField fx:id="productionName" editable="true" prefWidth="150" promptText="品名"
+                <JFXTextField fx:id="productionName" editable="false" prefWidth="150" promptText="品名"
                               labelFloat="true">
                     <padding>
                         <Insets bottom="5.0" left="10.0" right="10.0"/>
@@ -75,7 +64,7 @@
                 <padding>
                     <Insets bottom="20" left="20" top="30"/>
                 </padding>
-                <JFXTextField fx:id="billDate" editable="true" prefWidth="150" promptText="开单日期"
+                <JFXTextField fx:id="billDate" editable="false" prefWidth="150" promptText="开单日期"
                               labelFloat="true">
                     <padding>
                         <Insets bottom="5.0" left="10.0" right="10.0"/>
@@ -88,7 +77,7 @@
                 <padding>
                     <Insets bottom="20" left="20" top="30"/>
                 </padding>
-                <JFXTextField fx:id="client" editable="true" prefWidth="150" promptText="客户"
+                <JFXTextField fx:id="client" editable="false" prefWidth="150" promptText="客户"
                               labelFloat="true">
                     <padding>
                         <Insets bottom="5.0" left="10.0" right="10.0"/>
@@ -99,7 +88,7 @@
                 <padding>
                     <Insets bottom="20" left="20" top="30"/>
                 </padding>
-                <JFXTextField fx:id="productionType" editable="true" prefWidth="150" promptText="型号"
+                <JFXTextField fx:id="productionType" editable="false" prefWidth="150" promptText="型号"
                               labelFloat="true">
                     <padding>
                         <Insets bottom="5.0" left="10.0" right="10.0"/>
@@ -110,7 +99,7 @@
                 <padding>
                     <Insets bottom="20" left="20" top="30"/>
                 </padding>
-                <JFXTextField fx:id="machineId" editable="true" prefWidth="150" promptText="设备编号"
+                <JFXTextField fx:id="machineId" editable="false" prefWidth="150" promptText="设备编号"
                               labelFloat="true">
                     <padding>
                         <Insets bottom="5.0" left="10.0" right="10.0"/>
@@ -121,7 +110,7 @@
                 <padding>
                     <Insets bottom="20" left="20" top="30"/>
                 </padding>
-                <JFXTextField fx:id="productionId" editable="true" prefWidth="150" promptText="编号"
+                <JFXTextField fx:id="productionId" editable="false" prefWidth="150" promptText="编号"
                               labelFloat="true">
                     <padding>
                         <Insets bottom="5.0" left="10.0" right="10.0"/>
@@ -132,9 +121,9 @@
         <VBox alignment="CENTER">
             <JFXTreeTableView fx:id="stockTable" prefHeight="500.0" prefWidth="750.0">
                 <columns>
-                    <JFXTreeTableColumn fx:id="stockIdColumn" editable="true" text="原料代码"/>
-                    <JFXTreeTableColumn fx:id="stockPredictAmountColumn" editable="true" text="加入量"/>
-                    <JFXTreeTableColumn fx:id="stockProcessColumn" editable="true" text="生产工艺"/>
+                    <JFXTreeTableColumn fx:id="stockIdColumn" editable="false" text="原料代码"/>
+                    <JFXTreeTableColumn fx:id="stockPredictAmountColumn" editable="false" text="加入量"/>
+                    <JFXTreeTableColumn fx:id="stockProcessColumn" editable="false" text="生产工艺"/>
                 </columns>
             </JFXTreeTableView>
             <HBox alignment="CENTER">

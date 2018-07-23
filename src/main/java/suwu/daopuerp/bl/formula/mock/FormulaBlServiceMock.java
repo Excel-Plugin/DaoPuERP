@@ -35,7 +35,17 @@ public class FormulaBlServiceMock implements FormulaBlService {
      * @return
      */
     @Override
-    public String getNextTestId() {
+    public String getNextId() {
         return "test0";
+    }
+
+    /**
+     * 删除配方单
+     *
+     * @param id
+     */
+    @Override
+    public void deleteFormula(String id) {
+
     }
 }

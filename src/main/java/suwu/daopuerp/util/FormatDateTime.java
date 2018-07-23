@@ -5,22 +5,38 @@ import java.util.Date;
 
 public class FormatDateTime {
 
-    public static String toLongDateString(Date dt){
-        SimpleDateFormat myFmt=new SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒 E ");
+    public static String toLongDateString() {
+        Date dt = new Date();
+        SimpleDateFormat myFmt = new SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒 E ");
         return myFmt.format(dt);
     }
 
-    public static String toShortDateString(Date dt){
-        SimpleDateFormat myFmt=new SimpleDateFormat("yy年MM月dd日HH时mm分");
+    public static String toShortDateString() {
+        Date dt = new Date();
+        SimpleDateFormat myFmt = new SimpleDateFormat("yy年MM月dd日HH时mm分");
         return myFmt.format(dt);
     }
 
-    public static String toLongTimeString(Date dt){
-        SimpleDateFormat myFmt=new SimpleDateFormat("HH mm ss SSSS");
+    public static String toLongTimeString() {
+        Date dt = new Date();
+        SimpleDateFormat myFmt = new SimpleDateFormat("HH mm ss SSSS");
         return myFmt.format(dt);
     }
-    public static String toShortTimeString(Date dt){
-        SimpleDateFormat myFmt=new SimpleDateFormat("yy/MM/dd");
+
+    public static String toShortTimeString() {
+        Date dt = new Date();
+        SimpleDateFormat myFmt = new SimpleDateFormat("yy/MM/dd");
+        return myFmt.format(dt);
+    }
+
+    /**
+     * Get date string used in bill (yyyyMMdd).
+     *
+     * @return date string in yyyyMMdd
+     */
+    public static String currentDateStringForBill() {
+        Date dt = new Date();
+        SimpleDateFormat myFmt = new SimpleDateFormat("yyyyMMdd");
         return myFmt.format(dt);
     }
 }

@@ -74,7 +74,7 @@ public class FormulaOilDetailUiController extends FormulaDetailUi implements Ext
      */
     @Override
     public ExternalLoadedUiPackage load() {
-        return new UiLoader("/fxml/formulaui/oil/FormulaOilAddUi.fxml").loadAndGetPackageWithoutException();
+        return new UiLoader("/fxml/formulaui/oil/FormulaOilDetailUi.fxml").loadAndGetPackageWithoutException();
     }
 
     public void initialize() {

@@ -30,4 +30,15 @@ public class ProductionBlServiceMock implements ProductionBillService {
     public void delete(String billId) {
 
     }
+
+    /**
+     * 获得下一个Id
+     *
+     * @param billType
+     * @return
+     */
+    @Override
+    public String getNextId(BillType billType) {
+        return null;
+    }
 }

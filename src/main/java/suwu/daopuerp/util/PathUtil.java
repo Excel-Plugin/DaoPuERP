@@ -24,6 +24,7 @@ public class PathUtil {
 
     public static void initDatabase() {
         String resourcePath = ResourceUtil.getFilePathUnderRootDirOfJarFileOrClassDir("/data");
+        System.out.println(resourcePath);
 
         File dir = new File(resourcePath);
         if (!dir.exists()) {
@@ -36,17 +37,14 @@ public class PathUtil {
         }
 
         ArrayList<File> fileArrayList = new ArrayList<>();
-        fileArrayList.add(new File(resourcePath + "/user.txt"));
-        fileArrayList.add(new File(resourcePath + "/tempUser.txt"));
-        fileArrayList.add(new File(resourcePath + "/imageInstance.txt"));
-        fileArrayList.add(new File(resourcePath + "/imageMission.txt"));
-        fileArrayList.add(new File(resourcePath + "/topic.txt"));
+        fileArrayList.add(new File(resourcePath + "/User.txt"));
+        fileArrayList.add(new File(resourcePath + "/FormulaLiquid.txt"));
+        fileArrayList.add(new File(resourcePath + "/FormulaOil.txt"));
+        fileArrayList.add(new File(resourcePath + "/ProductionBillLiquid.txt"));
+        fileArrayList.add(new File(resourcePath + "/ProductionBillOil.txt"));
 
         try (FileWriter writer = new FileWriter(getDatabasePath() + "user.txt")) {
-            writer.write("{\"username\":\"999\",\"password\":\"$2a$10$EQezV9FHSbCgagwHb6K8g.o.TmwFjh4wMLSUU.8f7PhSLpBpivhO.\",\"email\":\"456\",\"roles\":[{\"name\":\"ROLE_ADMIN\"}],\"exp\":0,\"credits\":0}\n" +
-                    "{\"username\":\"123\",\"password\":\"$2a$10$EQezV9FHSbCgagwHb6K8g.o.TmwFjh4wMLSUU.8f7PhSLpBpivhO.\",\"email\":\"456\",\"roles\":[{\"name\":\"ROLE_WORKER\"}],\"exp\":0,\"credits\":0}\n" +
-                    "{\"username\":\"888\",\"password\":\"$2a$10$EQezV9FHSbCgagwHb6K8g.o.TmwFjh4wMLSUU.8f7PhSLpBpivhO.\",\"email\":\"456\",\"roles\":[{\"name\":\"ROLE_REQUESTER\"}],\"exp\":0,\"credits\":0}"
-            );
+            writer.write("{\"id\":1,\"username\":\"admin\",\"password\":\"57578971\"}\n");
             writer.flush();
         } catch (IOException e) {
             e.printStackTrace();

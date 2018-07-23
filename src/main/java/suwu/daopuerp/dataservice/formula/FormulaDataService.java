@@ -11,4 +11,6 @@ public interface FormulaDataService {
     Formula getFormulaById(String id) throws IdDoesNotExistException;
 
     void saveFormula(Formula formula);
+
+    void deleteFormula(String id) throws IdDoesNotExistException;
 }

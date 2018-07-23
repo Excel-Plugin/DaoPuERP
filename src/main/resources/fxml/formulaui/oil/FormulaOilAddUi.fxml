@@ -29,7 +29,7 @@
                 <padding>
                     <Insets bottom="20" left="20" top="30"/>
                 </padding>
-                <JFXTextField fx:id="formulaId" editable="true" labelFloat="true" prefWidth="150" promptText="成品ID">
+                <JFXTextField fx:id="formulaId" editable="false" labelFloat="true" prefWidth="150" promptText="成品ID">
                     <padding>
                         <Insets bottom="5.0" left="10.0" right="10.0"/>
                     </padding>
@@ -110,7 +110,7 @@
                     <padding>
                         <Insets bottom="20" left="20" top="30"/>
                     </padding>
-                    <JFXTextField fx:id="outLooking" editable="false" prefWidth="150" promptText="外观"
+                    <JFXTextField fx:id="outLooking" editable="true" prefWidth="150" promptText="外观"
                                   labelFloat="true">
                         <padding>
                             <Insets bottom="5.0" left="10.0" right="10.0"/>
@@ -121,7 +121,7 @@
                     <padding>
                         <Insets bottom="20" left="20" top="30"/>
                     </padding>
-                    <JFXTextField fx:id="flashPoint" editable="false" prefWidth="150" promptText="开口闪点"
+                    <JFXTextField fx:id="flashPoint" editable="true" prefWidth="150" promptText="开口闪点"
                                   labelFloat="true">
                         <padding>
                             <Insets bottom="5.0" left="10.0" right="10.0"/>
@@ -132,7 +132,7 @@
                     <padding>
                         <Insets bottom="20" left="20" top="30"/>
                     </padding>
-                    <JFXTextField fx:id="viscosity" editable="false" prefWidth="150" promptText="粘度40℃"
+                    <JFXTextField fx:id="viscosity" editable="true" prefWidth="150" promptText="粘度40℃"
                                   labelFloat="true">
                         <padding>
                             <Insets bottom="5.0" left="10.0" right="10.0"/>
@@ -155,7 +155,7 @@
                     <padding>
                         <Insets bottom="20" left="20" top="30"/>
                     </padding>
-                    <JFXTextField fx:id="stableAttr1" editable="false" prefWidth="150" promptText="原液安定性1"
+                    <JFXTextField fx:id="stableAttr1" editable="true" prefWidth="150" promptText="原液安定性1"
                                   labelFloat="true">
                         <padding>
                             <Insets bottom="5.0" left="10.0" right="10.0"/>
@@ -166,7 +166,7 @@
                     <padding>
                         <Insets bottom="20" left="20" top="30"/>
                     </padding>
-                    <JFXTextField fx:id="stableAttr2" editable="false" prefWidth="150" promptText="原液安定性2"
+                    <JFXTextField fx:id="stableAttr2" editable="true" prefWidth="150" promptText="原液安定性2"
                                   labelFloat="true">
                         <padding>
                             <Insets bottom="5.0" left="10.0" right="10.0"/>

@@ -16,6 +16,7 @@ import suwu.daopuerp.bl.formula.factory.FormulaBlServiceFactory;
 import suwu.daopuerp.blservice.formula.FormulaBlService;
 import suwu.daopuerp.dto.formula.FormulaDto;
 import suwu.daopuerp.dto.formula.FormulaItem;
+import suwu.daopuerp.exception.IdDoesNotExistException;
 import suwu.daopuerp.presentation.formulaui.liquid.FormulaLiquidAddUiController;
 import suwu.daopuerp.presentation.formulaui.oil.FormulaOilAddUiController;
 import suwu.daopuerp.presentation.helpui.*;
@@ -87,8 +88,17 @@ public class FormulaUiController implements ExternalLoadableUiController {
         FormulaItemModel model = formulaTable.getSelectionModel().getSelectedItem().getValue();
         if (model != null) {
             FormulaItem selected = model.getFormulaItemObjectProperty();
-            FormulaDto formulaDto = formulaBlService.getFormulaById(selected.getFormulaId());
-            PromptDialogHelper.start("修改客户信息", "")
+            FormulaDto formulaDto = null;
+            try {
+                formulaDto = formulaBlService.getFormulaById(selected.getFormulaId());
+            } catch (IdDoesNotExistException e) {
+                e.printStackTrace();
+                PromptDialogHelper.start("错误", "找不到该配方ID。")
+                        .addCloseButton("好的", "DONE", null)
+                        .createAndShow();
+            }
+            assert formulaDto != null;
+            PromptDialogHelper.start("修改配方信息", "")
                     .setContent(formulaDto.modifyUi().showContent(formulaDto).getComponent())
                     .createAndShow();
         } else {
@@ -107,11 +117,17 @@ public class FormulaUiController implements ExternalLoadableUiController {
     }
 
     private void delete() {
-//        List<String> idList = new ArrayList<>();
-//        ObservableList<TreeItem<ClientSelectionItemModel>> clientSelectionTreeItemModels = clientTable.getSelectionModel().getSelectedItems();
-//        for (TreeItem<ClientSelectionItemModel> treeItem : clientSelectionTreeItemModels) {
-//            idList.add(treeItem.getValue().getClientVoObjectProperty().getId());
-//        }
+        int selectedIndex = formulaTable.getSelectionModel().getSelectedIndex();
+        String formulaId = formulaItemModelObservableList.get(selectedIndex).getFormulaItemObjectProperty().getFormulaId();
+        try {
+            formulaBlService.deleteFormula(formulaId);
+            formulaItemModelObservableList.remove(selectedIndex);
+        } catch (IdDoesNotExistException e) {
+            e.printStackTrace();
+            PromptDialogHelper.start("删除失败，请重试", null)
+                    .addCloseButton("确定", "DONE", null)
+                    .createAndShow();
+        }
     }
 
     private void confirmDelete() {
@@ -141,7 +157,15 @@ public class FormulaUiController implements ExternalLoadableUiController {
         FormulaItemModel model = formulaTable.getSelectionModel().getSelectedItem().getValue();
         if (model != null) {
             FormulaItem selected = model.getFormulaItemObjectProperty();
-            FormulaDto formulaDto = formulaBlService.getFormulaById(selected.getFormulaId());
+            FormulaDto formulaDto = null;
+            try {
+                formulaDto = formulaBlService.getFormulaById(selected.getFormulaId());
+            } catch (IdDoesNotExistException e) {
+                e.printStackTrace();
+                PromptDialogHelper.start("错误", "找不到该配方ID。")
+                        .addCloseButton("好的", "DONE", null)
+                        .createAndShow();
+            }
             PromptDialogHelper.start("配方单详细信息", "")
                     .setContent(formulaDto.detailUi().showContent(formulaDto).getComponent())
                     .addCloseButton("好的", "CHECK", null)

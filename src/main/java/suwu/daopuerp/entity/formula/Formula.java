@@ -3,6 +3,7 @@ package suwu.daopuerp.entity.formula;
 import suwu.daopuerp.dto.stock.StockItem;
 import suwu.daopuerp.entity.Entity;
 import suwu.daopuerp.entity.annotation.Column;
+import suwu.daopuerp.entity.annotation.EnumTranslate;
 import suwu.daopuerp.entity.annotation.Id;
 import suwu.daopuerp.entity.annotation.JsonSerialize;
 import suwu.daopuerp.publicdata.BillType;
@@ -13,6 +14,7 @@ public class Formula extends Entity {
     @Id
     @Column(name = "formulaId")
     private String formulaId;
+    @EnumTranslate(targetClass = BillType.class)
     @Column(name = "billType")
     private BillType billType;
     @Column(name = "formulaCode")

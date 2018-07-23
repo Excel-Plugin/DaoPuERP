@@ -1,5 +1,6 @@
 package suwu.daopuerp.entity.productionbill;
 
+import suwu.daopuerp.dto.stock.ProductionBillStockItem;
 import suwu.daopuerp.entity.annotation.Column;
 import suwu.daopuerp.entity.annotation.Table;
 import suwu.daopuerp.publicdata.BillType;
@@ -18,8 +19,8 @@ public class ProductionBillLiquid extends ProductionBill {
     public ProductionBillLiquid() {
     }
 
-    public ProductionBillLiquid(String billId, String productionDate, String productionName, String billDate, String client, String productionType, String machineId, String productionId, double totalQuantity, String modifyRecord, String comment, String stableAttr1, String stableAttr2, List<String> stockIds, String liquidLooking, String phValue, String lightValue) {
-        super(billId, BillType.LIQUID, productionDate, productionName, billDate, client, productionType, machineId, productionId, totalQuantity, modifyRecord, comment, stableAttr1, stableAttr2, stockIds);
+    public ProductionBillLiquid(String billId, String productionDate, String productionName, String billDate, String client, String productionType, String machineId, String productionId, double totalQuantity, String modifyRecord, String comment, String stableAttr1, String stableAttr2, List<ProductionBillStockItem> productionBillStockItems, String liquidLooking, String phValue, String lightValue) {
+        super(billId, BillType.LIQUID, productionDate, productionName, billDate, client, productionType, machineId, productionId, totalQuantity, modifyRecord, comment, stableAttr1, stableAttr2, productionBillStockItems);
         this.liquidLooking = liquidLooking;
         this.phValue = phValue;
         this.lightValue = lightValue;

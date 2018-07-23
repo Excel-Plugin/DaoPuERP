@@ -14,14 +14,18 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import suwu.daopuerp.bl.formula.factory.FormulaBlServiceFactory;
 import suwu.daopuerp.blservice.formula.FormulaBlService;
+import suwu.daopuerp.dto.formula.FormulaAndAmountDto;
 import suwu.daopuerp.dto.formula.FormulaDto;
 import suwu.daopuerp.dto.formula.FormulaItem;
+import suwu.daopuerp.exception.IdDoesNotExistException;
 import suwu.daopuerp.presentation.helpui.*;
 
 import java.util.List;
 import java.util.function.Consumer;
 
 public class FormulaSelectUiController extends SelectingDialog implements FormulaSelectUi, ExternalLoadableUiController {
+    @FXML
+    private JFXTextField tfQuantity;
     @FXML
     private JFXTextField tfSearch;
     @FXML
@@ -37,10 +41,11 @@ public class FormulaSelectUiController extends SelectingDialog implements Formul
 
     private ObservableList<FormulaItemModel> formulaItemModelObservableList = FXCollections.observableArrayList();
     private StringProperty tfSearchProperty = new SimpleStringProperty("");
+    private StringProperty tfQuantityProperty = new SimpleStringProperty("");
 
     private FormulaBlService formulaBlService = FormulaBlServiceFactory.getFormulaBlService();
 
-    public Consumer<FormulaDto> callback;
+    public Consumer<FormulaAndAmountDto> callback;
 
     /**
      * Loads the controller.
@@ -62,6 +67,7 @@ public class FormulaSelectUiController extends SelectingDialog implements Formul
         formulaTable.setShowRoot(false);
 
         tfSearch.textProperty().bindBidirectional(tfSearchProperty);
+        tfQuantity.textProperty().bindBidirectional(tfQuantityProperty);
 
         initFormulas();
     }
@@ -78,15 +84,23 @@ public class FormulaSelectUiController extends SelectingDialog implements Formul
      *
      * @return 当前已经选择的项
      */
-    private FormulaDto getSelected() {
+    private FormulaAndAmountDto getSelected() {
         FormulaItemModel model = formulaTable.getSelectionModel().getSelectedItem().getValue();
         FormulaItem selected = model.getFormulaItemObjectProperty();
-        FormulaDto formulaDto = formulaBlService.getFormulaById(selected.getFormulaId());
+        FormulaDto formulaDto = null;
+        try {
+            formulaDto = formulaBlService.getFormulaById(selected.getFormulaId());
+        } catch (IdDoesNotExistException e) {
+            e.printStackTrace();
+            PromptDialogHelper.start("错误", "找不到该配方ID。")
+                    .addCloseButton("好的", "DONE", null)
+                    .createAndShow();
+        }
         PromptDialogHelper.start("配方单列表", "")
                 .setContent(formulaDto.detailUi().showContent(formulaDto).getComponent())
                 .addCloseButton("好的", "CHECK", null)
                 .createAndShow();
-        return formulaDto;
+        return new FormulaAndAmountDto(Double.parseDouble(tfQuantityProperty.get()), formulaDto);
     }
 
     @FXML
@@ -108,7 +122,7 @@ public class FormulaSelectUiController extends SelectingDialog implements Formul
      * @param callback call back function
      */
     @Override
-    public void showFormulaSelectDialog(Consumer<FormulaDto> callback) {
+    public void showFormulaSelectDialog(Consumer<FormulaAndAmountDto> callback) {
         ExternalLoadedUiPackage uiPackage = load();
         FormulaSelectUiController controller = uiPackage.getController();
         controller.callback = callback;
@@ -122,7 +136,7 @@ public class FormulaSelectUiController extends SelectingDialog implements Formul
      * @return the whole formulaDto
      */
     @Override
-    public FormulaDto queryById(String id) {
+    public FormulaDto queryById(String id) throws IdDoesNotExistException {
         return formulaBlService.getFormulaById(id);
     }
 

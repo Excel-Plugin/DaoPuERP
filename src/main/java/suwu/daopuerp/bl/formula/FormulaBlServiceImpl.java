@@ -60,7 +60,17 @@ public class FormulaBlServiceImpl implements FormulaBlService {
      * @return
      */
     @Override
-    public String getNextTestId() {
+    public String getNextId() {
         return UUID.randomUUID().toString();
+    }
+
+    /**
+     * 删除配方单
+     *
+     * @param id
+     */
+    @Override
+    public void deleteFormula(String id) throws IdDoesNotExistException {
+        formulaDataService.deleteFormula(id);
     }
 }

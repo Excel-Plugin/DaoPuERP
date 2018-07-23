@@ -16,6 +16,7 @@ import suwu.daopuerp.bl.productionbill.factory.ProductionBillBlServiceFactory;
 import suwu.daopuerp.blservice.productionbill.ProductionBillService;
 import suwu.daopuerp.dto.productionbill.ProductionBillDto;
 import suwu.daopuerp.dto.productionbill.ProductionBillItem;
+import suwu.daopuerp.exception.IdDoesNotExistException;
 import suwu.daopuerp.presentation.helpui.*;
 import suwu.daopuerp.presentation.productionbillui.liquid.ProductionBillLiquidAddUiController;
 import suwu.daopuerp.presentation.productionbillui.oil.ProductionBillOilAddUiController;
@@ -93,7 +94,16 @@ public class ProductionBillUiController implements ExternalLoadableUiController 
         ProductionBillItemModel model = billTable.getSelectionModel().getSelectedItem().getValue();
         if (model != null) {
             ProductionBillItem selected = model.getProductionBillItemObjectProperty();
-            ProductionBillDto productionBillDto = productionBillService.getProductionBillDtoById(selected.getBillId());
+            ProductionBillDto productionBillDto = null;
+            try {
+                productionBillDto = productionBillService.getProductionBillDtoById(selected.getBillId());
+            } catch (IdDoesNotExistException e) {
+                e.printStackTrace();
+                PromptDialogHelper.start("错误", "找不到该单据ID。")
+                        .addCloseButton("好的", "DONE", null)
+                        .createAndShow();
+            }
+            assert productionBillDto != null;
             PromptDialogHelper.start("修改客户信息", "")
                     .setContent(productionBillDto.modifyUi().showContent(productionBillDto).getComponent())
                     .createAndShow();
@@ -113,11 +123,17 @@ public class ProductionBillUiController implements ExternalLoadableUiController 
     }
 
     private void delete() {
-//        List<String> idList = new ArrayList<>();
-//        ObservableList<TreeItem<ClientSelectionItemModel>> clientSelectionTreeItemModels = clientTable.getSelectionModel().getSelectedItems();
-//        for (TreeItem<ClientSelectionItemModel> treeItem : clientSelectionTreeItemModels) {
-//            idList.add(treeItem.getValue().getClientVoObjectProperty().getId());
-//        }
+        int selectedIndex = billTable.getSelectionModel().getSelectedIndex();
+        String formulaId = productionBillItemModelObservableList.get(selectedIndex).getProductionBillItemObjectProperty().getBillId();
+        try {
+            productionBillService.delete(formulaId);
+            productionBillItemModelObservableList.remove(selectedIndex);
+        } catch (IdDoesNotExistException e) {
+            e.printStackTrace();
+            PromptDialogHelper.start("删除失败，请重试", null)
+                    .addCloseButton("确定", "DONE", null)
+                    .createAndShow();
+        }
     }
 
     private void confirmDelete() {
@@ -147,7 +163,15 @@ public class ProductionBillUiController implements ExternalLoadableUiController 
         ProductionBillItemModel model = billTable.getSelectionModel().getSelectedItem().getValue();
         if (model != null) {
             ProductionBillItem selected = model.getProductionBillItemObjectProperty();
-            ProductionBillDto productionBillDto = productionBillService.getProductionBillDtoById(selected.getBillId());
+            ProductionBillDto productionBillDto = null;
+            try {
+                productionBillDto = productionBillService.getProductionBillDtoById(selected.getBillId());
+            } catch (IdDoesNotExistException e) {
+                e.printStackTrace();
+                PromptDialogHelper.start("错误", "找不到该单据ID。")
+                        .addCloseButton("好的", "DONE", null)
+                        .createAndShow();
+            }
             PromptDialogHelper.start("客户详细信息", "")
                     .setContent(productionBillDto.detailUi().showContent(productionBillDto).getComponent())
                     .addCloseButton("好的", "CHECK", null)

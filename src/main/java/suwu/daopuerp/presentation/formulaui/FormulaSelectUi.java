@@ -1,6 +1,8 @@
 package suwu.daopuerp.presentation.formulaui;
 
+import suwu.daopuerp.dto.formula.FormulaAndAmountDto;
 import suwu.daopuerp.dto.formula.FormulaDto;
+import suwu.daopuerp.exception.IdDoesNotExistException;
 
 import java.util.function.Consumer;
 
@@ -10,7 +12,7 @@ public interface FormulaSelectUi {
      *
      * @param callback call back function
      */
-    void showFormulaSelectDialog(Consumer<FormulaDto> callback);
+    void showFormulaSelectDialog(Consumer<FormulaAndAmountDto> callback);
 
     /**
      * query the whole formulaDto by id
@@ -18,5 +20,5 @@ public interface FormulaSelectUi {
      * @param id
      * @return the whole formulaDto
      */
-    FormulaDto queryById(String id);
+    FormulaDto queryById(String id) throws IdDoesNotExistException;
 }

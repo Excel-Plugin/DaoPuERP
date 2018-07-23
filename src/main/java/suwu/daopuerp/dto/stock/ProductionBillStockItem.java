@@ -1,6 +1,8 @@
 package suwu.daopuerp.dto.stock;
 
-public class ProductionBillStockItem {
+import java.io.Serializable;
+
+public class ProductionBillStockItem implements Serializable {
     private String stockId;
     private double stockAmount;
     private String stockProcess;

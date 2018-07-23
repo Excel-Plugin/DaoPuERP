@@ -4,6 +4,7 @@ import suwu.daopuerp.dao.formula.FormulaLiquidDao;
 import suwu.daopuerp.data.fileservice.FileService;
 import suwu.daopuerp.data.fileservice.FileServiceImpl;
 import suwu.daopuerp.entity.formula.FormulaLiquid;
+import suwu.daopuerp.exception.IdDoesNotExistException;
 
 import java.util.List;
 
@@ -23,5 +24,10 @@ public class FormulaLiquidDaoImpl implements FormulaLiquidDao {
     @Override
     public FormulaLiquid saveFormula(FormulaLiquid formula) {
         return fileService.saveTuple(formula);
+    }
+
+    @Override
+    public void deleteFormulaByFormulaId(String formulaId) throws IdDoesNotExistException {
+        fileService.delete(formulaId, FormulaLiquid.class);
     }
 }

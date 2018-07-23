@@ -30,9 +30,16 @@ public interface FormulaBlService {
     void submit(FormulaDto formulaDto);
 
     /**
-     * 获得下一个测试配方单Id
+     * 获得下一个配方单Id
      *
      * @return
      */
-    String getNextTestId();
+    String getNextId();
+
+    /**
+     * 删除配方单
+     *
+     * @param id
+     */
+    void deleteFormula(String id) throws IdDoesNotExistException;
 }

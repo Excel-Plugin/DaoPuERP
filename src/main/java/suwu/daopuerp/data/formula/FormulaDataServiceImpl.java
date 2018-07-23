@@ -40,11 +40,21 @@ public class FormulaDataServiceImpl implements FormulaDataService {
     public void saveFormula(Formula formula) {
         switch (formula.getBillType()) {
             case OIL:
-                formulaLiquidDao.saveFormula((FormulaLiquid) formula);
-                break;
-            case LIQUID:
                 formulaOilDao.saveFormula((FormulaOil) formula);
                 break;
+            case LIQUID:
+                formulaLiquidDao.saveFormula((FormulaLiquid) formula);
+                break;
+        }
+    }
+
+    @Override
+    public void deleteFormula(String id) throws IdDoesNotExistException {
+        try {
+            formulaOilDao.deleteFormulaByFormulaId(id);
+        } catch (IdDoesNotExistException e) {
+            e.printStackTrace();
+            formulaLiquidDao.deleteFormulaByFormulaId(id);
         }
     }
 }

@@ -3,6 +3,7 @@ package suwu.daopuerp.blservice.productionbill;
 import suwu.daopuerp.dto.productionbill.ProductionBillDto;
 import suwu.daopuerp.dto.productionbill.ProductionBillItem;
 import suwu.daopuerp.exception.IdDoesNotExistException;
+import suwu.daopuerp.publicdata.BillType;
 
 import java.util.List;
 
@@ -35,4 +36,12 @@ public interface ProductionBillService {
      * @param billId
      */
     void delete(String billId) throws IdDoesNotExistException;
+
+    /**
+     * 获得下一个Id
+     *
+     * @return
+     * @param billType
+     */
+    String getNextId(BillType billType);
 }

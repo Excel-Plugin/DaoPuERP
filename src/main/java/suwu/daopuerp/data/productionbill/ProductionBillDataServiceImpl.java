@@ -39,10 +39,10 @@ public class ProductionBillDataServiceImpl implements ProductionBillDataService 
     @Override
     public void saveProductionBill(ProductionBill productionBill) {
         switch (productionBill.getBillType()) {
-            case OIL:
+            case LIQUID:
                 productionBillLiquidDao.saveProductionBill((ProductionBillLiquid) productionBill);
                 break;
-            case LIQUID:
+            case OIL:
                 productionBillOilDao.saveProductionBill((ProductionBillOil) productionBill);
                 break;
         }

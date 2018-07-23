@@ -7,8 +7,13 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import suwu.daopuerp.presentation.helpui.StageManager;
 import suwu.daopuerp.presentation.loginui.LoginUiController;
+import suwu.daopuerp.util.PathUtil;
 
 public class MainApplication extends Application {
+
+    static {
+        PathUtil.initDatabase();
+    }
 
     public static void main(String[] args) {
         launch(args);

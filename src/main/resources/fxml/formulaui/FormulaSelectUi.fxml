@@ -14,11 +14,12 @@
     <padding>
         <Insets top="10" right="10" bottom="10" left="10"/>
     </padding>
-    <Label text="选择配方单" textFill="#5e5e5e">
+    <Label text="选择配方单和生产量" textFill="#5e5e5e">
         <font>
             <Font name="System Bold" size="32.0"/>
         </font>
     </Label>
+    <JFXTextField fx:id="tfQuantity" promptText="生产量"/>
     <JFXTextField fx:id="tfSearch" promptText="按列表项搜索，按回车执行搜索"/>
     <JFXTreeTableView fx:id="formulaTable" prefHeight="500.0" prefWidth="750.0">
         <columns>
