@@ -12,16 +12,23 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import suwu.daopuerp.bl.productionbill.factory.ProductionBillBlServiceFactory;
 import suwu.daopuerp.blservice.productionbill.ProductionBillBlService;
 import suwu.daopuerp.dto.productionbill.ProductionBillDto;
 import suwu.daopuerp.dto.productionbill.ProductionBillItem;
+import suwu.daopuerp.dto.stock.ProductionBillStockItem;
+import suwu.daopuerp.exception.ExcelCreateFailException;
 import suwu.daopuerp.exception.IdDoesNotExistException;
 import suwu.daopuerp.presentation.helpui.*;
 import suwu.daopuerp.presentation.productionbillui.liquid.ProductionBillLiquidAddUiController;
 import suwu.daopuerp.presentation.productionbillui.oil.ProductionBillOilAddUiController;
 import suwu.daopuerp.publicdata.BillType;
+import suwu.daopuerp.util.ExcelOutput;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductionBillUiController implements ExternalLoadableUiController {
@@ -172,14 +179,62 @@ public class ProductionBillUiController implements ExternalLoadableUiController 
                         .addCloseButton("好的", "DONE", null)
                         .createAndShow();
             }
-            PromptDialogHelper.start("客户详细信息", "")
+            ProductionBillDto finalProductionBillDto = productionBillDto;
+            PromptDialogHelper.start("单据详细信息", "")
                     .setContent(productionBillDto.detailUi().showContent(productionBillDto).getComponent())
+                    .addCloseButton("导出", "SHARE", e -> {
+                        try {
+                            assert finalProductionBillDto != null;
+                            exportExcel(finalProductionBillDto.getBillType(), finalProductionBillDto);
+                        } catch (ExcelCreateFailException e1) {
+                            e1.printStackTrace();
+                            PromptDialogHelper.start("导出失败！", "生产原始单导出失败。")
+                                    .addCloseButton("好", "CHECK", null)
+                                    .createAndShow();
+                        }
+                    })
                     .addCloseButton("好的", "CHECK", null)
                     .createAndShow();
         } else {
             PromptDialogHelper.start("错误", "请至少选一个条目。")
                     .addCloseButton("好的", "DONE", null)
                     .createAndShow();
+        }
+    }
+
+    private void exportExcel(BillType billType, ProductionBillDto productionBillDto) throws ExcelCreateFailException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("选择路径");
+        fileChooser.setInitialFileName(String.format("生产原始单表%s", productionBillDto.getBillId()));
+        File file = fileChooser.showSaveDialog(new Stage());
+
+        if (file != null) {
+            ExcelOutput.createExcel(file.getParent(), toExcel(billType, productionBillDto), file.getName(), "//");
+            PromptDialogHelper.start("导出成功！", String.format("生产原始单表已经导出到%s。", file.getAbsolutePath()))
+                    .addCloseButton("好", "CHECK", null)
+                    .createAndShow();
+        }
+    }
+
+    private String[] toExcel(BillType billType, ProductionBillDto productionBillDto) {
+        List<String> content = new ArrayList<>();
+        content.add("文件编号//" + productionBillDto.getBillId() + "//生产日期//" + productionBillDto.getProductionDate() + "//品名//" + productionBillDto.getProductionName() + "\n");
+        content.add("开单日期//" + productionBillDto.getBillDate() + "//客户//" + productionBillDto.getClient() + "//型号//" + productionBillDto.getBillType() + "\n");
+        content.add("设备编号//" + productionBillDto.getMachineId() + "//编号//" + productionBillDto.getProductionId() + "\n");
+        content.add("序号//原料代码//加入量KG//实际加入量//生产工艺\n");
+        for (int i = 0; i < productionBillDto.getProductionBillStockItems().size(); i++) {
+            ProductionBillStockItem productionBillStockItem = productionBillDto.getProductionBillStockItems().get(i);
+            content.add(String.format("%s//%s//%s//%s//%s\n",
+                    i, productionBillStockItem.getStockId(), productionBillStockItem.getStockAmount(), "", productionBillStockItem.getStockProcess()
+            ));
+        }
+        content.add("合计//" + productionBillDto.getTotalQuantity() + "//实际入库数量//" + " //损耗率// \n");
+        content.add("调整记录//" + productionBillDto.getModifyRecord() + "//备注//" + productionBillDto.getComment() + "\n");
+        switch (billType) {
+            case OIL:
+                break;
+            case LIQUID:
+                break;
         }
     }
 

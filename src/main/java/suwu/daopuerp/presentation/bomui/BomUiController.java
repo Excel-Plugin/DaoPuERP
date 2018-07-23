@@ -146,14 +146,21 @@ public class BomUiController implements ExternalLoadableUiController {
         return id.charAt(1) >= '0' && id.charAt(1) <= '9';
     }
 
-    public void onExportClicked(ActionEvent actionEvent) throws ExcelCreateFailException {
+    public void onExportClicked(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("选择路径");
-        fileChooser.setInitialFileName(String.format("昆山道普润滑科技有限公司%s生产领料明细表.xls", FormatDateTime.currentDateString()));
+        fileChooser.setInitialFileName(String.format("昆山道普润滑科技有限公司%s生产领料明细表", FormatDateTime.currentDateString()));
         File file = fileChooser.showSaveDialog(new Stage());
 
         if (file != null) {
-            ExcelOutput.createExcel(file.getParent(), toExcel(), file.getName(), "//");
+            try {
+                ExcelOutput.createExcel(file.getParent(), toExcel(), file.getName(), "//");
+            } catch (ExcelCreateFailException e) {
+                e.printStackTrace();
+                PromptDialogHelper.start("导出失败！", "生产原始单导出失败。")
+                        .addCloseButton("好", "CHECK", null)
+                        .createAndShow();
+            }
             PromptDialogHelper.start("导出成功！", String.format("生产领料明细表已经导出到%s。", file.getAbsolutePath()))
                     .addCloseButton("好", "CHECK", null)
                     .createAndShow();
