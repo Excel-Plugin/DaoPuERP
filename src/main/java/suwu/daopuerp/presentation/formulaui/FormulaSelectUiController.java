@@ -13,12 +13,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import suwu.daopuerp.bl.formula.factory.FormulaBlServiceFactory;
+import suwu.daopuerp.bl.productionbill.factory.ProductionBillBlServiceFactory;
 import suwu.daopuerp.blservice.formula.FormulaBlService;
+import suwu.daopuerp.blservice.productionbill.ProductionBillBlService;
 import suwu.daopuerp.dto.formula.FormulaAndAmountDto;
 import suwu.daopuerp.dto.formula.FormulaDto;
 import suwu.daopuerp.dto.formula.FormulaItem;
 import suwu.daopuerp.exception.IdDoesNotExistException;
 import suwu.daopuerp.presentation.helpui.*;
+import suwu.daopuerp.publicdata.BillType;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -44,8 +47,10 @@ public class FormulaSelectUiController extends SelectingDialog implements Formul
     private StringProperty tfQuantityProperty = new SimpleStringProperty("");
 
     private FormulaBlService formulaBlService = FormulaBlServiceFactory.getFormulaBlService();
+    private ProductionBillBlService productionBillBlService = ProductionBillBlServiceFactory.getProductionBillBlService();
 
     public Consumer<FormulaAndAmountDto> callback;
+    public BillType billType;
 
     /**
      * Loads the controller.
@@ -103,6 +108,12 @@ public class FormulaSelectUiController extends SelectingDialog implements Formul
         return new FormulaAndAmountDto(Double.parseDouble(tfQuantityProperty.get()), formulaDto);
     }
 
+
+    private FormulaAndAmountDto getTest() {
+        FormulaDto formulaDto = productionBillBlService.getNextTestBill(billType);
+        return new FormulaAndAmountDto(Double.parseDouble(tfQuantityProperty.get()), formulaDto);
+    }
+
     @FXML
     private void onBtnSelectClicked(ActionEvent actionEvent) {
         onClose(); //一定要调用这个来把弹出框关了。
@@ -120,12 +131,14 @@ public class FormulaSelectUiController extends SelectingDialog implements Formul
      * show the select formula dialog
      *
      * @param callback call back function
+     * @param billType
      */
     @Override
-    public void showFormulaSelectDialog(Consumer<FormulaAndAmountDto> callback) {
+    public void showFormulaSelectDialog(Consumer<FormulaAndAmountDto> callback, BillType billType) {
         ExternalLoadedUiPackage uiPackage = load();
         FormulaSelectUiController controller = uiPackage.getController();
         controller.callback = callback;
+        controller.billType = billType;
         PromptDialogHelper.start("", "").setContent(uiPackage.getComponent()).createAndShow();
     }
 
@@ -143,7 +156,7 @@ public class FormulaSelectUiController extends SelectingDialog implements Formul
     public void onBtnTestClicked(ActionEvent actionEvent) {
         onClose(); //一定要调用这个来把弹出框关了。
         if (callback != null) {
-            callback.accept(getSelected()); //选择结束，调用回调方法。
+            callback.accept(getTest()); //选择结束，调用回调方法。
         }
     }
 }

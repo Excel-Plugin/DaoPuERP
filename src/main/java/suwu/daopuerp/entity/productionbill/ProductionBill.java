@@ -5,6 +5,7 @@ import suwu.daopuerp.entity.Entity;
 import suwu.daopuerp.entity.annotation.*;
 import suwu.daopuerp.publicdata.BillType;
 
+import java.util.Date;
 import java.util.List;
 
 @Table(name = "ProductionBill")
@@ -19,8 +20,9 @@ public class ProductionBill extends Entity {
     private String productionDate;
     @Column(name = "productionName")
     private String productionName;
+    @JsonSerialize
     @Column(name = "billDate")
-    private String billDate;
+    private Date billDate;
     @Column(name = "client")
     private String client;
     @Column(name = "productionType")
@@ -46,7 +48,7 @@ public class ProductionBill extends Entity {
     public ProductionBill() {
     }
 
-    public ProductionBill(String billId, BillType billType, String productionDate, String productionName, String billDate, String client, String productionType, String machineId, String productionId, double totalQuantity, String modifyRecord, String comment, String stableAttr1, String stableAttr2, List<ProductionBillStockItem> productionBillStockItems) {
+    public ProductionBill(String billId, BillType billType, String productionDate, String productionName, Date billDate, String client, String productionType, String machineId, String productionId, double totalQuantity, String modifyRecord, String comment, String stableAttr1, String stableAttr2, List<ProductionBillStockItem> productionBillStockItems) {
         this.billId = billId;
         this.billType = billType;
         this.productionDate = productionDate;
@@ -96,11 +98,11 @@ public class ProductionBill extends Entity {
         this.productionName = productionName;
     }
 
-    public String getBillDate() {
+    public Date getBillDate() {
         return billDate;
     }
 
-    public void setBillDate(String billDate) {
+    public void setBillDate(Date billDate) {
         this.billDate = billDate;
     }
 

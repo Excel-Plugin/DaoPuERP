@@ -13,7 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import suwu.daopuerp.bl.productionbill.factory.ProductionBillBlServiceFactory;
-import suwu.daopuerp.blservice.productionbill.ProductionBillService;
+import suwu.daopuerp.blservice.productionbill.ProductionBillBlService;
 import suwu.daopuerp.dto.productionbill.ProductionBillDto;
 import suwu.daopuerp.dto.productionbill.ProductionBillItem;
 import suwu.daopuerp.exception.IdDoesNotExistException;
@@ -45,7 +45,7 @@ public class ProductionBillUiController implements ExternalLoadableUiController 
     private ObservableList<ProductionBillItemModel> productionBillItemModelObservableList = FXCollections.observableArrayList();
     private StringProperty tfSearchProperty = new SimpleStringProperty("");
 
-    private ProductionBillService productionBillService = ProductionBillBlServiceFactory.getProductionBillService();
+    private ProductionBillBlService productionBillBlService = ProductionBillBlServiceFactory.getProductionBillBlService();
 
     /**
      * Loads the controller.
@@ -74,7 +74,7 @@ public class ProductionBillUiController implements ExternalLoadableUiController 
     }
 
     private void initProductionBills() {
-        List<ProductionBillItem> productionBillItems = productionBillService.getAllProductionBillItems();
+        List<ProductionBillItem> productionBillItems = productionBillBlService.getAllProductionBillItems();
         for (ProductionBillItem productionBillItem : productionBillItems) {
             productionBillItemModelObservableList.add(new ProductionBillItemModel(productionBillItem));
         }
@@ -96,7 +96,7 @@ public class ProductionBillUiController implements ExternalLoadableUiController 
             ProductionBillItem selected = model.getProductionBillItemObjectProperty();
             ProductionBillDto productionBillDto = null;
             try {
-                productionBillDto = productionBillService.getProductionBillDtoById(selected.getBillId());
+                productionBillDto = productionBillBlService.getProductionBillDtoById(selected.getBillId());
             } catch (IdDoesNotExistException e) {
                 e.printStackTrace();
                 PromptDialogHelper.start("错误", "找不到该单据ID。")
@@ -126,7 +126,7 @@ public class ProductionBillUiController implements ExternalLoadableUiController 
         int selectedIndex = billTable.getSelectionModel().getSelectedIndex();
         String formulaId = productionBillItemModelObservableList.get(selectedIndex).getProductionBillItemObjectProperty().getBillId();
         try {
-            productionBillService.delete(formulaId);
+            productionBillBlService.delete(formulaId);
             productionBillItemModelObservableList.remove(selectedIndex);
         } catch (IdDoesNotExistException e) {
             e.printStackTrace();
@@ -165,7 +165,7 @@ public class ProductionBillUiController implements ExternalLoadableUiController 
             ProductionBillItem selected = model.getProductionBillItemObjectProperty();
             ProductionBillDto productionBillDto = null;
             try {
-                productionBillDto = productionBillService.getProductionBillDtoById(selected.getBillId());
+                productionBillDto = productionBillBlService.getProductionBillDtoById(selected.getBillId());
             } catch (IdDoesNotExistException e) {
                 e.printStackTrace();
                 PromptDialogHelper.start("错误", "找不到该单据ID。")

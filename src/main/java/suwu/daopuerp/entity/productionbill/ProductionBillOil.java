@@ -5,6 +5,7 @@ import suwu.daopuerp.entity.annotation.Column;
 import suwu.daopuerp.entity.annotation.Table;
 import suwu.daopuerp.publicdata.BillType;
 
+import java.util.Date;
 import java.util.List;
 
 @Table(name = "ProductionBillOil")
@@ -19,7 +20,7 @@ public class ProductionBillOil extends ProductionBill {
     public ProductionBillOil() {
     }
 
-    public ProductionBillOil(String billId, String productionDate, String productionName, String billDate, String client, String productionType, String machineId, String productionId, double totalQuantity, String modifyRecord, String comment, String stableAttr1, String stableAttr2, List<ProductionBillStockItem> productionBillStockItems, String outLooking, String flashPoint, String viscosity) {
+    public ProductionBillOil(String billId, String productionDate, String productionName, Date billDate, String client, String productionType, String machineId, String productionId, double totalQuantity, String modifyRecord, String comment, String stableAttr1, String stableAttr2, List<ProductionBillStockItem> productionBillStockItems, String outLooking, String flashPoint, String viscosity) {
         super(billId, BillType.OIL, productionDate, productionName, billDate, client, productionType, machineId, productionId, totalQuantity, modifyRecord, comment, stableAttr1, stableAttr2, productionBillStockItems);
         this.outLooking = outLooking;
         this.flashPoint = flashPoint;

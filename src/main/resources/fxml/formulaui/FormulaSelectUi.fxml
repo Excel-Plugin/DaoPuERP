@@ -32,9 +32,9 @@
     <Separator/>
     <HBox spacing="20">
         <JFXButton buttonType="RAISED" onAction="#onBtnTestClicked"
-                   style="-fx-background-color: #339900; -fx-text-fill: #FFFFFF;" text="试验单">
+                   style="-fx-background-color: #424242; -fx-text-fill: #FFFFFF;" text="试验单">
             <graphic>
-                <MaterialIconView glyphName="CHECK" glyphSize="24" glyphStyle="-fx-fill: #FFFFFF"/>
+                <MaterialIconView glyphName="ARROW_FORWARD" glyphSize="24" glyphStyle="-fx-fill: #FFFFFF"/>
             </graphic>
         </JFXButton>
         <JFXButton buttonType="RAISED" onAction="#onBtnSelectClicked"

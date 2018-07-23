@@ -1,5 +1,6 @@
 package suwu.daopuerp.presentation.mainui;
 
+import suwu.daopuerp.presentation.bomui.BomUiController;
 import suwu.daopuerp.presentation.formulaui.FormulaUiController;
 import suwu.daopuerp.presentation.productionbillui.ProductionBillUiController;
 
@@ -19,7 +20,7 @@ public class EmployeeUiController extends FrameworkUiController {
     }
 
     public void onGenerateTotalBill() {
-
+        switchFunction(BomUiController.class, "生成BOM表", true);
     }
 
     /**

@@ -5,6 +5,7 @@ import suwu.daopuerp.entity.annotation.Column;
 import suwu.daopuerp.entity.annotation.Table;
 import suwu.daopuerp.publicdata.BillType;
 
+import java.util.Date;
 import java.util.List;
 
 @Table(name = "ProductionBillLiquid")
@@ -19,7 +20,7 @@ public class ProductionBillLiquid extends ProductionBill {
     public ProductionBillLiquid() {
     }
 
-    public ProductionBillLiquid(String billId, String productionDate, String productionName, String billDate, String client, String productionType, String machineId, String productionId, double totalQuantity, String modifyRecord, String comment, String stableAttr1, String stableAttr2, List<ProductionBillStockItem> productionBillStockItems, String liquidLooking, String phValue, String lightValue) {
+    public ProductionBillLiquid(String billId, String productionDate, String productionName, Date billDate, String client, String productionType, String machineId, String productionId, double totalQuantity, String modifyRecord, String comment, String stableAttr1, String stableAttr2, List<ProductionBillStockItem> productionBillStockItems, String liquidLooking, String phValue, String lightValue) {
         super(billId, BillType.LIQUID, productionDate, productionName, billDate, client, productionType, machineId, productionId, totalQuantity, modifyRecord, comment, stableAttr1, stableAttr2, productionBillStockItems);
         this.liquidLooking = liquidLooking;
         this.phValue = phValue;

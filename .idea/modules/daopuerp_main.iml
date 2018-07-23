@@ -19,7 +19,17 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../libs/jxl.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntry type="library" name="Gradle: net.sf.json-lib:json-lib:jdk15:2.4" level="project" />
+    <orderEntry type="library" name="Gradle: net.sourceforge.jexcelapi:jxl:2.6" level="project" />
     <orderEntry type="library" name="Gradle: com.jfoenix:jfoenix:1.9.1" level="project" />
     <orderEntry type="library" name="Gradle: de.jensd:fontawesomefx-materialicons:2.2.0-5" level="project" />
     <orderEntry type="library" name="Gradle: de.jensd:fontawesomefx-fontawesome:4.7.0-5" level="project" />

@@ -35,6 +35,8 @@ repositories {
 
 dependencies {
     compile 'net.sf.json-lib:json-lib:2.4:jdk15'
+    compile files('../libs/jxl.jar')
+    compile group: 'net.sourceforge.jexcelapi', name: 'jxl', version: '2.6'
     compile 'com.jfoenix:jfoenix:1.9.1'
     compile 'de.jensd:fontawesomefx-commons:8.15'
     compile 'de.jensd:fontawesomefx-materialicons:2.2.0-5'

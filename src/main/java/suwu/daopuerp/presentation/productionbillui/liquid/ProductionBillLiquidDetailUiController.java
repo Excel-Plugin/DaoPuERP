@@ -12,7 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import suwu.daopuerp.bl.productionbill.factory.ProductionBillBlServiceFactory;
-import suwu.daopuerp.blservice.productionbill.ProductionBillService;
+import suwu.daopuerp.blservice.productionbill.ProductionBillBlService;
 import suwu.daopuerp.dto.productionbill.ProductionBillDto;
 import suwu.daopuerp.dto.productionbill.ProductionBillLiquidDto;
 import suwu.daopuerp.dto.stock.ProductionBillStockItem;
@@ -85,7 +85,7 @@ public class ProductionBillLiquidDetailUiController extends ProductionBillDetail
     private StringProperty stableAttr2Property = new SimpleStringProperty("");
 
     private StockAddUiController stockAddUiController = StackAddUiControllerFactory.getStackAddUiController();
-    private ProductionBillService productionBillService = ProductionBillBlServiceFactory.getProductionBillService();
+    private ProductionBillBlService productionBillBlService = ProductionBillBlServiceFactory.getProductionBillBlService();
 
     /**
      * Loads the controller.

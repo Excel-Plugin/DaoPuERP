@@ -17,7 +17,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import javafx.scene.input.MouseEvent;
 import suwu.daopuerp.bl.productionbill.factory.ProductionBillBlServiceFactory;
-import suwu.daopuerp.blservice.productionbill.ProductionBillService;
+import suwu.daopuerp.blservice.productionbill.ProductionBillBlService;
 import suwu.daopuerp.dto.formula.FormulaLiquidDto;
 import suwu.daopuerp.dto.productionbill.ProductionBillLiquidDto;
 import suwu.daopuerp.dto.stock.ProductionBillStockItem;
@@ -99,7 +99,7 @@ public class ProductionBillLiquidAddUiController implements ExternalLoadableUiCo
 
     private FormulaSelectUi formulaSelectUi = new FormulaSelectUiController();
     private StockAddUiController stockAddUiController = StackAddUiControllerFactory.getStackAddUiController();
-    private ProductionBillService productionBillService = ProductionBillBlServiceFactory.getProductionBillService();
+    private ProductionBillBlService productionBillBlService = ProductionBillBlServiceFactory.getProductionBillBlService();
 
     /**
      * Loads the controller.
@@ -154,7 +154,7 @@ public class ProductionBillLiquidAddUiController implements ExternalLoadableUiCo
 
     private void autoFill() {
         try {
-            billId.setText(productionBillService.getNextId(BillType.LIQUID));
+            billId.setText(productionBillBlService.getNextId(BillType.LIQUID));
             billDate.setText(FormatDateTime.toShortDateString());
         } catch (Exception e) {
             e.printStackTrace();
@@ -200,7 +200,7 @@ public class ProductionBillLiquidAddUiController implements ExternalLoadableUiCo
     }
 
     private void submit() {
-        productionBillService.submit(getCurrentProductionBillLiquidDto());
+        productionBillBlService.submit(getCurrentProductionBillLiquidDto());
     }
 
     private ProductionBillLiquidDto getCurrentProductionBillLiquidDto() {
@@ -229,7 +229,7 @@ public class ProductionBillLiquidAddUiController implements ExternalLoadableUiCo
             FormulaLiquidDto formulaLiquidDto = (FormulaLiquidDto) formulaAndAmountDto.getFormulaDto();
             selectedProductionId.setText(formulaLiquidDto.getFormulaCode());
             productionName.setText(formulaLiquidDto.getFormulaName());
-            billDate.setText(FormatDateTime.toLongTimeString());
+            billDate.setText(FormatDateTime.toShortDateString());
             productionType.setText(formulaLiquidDto.getFormulaType());
             productionId.setText(formulaLiquidDto.getFormulaCode());
             totalQuantity.setText(formulaAndAmountDto.getAmount() + "");
@@ -243,6 +243,6 @@ public class ProductionBillLiquidAddUiController implements ExternalLoadableUiCo
                 productionBillStockItemModels.add(new ProductionBillStockItemModel(new ProductionBillStockItem(stockItem.getStockId(), amount * stockItem.getStockPercent(), stockItem.getStockProcess())));
             }
             productionBillStockItemModelObservableList.addAll(productionBillStockItemModels);
-        });
+        }, BillType.LIQUID);
     }
 }

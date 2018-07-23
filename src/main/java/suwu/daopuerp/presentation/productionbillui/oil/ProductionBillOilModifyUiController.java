@@ -17,7 +17,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import javafx.scene.input.MouseEvent;
 import suwu.daopuerp.bl.productionbill.factory.ProductionBillBlServiceFactory;
-import suwu.daopuerp.blservice.productionbill.ProductionBillService;
+import suwu.daopuerp.blservice.productionbill.ProductionBillBlService;
 import suwu.daopuerp.dto.formula.FormulaOilDto;
 import suwu.daopuerp.dto.productionbill.ProductionBillDto;
 import suwu.daopuerp.dto.productionbill.ProductionBillOilDto;
@@ -31,6 +31,7 @@ import suwu.daopuerp.presentation.productionbillui.ProductionBillStockItemModel;
 import suwu.daopuerp.presentation.productionbillui.ProductionBillUiController;
 import suwu.daopuerp.presentation.stockui.StockAddUiController;
 import suwu.daopuerp.presentation.stockui.factory.StackAddUiControllerFactory;
+import suwu.daopuerp.publicdata.BillType;
 import suwu.daopuerp.util.FormatDateTime;
 
 import java.util.ArrayList;
@@ -100,7 +101,7 @@ public class ProductionBillOilModifyUiController extends ProductionBillModifyUi 
 
     private FormulaSelectUi formulaSelectUi = new FormulaSelectUiController();
     private StockAddUiController stockAddUiController = StackAddUiControllerFactory.getStackAddUiController();
-    private ProductionBillService productionBillService = ProductionBillBlServiceFactory.getProductionBillService();
+    private ProductionBillBlService productionBillBlService = ProductionBillBlServiceFactory.getProductionBillBlService();
 
     /**
      * Loads the controller.
@@ -211,7 +212,7 @@ public class ProductionBillOilModifyUiController extends ProductionBillModifyUi 
     }
 
     private void submit() {
-        productionBillService.submit(getCurrentProductionBillOilDto());
+        productionBillBlService.submit(getCurrentProductionBillOilDto());
     }
 
     private ProductionBillOilDto getCurrentProductionBillOilDto() {
@@ -265,7 +266,7 @@ public class ProductionBillOilModifyUiController extends ProductionBillModifyUi 
             FormulaOilDto formulaOilDto = (FormulaOilDto) formulaAndAmountDto.getFormulaDto();
             selectedProductionId.setText(formulaOilDto.getFormulaCode());
             productionName.setText(formulaOilDto.getFormulaName());
-            billDate.setText(FormatDateTime.toLongTimeString());
+            billDate.setText(FormatDateTime.toShortDateString());
             productionType.setText(formulaOilDto.getFormulaType());
             productionId.setText(formulaOilDto.getFormulaCode());
             totalQuantity.setText(formulaAndAmountDto.getAmount() + "");
@@ -279,6 +280,6 @@ public class ProductionBillOilModifyUiController extends ProductionBillModifyUi 
                 productionBillStockItemModels.add(new ProductionBillStockItemModel(new ProductionBillStockItem(stockItem.getStockId(), formulaAndAmountDto.getAmount() * stockItem.getStockPercent(), stockItem.getStockProcess())));
             }
             productionBillStockItemModelObservableList.addAll(productionBillStockItemModels);
-        });
+        }, BillType.OIL);
     }
 }

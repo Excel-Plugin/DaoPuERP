@@ -1,13 +1,16 @@
 package suwu.daopuerp.blservice.productionbill;
 
+import suwu.daopuerp.dto.formula.FormulaDto;
 import suwu.daopuerp.dto.productionbill.ProductionBillDto;
 import suwu.daopuerp.dto.productionbill.ProductionBillItem;
+import suwu.daopuerp.entity.productionbill.ProductionBill;
 import suwu.daopuerp.exception.IdDoesNotExistException;
 import suwu.daopuerp.publicdata.BillType;
 
+import java.util.Date;
 import java.util.List;
 
-public interface ProductionBillService {
+public interface ProductionBillBlService {
     /**
      * 获得所有的生产原始单
      *
@@ -40,8 +43,24 @@ public interface ProductionBillService {
     /**
      * 获得下一个Id
      *
-     * @return
      * @param billType
+     * @return
      */
     String getNextId(BillType billType);
+
+    /**
+     * 获得两个时间段之间的生产单
+     *
+     * @param startDate
+     * @param endDate
+     * @return
+     */
+    List<ProductionBill> getBillsBetween(Date startDate, Date endDate);
+
+    /**
+     * 获得下一个测试单据
+     *
+     * @return
+     */
+    FormulaDto getNextTestBill(BillType billType);
 }

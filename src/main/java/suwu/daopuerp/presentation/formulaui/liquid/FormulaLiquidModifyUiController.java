@@ -162,7 +162,7 @@ public class FormulaLiquidModifyUiController extends FormulaModifyUi implements 
 
     private FormulaLiquidDto getCurrentFormulaLiquidDto() {
         List<StockItem> stockItemList = stockItemModelObservableList.stream().collect(ArrayList::new, (list, stockItemModel) -> list.add(stockItemModel.getStockItemObjectProperty()), ArrayList::addAll);
-        return new FormulaLiquidDto(formulaIdProperty.get(), formulaCodeProperty.get(), formulaNameProperty.get(), formulaTypeProperty.get(), stockItemList, liquidLookingProperty.get(), phValueProperty.get(), lightValueProperty.get(), stableAttr1Property.get(), stableAttr2Property.get());
+        return new FormulaLiquidDto(formulaIdProperty.get(), formulaCodeProperty.get(), formulaNameProperty.get(), formulaTypeProperty.get(), stockItemList, stableAttr1Property.get(), stableAttr2Property.get(), liquidLookingProperty.get(), phValueProperty.get(), lightValueProperty.get());
     }
 
     public void onBtnResetClicked(ActionEvent actionEvent) {

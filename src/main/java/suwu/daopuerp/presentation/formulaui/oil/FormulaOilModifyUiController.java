@@ -190,7 +190,7 @@ public class FormulaOilModifyUiController extends FormulaModifyUi implements Ext
 
     private FormulaOilDto getCurrentFormulaOilDto() {
         List<StockItem> stockItemList = stockItemModelObservableList.stream().collect(ArrayList::new, (list, stockItemModel) -> list.add(stockItemModel.getStockItemObjectProperty()), ArrayList::addAll);
-        return new FormulaOilDto(formulaIdProperty.get(), formulaCodeProperty.get(), formulaNameProperty.get(), formulaTypeProperty.get(), stockItemList, outLookingProperty.get(), flashPointProperty.get(), viscosityProperty.get(), stableAttr1Property.get(), stableAttr2Property.get());
+        return new FormulaOilDto(formulaIdProperty.get(), formulaCodeProperty.get(), formulaNameProperty.get(), formulaTypeProperty.get(), stockItemList, stableAttr1Property.get(), stableAttr2Property.get(), outLookingProperty.get(), flashPointProperty.get(), viscosityProperty.get());
     }
 
     public void onBtnCancelClicked(ActionEvent actionEvent) {

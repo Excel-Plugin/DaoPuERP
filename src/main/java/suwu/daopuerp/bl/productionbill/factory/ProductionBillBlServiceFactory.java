@@ -1,12 +1,12 @@
 package suwu.daopuerp.bl.productionbill.factory;
 
-import suwu.daopuerp.bl.productionbill.ProductionBillServiceImpl;
-import suwu.daopuerp.blservice.productionbill.ProductionBillService;
+import suwu.daopuerp.bl.productionbill.ProductionBillBlServiceImpl;
+import suwu.daopuerp.blservice.productionbill.ProductionBillBlService;
 
 public class ProductionBillBlServiceFactory {
-    private static ProductionBillService productionBillService = new ProductionBillServiceImpl();
+    private static ProductionBillBlService productionBillBlService = new ProductionBillBlServiceImpl();
 
-    public static ProductionBillService getProductionBillService() {
-        return productionBillService;
+    public static ProductionBillBlService getProductionBillBlService() {
+        return productionBillBlService;
     }
 }
