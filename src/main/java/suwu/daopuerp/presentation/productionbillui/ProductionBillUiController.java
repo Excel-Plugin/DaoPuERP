@@ -14,10 +14,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import jxl.Workbook;
+import jxl.write.*;
 import suwu.daopuerp.bl.productionbill.factory.ProductionBillBlServiceFactory;
 import suwu.daopuerp.blservice.productionbill.ProductionBillBlService;
 import suwu.daopuerp.dto.productionbill.ProductionBillDto;
 import suwu.daopuerp.dto.productionbill.ProductionBillItem;
+import suwu.daopuerp.dto.productionbill.ProductionBillLiquidDto;
+import suwu.daopuerp.dto.productionbill.ProductionBillOilDto;
 import suwu.daopuerp.dto.stock.ProductionBillStockItem;
 import suwu.daopuerp.exception.ExcelCreateFailException;
 import suwu.daopuerp.exception.IdDoesNotExistException;
@@ -25,10 +29,9 @@ import suwu.daopuerp.presentation.helpui.*;
 import suwu.daopuerp.presentation.productionbillui.liquid.ProductionBillLiquidAddUiController;
 import suwu.daopuerp.presentation.productionbillui.oil.ProductionBillOilAddUiController;
 import suwu.daopuerp.publicdata.BillType;
-import suwu.daopuerp.util.ExcelOutput;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 
 public class ProductionBillUiController implements ExternalLoadableUiController {
@@ -53,6 +56,8 @@ public class ProductionBillUiController implements ExternalLoadableUiController 
     private StringProperty tfSearchProperty = new SimpleStringProperty("");
 
     private ProductionBillBlService productionBillBlService = ProductionBillBlServiceFactory.getProductionBillBlService();
+
+    private final static int MIN_ROW = 20;
 
     /**
      * Loads the controller.
@@ -209,32 +214,157 @@ public class ProductionBillUiController implements ExternalLoadableUiController 
         File file = fileChooser.showSaveDialog(new Stage());
 
         if (file != null) {
-            ExcelOutput.createExcel(file.getParent(), toExcel(billType, productionBillDto), file.getName(), "//");
+            createExcel(billType, productionBillDto, file.getName(), file.getPath());
             PromptDialogHelper.start("导出成功！", String.format("生产原始单表已经导出到%s。", file.getAbsolutePath()))
                     .addCloseButton("好", "CHECK", null)
                     .createAndShow();
         }
     }
 
-    private String[] toExcel(BillType billType, ProductionBillDto productionBillDto) {
-        List<String> content = new ArrayList<>();
-        content.add("文件编号//" + productionBillDto.getBillId() + "//生产日期//" + productionBillDto.getProductionDate() + "//品名//" + productionBillDto.getProductionName() + "\n");
-        content.add("开单日期//" + productionBillDto.getBillDate() + "//客户//" + productionBillDto.getClient() + "//型号//" + productionBillDto.getBillType() + "\n");
-        content.add("设备编号//" + productionBillDto.getMachineId() + "//编号//" + productionBillDto.getProductionId() + "\n");
-        content.add("序号//原料代码//加入量KG//实际加入量//生产工艺\n");
-        for (int i = 0; i < productionBillDto.getProductionBillStockItems().size(); i++) {
-            ProductionBillStockItem productionBillStockItem = productionBillDto.getProductionBillStockItems().get(i);
-            content.add(String.format("%s//%s//%s//%s//%s\n",
-                    i, productionBillStockItem.getStockId(), productionBillStockItem.getStockAmount(), "", productionBillStockItem.getStockProcess()
-            ));
-        }
-        content.add("合计//" + productionBillDto.getTotalQuantity() + "//实际入库数量//" + " //损耗率// \n");
-        content.add("调整记录//" + productionBillDto.getModifyRecord() + "//备注//" + productionBillDto.getComment() + "\n");
-        switch (billType) {
-            case OIL:
-                break;
-            case LIQUID:
-                break;
+    private void createExcel(BillType billType, ProductionBillDto productionBillDto, String fileName, String path) {
+        try {
+            path = path + ".xls";
+            WritableWorkbook book = Workbook.createWorkbook(new File(path));
+            //页码
+            WritableSheet sheet = book.createSheet(fileName, 0);
+
+
+            WritableFont normalFont = new WritableFont(WritableFont.createFont("宋体"), 11, WritableFont.NO_BOLD);
+            // 设置字体为宋体,11号字,不加粗,颜色为红色
+            WritableCellFormat normalFormat = new WritableCellFormat(normalFont);
+            normalFormat.setAlignment(jxl.format.Alignment.CENTRE);
+            normalFormat.setVerticalAlignment(jxl.format.VerticalAlignment.CENTRE);
+            normalFormat.setBorder(jxl.format.Border.ALL, jxl.format.BorderLineStyle.THIN);
+            sheet.addCell(new Label(0, 0, "文件编号", normalFormat));
+            sheet.addCell(new Label(1, 0, productionBillDto.getBillId(), normalFormat));
+            sheet.addCell(new Label(2, 0, "生产日期", normalFormat));
+            sheet.addCell(new Label(3, 0, productionBillDto.getProductionDate(), normalFormat));
+            sheet.addCell(new Label(4, 0, "品名", normalFormat));
+            sheet.addCell(new Label(5, 0, productionBillDto.getProductionName(), normalFormat));
+
+            sheet.addCell(new Label(0, 1, "开单日期", normalFormat));
+            sheet.addCell(new Label(1, 1, productionBillDto.getBillDate(), normalFormat));
+            sheet.addCell(new Label(2, 1, "客户", normalFormat));
+            sheet.addCell(new Label(3, 1, productionBillDto.getClient(), normalFormat));
+            sheet.addCell(new Label(4, 1, "型号", normalFormat));
+            sheet.addCell(new Label(5, 1, productionBillDto.getProductionType(), normalFormat));
+
+            sheet.addCell(new Label(0, 2, "设备编号", normalFormat));
+            sheet.addCell(new Label(1, 2, productionBillDto.getMachineId(), normalFormat));
+            sheet.addCell(new Label(2, 2, "", normalFormat));
+            sheet.mergeCells(1, 2, 2, 2);
+            sheet.addCell(new Label(3, 2, "编号", normalFormat));
+            sheet.addCell(new Label(4, 2, productionBillDto.getProductionId(), normalFormat));
+            sheet.addCell(new Label(5, 2, "", normalFormat));
+            sheet.mergeCells(4, 2, 5, 2);
+
+            sheet.addCell(new Label(0, 3, "序号", normalFormat));
+            sheet.addCell(new Label(1, 3, "原料代码", normalFormat));
+            sheet.addCell(new Label(2, 3, "加入量KG", normalFormat));
+            sheet.addCell(new Label(3, 3, "实际加入量", normalFormat));
+            sheet.addCell(new Label(4, 3, "生产工艺", normalFormat));
+            sheet.addCell(new Label(5, 3, "调整记录", normalFormat));
+
+            int i = 0;
+            for (i = 0; i < productionBillDto.getProductionBillStockItems().size(); i++) {
+                ProductionBillStockItem productionBillStockItem = productionBillDto.getProductionBillStockItems().get(i);
+                sheet.addCell(new Label(0, 4 + i, i + "", normalFormat));
+                sheet.addCell(new Label(1, 4 + i, productionBillStockItem.getStockId(), normalFormat));
+                sheet.addCell(new Label(2, 4 + i, productionBillStockItem.getStockAmount() + "", normalFormat));
+                sheet.addCell(new Label(3, 4 + i, "", normalFormat));
+                sheet.addCell(new Label(4, 4 + i, productionBillStockItem.getStockProcess(), normalFormat));
+                sheet.addCell(new Label(5, 4 + i, "", normalFormat));
+            }
+            for (int j = i; j < MIN_ROW + 1; j++) {
+                sheet.addCell(new Label(0, 4 + j, j + "", normalFormat));
+                sheet.addCell(new Label(1, 4 + j, "", normalFormat));
+                sheet.addCell(new Label(2, 4 + j, "", normalFormat));
+                sheet.addCell(new Label(3, 4 + j, "", normalFormat));
+                sheet.addCell(new Label(4, 4 + j, "", normalFormat));
+                sheet.addCell(new Label(5, 4 + j, "", normalFormat));
+            }
+            sheet.addCell(new Label(5, 5, productionBillDto.getModifyRecord(), normalFormat));
+            sheet.mergeCells(5, 4, 5, (4 + MIN_ROW) / 2);
+            sheet.addCell(new Label(5, (4 + MIN_ROW) / 2 + 1, "备注", normalFormat));
+            sheet.addCell(new Label(5, (4 + MIN_ROW) / 2 + 2, productionBillDto.getComment(), normalFormat));
+            sheet.mergeCells(5, (4 + MIN_ROW) / 2 + 2, 5, 4 + MIN_ROW);
+            sheet.addCell(new Label(0, 4 + MIN_ROW + 1, "合计", normalFormat));
+            sheet.addCell(new Label(1, 4 + MIN_ROW + 1, productionBillDto.getTotalQuantity() + "", normalFormat));
+            sheet.addCell(new Label(2, 4 + MIN_ROW + 1, "实际入库数量", normalFormat));
+            sheet.addCell(new Label(3, 4 + MIN_ROW + 1, " ", normalFormat));
+            sheet.addCell(new Label(4, 4 + MIN_ROW + 1, "损耗率", normalFormat));
+            sheet.addCell(new Label(5, 4 + MIN_ROW + 1, " ", normalFormat));
+
+            int handWriteStartRow = 4 + MIN_ROW + 2;
+            switch (billType) {
+                case OIL:
+                    ProductionBillOilDto productionBillOilDto = (ProductionBillOilDto) productionBillDto;
+                    sheet.addCell(new Label(0, handWriteStartRow, "质量指标", normalFormat));
+                    sheet.mergeCells(0, handWriteStartRow, 0, handWriteStartRow + 2);
+                    sheet.addCell(new Label(1, handWriteStartRow, "外观", normalFormat));
+                    sheet.addCell(new Label(1, handWriteStartRow + 1, "开口闪点", normalFormat));
+                    sheet.addCell(new Label(1, handWriteStartRow + 2, "粘度40℃", normalFormat));
+                    sheet.addCell(new Label(2, handWriteStartRow, productionBillOilDto.getOutLooking(), normalFormat));
+                    sheet.addCell(new Label(2, handWriteStartRow + 1, productionBillOilDto.getFlashPoint(), normalFormat));
+                    sheet.addCell(new Label(2, handWriteStartRow + 2, productionBillOilDto.getViscosity(), normalFormat));
+                    break;
+                case LIQUID:
+                    ProductionBillLiquidDto productionBillLiquidDto = (ProductionBillLiquidDto) productionBillDto;
+                    sheet.addCell(new Label(0, handWriteStartRow, "质量指标", normalFormat));
+                    sheet.mergeCells(0, handWriteStartRow, 0, handWriteStartRow + 2);
+                    sheet.addCell(new Label(1, handWriteStartRow, "原液外观", normalFormat));
+                    sheet.addCell(new Label(1, handWriteStartRow + 1, "PH值", normalFormat));
+                    sheet.addCell(new Label(1, handWriteStartRow + 2, "折光系数", normalFormat));
+                    sheet.addCell(new Label(2, handWriteStartRow, productionBillLiquidDto.getLiquidLooking(), normalFormat));
+                    sheet.addCell(new Label(2, handWriteStartRow + 1, productionBillLiquidDto.getPhValue(), normalFormat));
+                    sheet.addCell(new Label(2, handWriteStartRow + 2, productionBillLiquidDto.getLightValue(), normalFormat));
+                    break;
+            }
+            sheet.addCell(new Label(3, handWriteStartRow, "结论", normalFormat));
+            sheet.addCell(new Label(3, handWriteStartRow + 1, "", normalFormat));
+            sheet.addCell(new Label(3, handWriteStartRow + 2, "", normalFormat));
+            sheet.addCell(new Label(4, handWriteStartRow, "主管批示", normalFormat));
+            sheet.addCell(new Label(4, handWriteStartRow + 1, "生产责任人", normalFormat));
+            sheet.addCell(new Label(4, handWriteStartRow + 2, "", normalFormat));
+            sheet.mergeCells(4, handWriteStartRow + 1, 4, handWriteStartRow + 2);
+            sheet.addCell(new Label(5, handWriteStartRow, "", normalFormat));
+            sheet.addCell(new Label(5, handWriteStartRow + 1, "", normalFormat));
+            sheet.addCell(new Label(5, handWriteStartRow + 2, "", normalFormat));
+            sheet.addCell(new Label(0, handWriteStartRow + 3, "中控项目", normalFormat));
+            sheet.mergeCells(0, handWriteStartRow + 3, 0, handWriteStartRow + 6);
+            sheet.addCell(new Label(1, handWriteStartRow + 3, "外观", normalFormat));
+            sheet.mergeCells(1, handWriteStartRow + 3, 2, handWriteStartRow + 3);
+            sheet.addCell(new Label(1, handWriteStartRow + 4, "原液安定性", normalFormat));
+            sheet.mergeCells(1, handWriteStartRow + 4, 1, handWriteStartRow + 5);
+            sheet.addCell(new Label(2, handWriteStartRow + 4, productionBillDto.getStableAttr1(), normalFormat));
+            sheet.addCell(new Label(2, handWriteStartRow + 5, productionBillDto.getStableAttr2(), normalFormat));
+            sheet.addCell(new Label(1, handWriteStartRow + 6, "防锈性(IP287)", normalFormat));
+            sheet.mergeCells(1, handWriteStartRow + 6, 2, handWriteStartRow + 6);
+            sheet.addCell(new Label(3, handWriteStartRow + 3, "", normalFormat));
+            sheet.addCell(new Label(3, handWriteStartRow + 4, "", normalFormat));
+            sheet.addCell(new Label(3, handWriteStartRow + 5, "", normalFormat));
+            sheet.addCell(new Label(3, handWriteStartRow + 6, "", normalFormat));
+            sheet.addCell(new Label(4, handWriteStartRow + 3, "运动粘度", normalFormat));
+            sheet.addCell(new Label(4, handWriteStartRow + 4, "开口闪点", normalFormat));
+            sheet.addCell(new Label(4, handWriteStartRow + 5, "钢片腐蚀", normalFormat));
+            sheet.addCell(new Label(4, handWriteStartRow + 6, "密度", normalFormat));
+            sheet.addCell(new Label(5, handWriteStartRow + 3, "检测人", normalFormat));
+            sheet.addCell(new Label(5, handWriteStartRow + 4, "", normalFormat));
+            sheet.addCell(new Label(5, handWriteStartRow + 5, "填写", normalFormat));
+            sheet.addCell(new Label(5, handWriteStartRow + 6, "admin", normalFormat));
+            sheet.addCell(new Label(0, handWriteStartRow + 7, "核对", normalFormat));
+            sheet.addCell(new Label(1, handWriteStartRow + 7, "", normalFormat));
+            sheet.addCell(new Label(2, handWriteStartRow + 7, "审核", normalFormat));
+            sheet.addCell(new Label(3, handWriteStartRow + 7, "", normalFormat));
+            sheet.addCell(new Label(4, handWriteStartRow + 7, "归档", normalFormat));
+            sheet.addCell(new Label(5, handWriteStartRow + 7, "", normalFormat));
+            book.write();
+            book.close();
+        } catch (WriteException | IOException e) {
+            e.printStackTrace();
+            PromptDialogHelper.start("导出失败！", "生产原始单导出失败。")
+                    .addCloseButton("好", "CHECK", null)
+                    .createAndShow();
         }
     }
 
