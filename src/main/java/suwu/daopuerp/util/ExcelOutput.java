@@ -24,7 +24,7 @@ public class ExcelOutput {
 
     public static void createExcel(String path, String[] outputMessage, String name, String separater) throws ExcelCreateFailException {
         try {
-            path = path + ".xls";
+            path = path + "/" + name + ".xls";
             book = Workbook.createWorkbook(new File(path));
             //页码
             sheet = book.createSheet(name, 0);
