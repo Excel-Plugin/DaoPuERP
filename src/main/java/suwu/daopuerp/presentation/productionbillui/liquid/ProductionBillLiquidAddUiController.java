@@ -76,7 +76,6 @@ public class ProductionBillLiquidAddUiController implements ExternalLoadableUiCo
 
     private ObservableList<ProductionBillStockItemModel> productionBillStockItemModelObservableList = FXCollections.observableArrayList();
     private StringProperty billIdProperty = new SimpleStringProperty("");
-    private StringProperty productionDateProperty = new SimpleStringProperty("");
     private StringProperty productionNameProperty = new SimpleStringProperty("");
     private StringProperty billDateProperty = new SimpleStringProperty("");
     private StringProperty clientProperty = new SimpleStringProperty("");

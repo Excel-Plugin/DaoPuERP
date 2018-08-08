@@ -215,13 +215,6 @@ public class ProductionBillOilModifyUiController extends ProductionBillModifyUi 
         return new ProductionBillOilDto(billIdProperty.get(), FormatDateTime.fromLocalDate(productionDate.getValue()), productionNameProperty.get(), billDateProperty.get(), clientProperty.get(), productionTypeProperty.get(), machineIdProperty.get(), productionIdProperty.get(), Double.parseDouble(totalQuantityProperty.get()), modifyRecordProperty.get(), commentProperty.get(), stableAttr1Property.get(), stableAttr2Property.get(), productionBillStockItems, outLookingProperty.get(), flashPointProperty.get(), viscosityProperty.get());
     }
 
-    public void onBtnResetClicked(ActionEvent actionEvent) {
-        PromptDialogHelper.start("是否要重置", null)
-                .addCloseButton("确定", "DONE", e -> reset())
-                .addCloseButton("取消", "UNDO", null)
-                .createAndShow();
-    }
-
     @FXML
     private void onBtnResetClicked() {
         PromptDialogHelper.start("是否要重置", null)

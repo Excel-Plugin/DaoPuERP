@@ -54,6 +54,11 @@ public class FormatDateTime {
         return myFmt.format(dt);
     }
 
+    public static String toShortTimeString(Date dt) {
+        SimpleDateFormat myFmt = new SimpleDateFormat("yy/MM/dd");
+        return myFmt.format(dt);
+    }
+
     public static String toShortTimeString() {
         Date dt = new Date();
         SimpleDateFormat myFmt = new SimpleDateFormat("yy/MM/dd");

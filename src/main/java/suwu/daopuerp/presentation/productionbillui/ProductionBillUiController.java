@@ -16,6 +16,8 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import jxl.Workbook;
+import jxl.format.PageOrientation;
+import jxl.format.PaperSize;
 import jxl.write.*;
 import suwu.daopuerp.bl.productionbill.factory.ProductionBillBlServiceFactory;
 import suwu.daopuerp.blservice.productionbill.ProductionBillBlService;
@@ -248,7 +250,20 @@ public class ProductionBillUiController implements ExternalLoadableUiController 
             WritableWorkbook book = Workbook.createWorkbook(new File(path));
             //页码
             WritableSheet sheet = book.createSheet(fileName, 0);
-
+            sheet.getSettings().setOrientation(PageOrientation.PORTRAIT);    // 设置为纵向打印
+            sheet.getSettings().setPaperSize(PaperSize.A4);            // 设置纸张
+            sheet.getSettings().setFitHeight(297);                        // 打印区高度
+            sheet.getSettings().setFitWidth(210);                        // 打印区宽度
+            sheet.setColumnView(0, 7);
+            sheet.setColumnView(1, 12);
+            sheet.setColumnView(2, 12);
+            sheet.setColumnView(3, 10);
+            sheet.setColumnView(4, 40);
+            sheet.setColumnView(5, 8);
+            sheet.getSettings().setTopMargin(0.5);
+            sheet.getSettings().setBottomMargin(0.3);
+            sheet.getSettings().setLeftMargin(0.1);
+            sheet.getSettings().setRightMargin(0.1);
 
             WritableFont normalFont = new WritableFont(WritableFont.createFont("宋体"), 11, WritableFont.NO_BOLD);
             // 设置字体为宋体,11号字,不加粗,颜色为红色
@@ -256,67 +271,77 @@ public class ProductionBillUiController implements ExternalLoadableUiController 
             normalFormat.setAlignment(jxl.format.Alignment.CENTRE);
             normalFormat.setVerticalAlignment(jxl.format.VerticalAlignment.CENTRE);
             normalFormat.setBorder(jxl.format.Border.ALL, jxl.format.BorderLineStyle.THIN);
-            sheet.addCell(new Label(0, 0, "文件编号", normalFormat));
-            sheet.addCell(new Label(1, 0, productionBillDto.getBillId(), normalFormat));
-            sheet.addCell(new Label(2, 0, "生产日期", normalFormat));
-            sheet.addCell(new Label(3, 0, FormatDateTime.toShortDateString(productionBillDto.getProductionDate()), normalFormat));
-            sheet.addCell(new Label(4, 0, "品名", normalFormat));
-            sheet.addCell(new Label(5, 0, productionBillDto.getProductionName(), normalFormat));
+            switch (billType) {
+                case LIQUID:
+                    sheet.addCell(new Label(0, 0, "生产原始单（液）", normalFormat));
+                    break;
+                case OIL:
+                    sheet.addCell(new Label(0, 0, "生产原始单（油）", normalFormat));
+                    break;
+            }
+            sheet.mergeCells(0, 0, 5, 0);
 
-            sheet.addCell(new Label(0, 1, "开单日期", normalFormat));
-            sheet.addCell(new Label(1, 1, productionBillDto.getBillDate(), normalFormat));
-            sheet.addCell(new Label(2, 1, "客户", normalFormat));
-            sheet.addCell(new Label(3, 1, productionBillDto.getClient(), normalFormat));
-            sheet.addCell(new Label(4, 1, "型号", normalFormat));
-            sheet.addCell(new Label(5, 1, productionBillDto.getProductionType(), normalFormat));
+            sheet.addCell(new Label(0, 1, "文件编号", normalFormat));
+            sheet.addCell(new Label(1, 1, productionBillDto.getBillId(), normalFormat));
+            sheet.addCell(new Label(2, 1, "生产日期", normalFormat));
+            sheet.addCell(new Label(3, 1, FormatDateTime.toShortTimeString(productionBillDto.getProductionDate()), normalFormat));
+            sheet.addCell(new Label(4, 1, "品名", normalFormat));
+            sheet.addCell(new Label(5, 1, productionBillDto.getProductionName(), normalFormat));
 
-            sheet.addCell(new Label(0, 2, "设备编号", normalFormat));
-            sheet.addCell(new Label(1, 2, productionBillDto.getMachineId(), normalFormat));
-            sheet.addCell(new Label(2, 2, "", normalFormat));
-            sheet.mergeCells(1, 2, 2, 2);
-            sheet.addCell(new Label(3, 2, "编号", normalFormat));
-            sheet.addCell(new Label(4, 2, productionBillDto.getProductionId(), normalFormat));
-            sheet.addCell(new Label(5, 2, "", normalFormat));
-            sheet.mergeCells(4, 2, 5, 2);
+            sheet.addCell(new Label(0, 2, "开单日期", normalFormat));
+            sheet.addCell(new Label(1, 2, productionBillDto.getBillDate().split("日")[0] + "日", normalFormat));
+            sheet.addCell(new Label(2, 2, "客户", normalFormat));
+            sheet.addCell(new Label(3, 2, productionBillDto.getClient(), normalFormat));
+            sheet.addCell(new Label(4, 2, "型号", normalFormat));
+            sheet.addCell(new Label(5, 2, productionBillDto.getProductionType(), normalFormat));
 
-            sheet.addCell(new Label(0, 3, "序号", normalFormat));
-            sheet.addCell(new Label(1, 3, "原料代码", normalFormat));
-            sheet.addCell(new Label(2, 3, "加入量KG", normalFormat));
-            sheet.addCell(new Label(3, 3, "实际加入量", normalFormat));
-            sheet.addCell(new Label(4, 3, "生产工艺", normalFormat));
-            sheet.addCell(new Label(5, 3, "调整记录", normalFormat));
+            sheet.addCell(new Label(0, 3, "设备编号", normalFormat));
+            sheet.addCell(new Label(1, 3, productionBillDto.getMachineId(), normalFormat));
+            sheet.addCell(new Label(2, 3, "", normalFormat));
+            sheet.mergeCells(1, 3, 2, 3);
+            sheet.addCell(new Label(3, 3, "编号", normalFormat));
+            sheet.addCell(new Label(4, 3, productionBillDto.getProductionId(), normalFormat));
+            sheet.addCell(new Label(5, 3, "", normalFormat));
+            sheet.mergeCells(4, 3, 5, 3);
+
+            sheet.addCell(new Label(0, 4, "序号", normalFormat));
+            sheet.addCell(new Label(1, 4, "原料代码", normalFormat));
+            sheet.addCell(new Label(2, 4, "加入量KG", normalFormat));
+            sheet.addCell(new Label(3, 4, "实际加入量", normalFormat));
+            sheet.addCell(new Label(4, 4, "生产工艺", normalFormat));
+            sheet.addCell(new Label(5, 4, "调整记录", normalFormat));
 
             int i = 0;
             for (i = 0; i < productionBillDto.getProductionBillStockItems().size(); i++) {
                 ProductionBillStockItem productionBillStockItem = productionBillDto.getProductionBillStockItems().get(i);
-                sheet.addCell(new Label(0, 4 + i, i + "", normalFormat));
-                sheet.addCell(new Label(1, 4 + i, productionBillStockItem.getStockCode(), normalFormat));
-                sheet.addCell(new Label(2, 4 + i, productionBillStockItem.getStockAmount() + "", normalFormat));
-                sheet.addCell(new Label(3, 4 + i, "", normalFormat));
-                sheet.addCell(new Label(4, 4 + i, productionBillStockItem.getStockProcess(), normalFormat));
-                sheet.addCell(new Label(5, 4 + i, "", normalFormat));
+                sheet.addCell(new Label(0, 5 + i, i + "", normalFormat));
+                sheet.addCell(new Label(1, 5 + i, productionBillStockItem.getStockCode(), normalFormat));
+                sheet.addCell(new Label(2, 5 + i, productionBillStockItem.getStockAmount() + "", normalFormat));
+                sheet.addCell(new Label(3, 5 + i, "", normalFormat));
+                sheet.addCell(new Label(4, 5 + i, productionBillStockItem.getStockProcess(), normalFormat));
+                sheet.addCell(new Label(5, 5 + i, "", normalFormat));
             }
             for (int j = i; j < MIN_ROW + 1; j++) {
-                sheet.addCell(new Label(0, 4 + j, j + "", normalFormat));
-                sheet.addCell(new Label(1, 4 + j, "", normalFormat));
-                sheet.addCell(new Label(2, 4 + j, "", normalFormat));
-                sheet.addCell(new Label(3, 4 + j, "", normalFormat));
-                sheet.addCell(new Label(4, 4 + j, "", normalFormat));
-                sheet.addCell(new Label(5, 4 + j, "", normalFormat));
+                sheet.addCell(new Label(0, 5 + j, j + "", normalFormat));
+                sheet.addCell(new Label(1, 5 + j, "", normalFormat));
+                sheet.addCell(new Label(2, 5 + j, "", normalFormat));
+                sheet.addCell(new Label(3, 5 + j, "", normalFormat));
+                sheet.addCell(new Label(4, 5 + j, "", normalFormat));
+                sheet.addCell(new Label(5, 5 + j, "", normalFormat));
             }
-            sheet.addCell(new Label(5, 5, productionBillDto.getModifyRecord(), normalFormat));
-            sheet.mergeCells(5, 4, 5, (4 + MIN_ROW) / 2);
-            sheet.addCell(new Label(5, (4 + MIN_ROW) / 2 + 1, "备注", normalFormat));
-            sheet.addCell(new Label(5, (4 + MIN_ROW) / 2 + 2, productionBillDto.getComment(), normalFormat));
-            sheet.mergeCells(5, (4 + MIN_ROW) / 2 + 2, 5, 4 + MIN_ROW);
-            sheet.addCell(new Label(0, 4 + MIN_ROW + 1, "合计", normalFormat));
-            sheet.addCell(new Label(1, 4 + MIN_ROW + 1, productionBillDto.getTotalQuantity() + "", normalFormat));
-            sheet.addCell(new Label(2, 4 + MIN_ROW + 1, "实际入库数量", normalFormat));
-            sheet.addCell(new Label(3, 4 + MIN_ROW + 1, " ", normalFormat));
-            sheet.addCell(new Label(4, 4 + MIN_ROW + 1, "损耗率", normalFormat));
-            sheet.addCell(new Label(5, 4 + MIN_ROW + 1, " ", normalFormat));
+            sheet.addCell(new Label(5, 6, productionBillDto.getModifyRecord(), normalFormat));
+            sheet.mergeCells(5, 5, 5, (4 + MIN_ROW) / 2 + 1);
+            sheet.addCell(new Label(5, (4 + MIN_ROW) / 2 + 3, "备注", normalFormat));
+            sheet.addCell(new Label(5, (4 + MIN_ROW) / 2 + 3, productionBillDto.getComment(), normalFormat));
+            sheet.mergeCells(5, (4 + MIN_ROW) / 2 + 3, 5, 4 + MIN_ROW);
+            sheet.addCell(new Label(0, 4 + MIN_ROW + 2, "合计", normalFormat));
+            sheet.addCell(new Label(1, 4 + MIN_ROW + 2, productionBillDto.getTotalQuantity() + "", normalFormat));
+            sheet.addCell(new Label(2, 4 + MIN_ROW + 2, "实际入库数量", normalFormat));
+            sheet.addCell(new Label(3, 4 + MIN_ROW + 2, " ", normalFormat));
+            sheet.addCell(new Label(4, 4 + MIN_ROW + 2, "损耗率", normalFormat));
+            sheet.addCell(new Label(5, 4 + MIN_ROW + 2, " ", normalFormat));
 
-            int handWriteStartRow = 4 + MIN_ROW + 2;
+            int handWriteStartRow = 4 + MIN_ROW + 3;
             switch (billType) {
                 case OIL:
                     ProductionBillOilDto productionBillOilDto = (ProductionBillOilDto) productionBillDto;

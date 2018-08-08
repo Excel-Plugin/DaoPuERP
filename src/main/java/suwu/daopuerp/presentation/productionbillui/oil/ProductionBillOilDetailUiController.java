@@ -131,7 +131,7 @@ public class ProductionBillOilDetailUiController extends ProductionBillDetailUi 
         ProductionBillOilDto productionBillOilDto = (ProductionBillOilDto) productionBillDto;
         ProductionBillOilDetailUiController productionBillOilDetailUiController = externalLoadedUiPackage.getController();
         productionBillOilDetailUiController.billId.setText(productionBillOilDto.getBillId());
-        productionBillOilDetailUiController.productionDate.setText(FormatDateTime.toShortDateString(productionBillOilDto.getProductionDate()));
+        productionBillOilDetailUiController.productionDate.setText(FormatDateTime.toShortTimeString(productionBillOilDto.getProductionDate()));
         productionBillOilDetailUiController.productionName.setText(productionBillOilDto.getProductionName());
         productionBillOilDetailUiController.billDate.setText(productionBillOilDto.getBillDate());
         productionBillOilDetailUiController.client.setText(productionBillOilDto.getClient());
