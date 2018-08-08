@@ -1,4 +1,4 @@
-package suwu.daopuerp.presentation.stockui;
+package suwu.daopuerp.presentation.stockui.formulastock;
 
 import suwu.daopuerp.dto.stock.StockItem;
 

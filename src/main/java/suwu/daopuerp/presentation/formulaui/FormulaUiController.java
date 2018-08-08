@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
+import javafx.scene.input.KeyCode;
 import suwu.daopuerp.bl.formula.factory.FormulaBlServiceFactory;
 import suwu.daopuerp.blservice.formula.FormulaBlService;
 import suwu.daopuerp.dto.formula.FormulaDto;
@@ -22,7 +23,9 @@ import suwu.daopuerp.presentation.formulaui.oil.FormulaOilAddUiController;
 import suwu.daopuerp.presentation.helpui.*;
 import suwu.daopuerp.publicdata.BillType;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FormulaUiController implements ExternalLoadableUiController {
     @FXML
@@ -65,6 +68,13 @@ public class FormulaUiController implements ExternalLoadableUiController {
         tfSearch.textProperty().bindBidirectional(tfSearchProperty);
 
         initFormulas();
+        initSearch();
+
+        formulaTable.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) {
+                onBtnSelectClicked(null);
+            }
+        });
     }
 
     private void initFormulas() {
@@ -72,6 +82,16 @@ public class FormulaUiController implements ExternalLoadableUiController {
         for (FormulaItem formulaItem : formulaItems) {
             formulaItemModelObservableList.add(new FormulaItemModel(formulaItem));
         }
+    }
+
+    private void initSearch() {
+        tfSearch.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                FormulaItem[] formulaItems = formulaBlService.query(tfSearch.getText());
+                formulaItemModelObservableList.clear();
+                formulaItemModelObservableList.addAll(Arrays.stream(formulaItems).map(FormulaItemModel::new).collect(Collectors.toList()));
+            }
+        });
     }
 
     @FXML

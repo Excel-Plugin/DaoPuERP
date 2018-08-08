@@ -3,25 +3,25 @@ package suwu.daopuerp.dto.stock;
 import java.io.Serializable;
 
 public class ProductionBillStockItem implements Serializable {
-    private String stockId;
+    private String stockCode;
     private double stockAmount;
     private String stockProcess;
 
     public ProductionBillStockItem() {
     }
 
-    public ProductionBillStockItem(String stockId, double stockAmount, String stockProcess) {
-        this.stockId = stockId;
+    public ProductionBillStockItem(String stockCode, double stockAmount, String stockProcess) {
+        this.stockCode = stockCode;
         this.stockAmount = stockAmount;
         this.stockProcess = stockProcess;
     }
 
-    public String getStockId() {
-        return stockId;
+    public String getStockCode() {
+        return stockCode;
     }
 
-    public void setStockId(String stockId) {
-        this.stockId = stockId;
+    public void setStockCode(String stockCode) {
+        this.stockCode = stockCode;
     }
 
     public double getStockAmount() {

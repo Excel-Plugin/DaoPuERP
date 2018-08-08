@@ -3,6 +3,7 @@ package suwu.daopuerp.dto.productionbill;
 import suwu.daopuerp.dto.stock.ProductionBillStockItem;
 import suwu.daopuerp.publicdata.BillType;
 
+import java.util.Date;
 import java.util.List;
 
 public class ProductionBillOilDto extends ProductionBillDto {
@@ -13,7 +14,7 @@ public class ProductionBillOilDto extends ProductionBillDto {
     public ProductionBillOilDto() {
     }
 
-    public ProductionBillOilDto(String billId, String productionDate, String productionName, String billDate, String client, String productionType, String machineId, String productionId, double totalQuantity, String modifyRecord, String comment, String stableAttr1, String stableAttr2, List<ProductionBillStockItem> productionBillStockItems, String outLooking, String flashPoint, String viscosity) {
+    public ProductionBillOilDto(String billId, Date productionDate, String productionName, String billDate, String client, String productionType, String machineId, String productionId, double totalQuantity, String modifyRecord, String comment, String stableAttr1, String stableAttr2, List<ProductionBillStockItem> productionBillStockItems, String outLooking, String flashPoint, String viscosity) {
         super(BillType.OIL, billId, productionDate, productionName, billDate, client, productionType, machineId, productionId, totalQuantity, modifyRecord, comment, stableAttr1, stableAttr2, productionBillStockItems);
         this.outLooking = outLooking;
         this.flashPoint = flashPoint;

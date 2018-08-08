@@ -20,8 +20,8 @@ import suwu.daopuerp.dto.formula.FormulaLiquidDto;
 import suwu.daopuerp.dto.stock.StockItem;
 import suwu.daopuerp.presentation.formulaui.FormulaUiController;
 import suwu.daopuerp.presentation.helpui.*;
-import suwu.daopuerp.presentation.stockui.StockAddUiController;
-import suwu.daopuerp.presentation.stockui.StockItemModel;
+import suwu.daopuerp.presentation.stockui.formulastock.StockAddUiController;
+import suwu.daopuerp.presentation.stockui.formulastock.StockItemModel;
 import suwu.daopuerp.presentation.stockui.factory.StackAddUiControllerFactory;
 
 import java.util.ArrayList;

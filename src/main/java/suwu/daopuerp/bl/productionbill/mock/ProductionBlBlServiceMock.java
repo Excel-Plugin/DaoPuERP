@@ -66,4 +66,13 @@ public class ProductionBlBlServiceMock implements ProductionBillBlService {
     public FormulaDto getNextTestBill(BillType billType) {
         return null;
     }
+
+    /**
+     * @param keyword
+     * @return
+     */
+    @Override
+    public ProductionBillItem[] query(String keyword) {
+        return null;
+    }
 }

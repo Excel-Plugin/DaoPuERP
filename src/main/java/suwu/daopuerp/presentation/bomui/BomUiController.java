@@ -109,7 +109,7 @@ public class BomUiController implements ExternalLoadableUiController {
                 }
                 List<ProductionBillStockItem> productionBillStockItems = productionBill.getProductionBillStockItems();
                 for (ProductionBillStockItem productionBillStockItem : productionBillStockItems) {
-                    String stockId = productionBillStockItem.getStockId();
+                    String stockId = productionBillStockItem.getStockCode();
                     if (stockMap.containsKey(stockId)) {
                         Double oldValue = stockMap.get(stockId);
                         stockMap.replace(stockId, oldValue + productionBillStockItem.getStockAmount());

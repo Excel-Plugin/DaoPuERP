@@ -9,12 +9,13 @@ import suwu.daopuerp.presentation.productionbillui.oil.ProductionBillOilDetailUi
 import suwu.daopuerp.presentation.productionbillui.oil.ProductionBillOilModifyUiController;
 import suwu.daopuerp.publicdata.BillType;
 
+import java.util.Date;
 import java.util.List;
 
 public class ProductionBillDto {
     private BillType billType;
     private String billId;
-    private String productionDate;
+    private Date productionDate;
     private String productionName;
     private String billDate;
     private String client;
@@ -31,7 +32,7 @@ public class ProductionBillDto {
     public ProductionBillDto() {
     }
 
-    public ProductionBillDto(BillType billType, String billId, String productionDate, String productionName, String billDate, String client, String productionType, String machineId, String productionId, double totalQuantity, String modifyRecord, String comment, String stableAttr1, String stableAttr2, List<ProductionBillStockItem> productionBillStockItems) {
+    public ProductionBillDto(BillType billType, String billId, Date productionDate, String productionName, String billDate, String client, String productionType, String machineId, String productionId, double totalQuantity, String modifyRecord, String comment, String stableAttr1, String stableAttr2, List<ProductionBillStockItem> productionBillStockItems) {
         this.billType = billType;
         this.billId = billId;
         this.productionDate = productionDate;
@@ -65,11 +66,11 @@ public class ProductionBillDto {
         this.billId = billId;
     }
 
-    public String getProductionDate() {
+    public Date getProductionDate() {
         return productionDate;
     }
 
-    public void setProductionDate(String productionDate) {
+    public void setProductionDate(Date productionDate) {
         this.productionDate = productionDate;
     }
 

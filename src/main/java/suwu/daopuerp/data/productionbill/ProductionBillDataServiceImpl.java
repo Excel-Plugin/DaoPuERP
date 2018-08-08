@@ -12,6 +12,7 @@ import suwu.daopuerp.exception.IdDoesNotExistException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductionBillDataServiceImpl implements ProductionBillDataService {
     private ProductionBillLiquidDao productionBillLiquidDao = ProductionBillLiquidFactory.getProductionBillLiquidDao();
@@ -56,5 +57,11 @@ public class ProductionBillDataServiceImpl implements ProductionBillDataService 
             e.printStackTrace();
             productionBillLiquidDao.deleteProductionBill(id);
         }
+    }
+
+    @Override
+    public List<ProductionBill> queryForBillId(String keyword) {
+        List<ProductionBill> allProductionBills = getAllProductionBills();
+        return allProductionBills.stream().filter((productionBill -> productionBill.getBillId().contains(keyword))).collect(Collectors.toList());
     }
 }

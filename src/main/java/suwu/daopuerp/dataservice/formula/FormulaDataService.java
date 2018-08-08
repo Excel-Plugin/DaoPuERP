@@ -13,4 +13,6 @@ public interface FormulaDataService {
     void saveFormula(Formula formula);
 
     void deleteFormula(String id) throws IdDoesNotExistException;
+
+    List<Formula> queryForCode(String keyword);
 }

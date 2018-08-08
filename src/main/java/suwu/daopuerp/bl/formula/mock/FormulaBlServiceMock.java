@@ -48,4 +48,13 @@ public class FormulaBlServiceMock implements FormulaBlService {
     public void deleteFormula(String id) {
 
     }
+
+    /**
+     * @param keyword
+     * @return
+     */
+    @Override
+    public FormulaItem[] query(String keyword) {
+        return new FormulaItem[0];
+    }
 }

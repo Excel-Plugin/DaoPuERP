@@ -42,4 +42,10 @@ public interface FormulaBlService {
      * @param id
      */
     void deleteFormula(String id) throws IdDoesNotExistException;
+
+    /**
+     * @param keyword
+     * @return
+     */
+    FormulaItem[] query(String keyword);
 }

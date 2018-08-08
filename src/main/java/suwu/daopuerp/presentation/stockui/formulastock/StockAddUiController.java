@@ -1,4 +1,4 @@
-package suwu.daopuerp.presentation.stockui;
+package suwu.daopuerp.presentation.stockui.formulastock;
 
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXTextField;

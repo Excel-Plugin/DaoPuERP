@@ -18,8 +18,8 @@ import suwu.daopuerp.presentation.formulaui.FormulaDetailUi;
 import suwu.daopuerp.presentation.helpui.ExternalLoadableUiController;
 import suwu.daopuerp.presentation.helpui.ExternalLoadedUiPackage;
 import suwu.daopuerp.presentation.helpui.UiLoader;
-import suwu.daopuerp.presentation.stockui.StockAddUiController;
-import suwu.daopuerp.presentation.stockui.StockItemModel;
+import suwu.daopuerp.presentation.stockui.formulastock.StockAddUiController;
+import suwu.daopuerp.presentation.stockui.formulastock.StockItemModel;
 import suwu.daopuerp.presentation.stockui.factory.StackAddUiControllerFactory;
 
 public class FormulaOilDetailUiController extends FormulaDetailUi implements ExternalLoadableUiController {

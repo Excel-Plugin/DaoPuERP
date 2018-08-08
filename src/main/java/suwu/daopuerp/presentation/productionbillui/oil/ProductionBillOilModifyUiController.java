@@ -1,9 +1,6 @@
 package suwu.daopuerp.presentation.productionbillui.oil;
 
-import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXTreeTableColumn;
-import com.jfoenix.controls.JFXTreeTableView;
-import com.jfoenix.controls.RecursiveTreeItem;
+import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.jfoenix.validation.NumberValidator;
 import com.jfoenix.validation.RequiredFieldValidator;
@@ -29,8 +26,8 @@ import suwu.daopuerp.presentation.helpui.*;
 import suwu.daopuerp.presentation.productionbillui.ProductionBillModifyUi;
 import suwu.daopuerp.presentation.productionbillui.ProductionBillStockItemModel;
 import suwu.daopuerp.presentation.productionbillui.ProductionBillUiController;
-import suwu.daopuerp.presentation.stockui.StockAddUiController;
-import suwu.daopuerp.presentation.stockui.factory.StackAddUiControllerFactory;
+import suwu.daopuerp.presentation.stockui.factory.ProductionStockAddUiControllerFactory;
+import suwu.daopuerp.presentation.stockui.productionstock.ProductionBillStockItemAddUiController;
 import suwu.daopuerp.publicdata.BillType;
 import suwu.daopuerp.util.FormatDateTime;
 
@@ -43,7 +40,7 @@ public class ProductionBillOilModifyUiController extends ProductionBillModifyUi 
     @FXML
     private JFXTextField selectedProductionId;
     @FXML
-    private JFXTextField productionDate;
+    private JFXDatePicker productionDate;
     @FXML
     private JFXTextField productionName;
     @FXML
@@ -83,7 +80,6 @@ public class ProductionBillOilModifyUiController extends ProductionBillModifyUi 
 
     private ObservableList<ProductionBillStockItemModel> productionBillStockItemModelObservableList = FXCollections.observableArrayList();
     private StringProperty billIdProperty = new SimpleStringProperty("");
-    private StringProperty productionDateProperty = new SimpleStringProperty("");
     private StringProperty productionNameProperty = new SimpleStringProperty("");
     private StringProperty billDateProperty = new SimpleStringProperty("");
     private StringProperty clientProperty = new SimpleStringProperty("");
@@ -100,7 +96,7 @@ public class ProductionBillOilModifyUiController extends ProductionBillModifyUi 
     private StringProperty stableAttr2Property = new SimpleStringProperty("");
 
     private FormulaSelectUi formulaSelectUi = new FormulaSelectUiController();
-    private StockAddUiController stockAddUiController = StackAddUiControllerFactory.getStackAddUiController();
+    private ProductionBillStockItemAddUiController productionBillStockItemAddUiController = ProductionStockAddUiControllerFactory.getProductionStockAddUiController();
     private ProductionBillBlService productionBillBlService = ProductionBillBlServiceFactory.getProductionBillBlService();
 
     /**
@@ -114,7 +110,7 @@ public class ProductionBillOilModifyUiController extends ProductionBillModifyUi 
     }
 
     public void initialize() {
-        stockIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getProductionBillStockItemObjectProperty().getStockId()));
+        stockIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getProductionBillStockItemObjectProperty().getStockCode()));
         stockPredictAmountColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getProductionBillStockItemObjectProperty().getStockAmount() + ""));
         stockProcessColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getProductionBillStockItemObjectProperty().getStockProcess()));
         TreeItem<ProductionBillStockItemModel> root = new RecursiveTreeItem<>(productionBillStockItemModelObservableList, RecursiveTreeObject::getChildren);
@@ -130,7 +126,6 @@ public class ProductionBillOilModifyUiController extends ProductionBillModifyUi 
         });
 
         billId.textProperty().bindBidirectional(billIdProperty);
-        productionDate.textProperty().bindBidirectional(productionDateProperty);
         productionName.textProperty().bindBidirectional(productionNameProperty);
         billDate.textProperty().bindBidirectional(billDateProperty);
         client.textProperty().bindBidirectional(clientProperty);
@@ -159,7 +154,7 @@ public class ProductionBillOilModifyUiController extends ProductionBillModifyUi 
         ProductionBillOilDto productionBillOilDto = (ProductionBillOilDto) productionBillDto;
         ProductionBillOilModifyUiController productionBillOilModifyUiController = externalLoadedUiPackage.getController();
         productionBillOilModifyUiController.billId.setText(productionBillOilDto.getBillId());
-        productionBillOilModifyUiController.productionDate.setText(productionBillOilDto.getBillDate());
+        productionBillOilModifyUiController.productionDate.setValue(FormatDateTime.fromDate(productionBillOilDto.getProductionDate()));
         productionBillOilModifyUiController.productionName.setText(productionBillOilDto.getProductionName());
         productionBillOilModifyUiController.billDate.setText(productionBillOilDto.getBillDate());
         productionBillOilModifyUiController.client.setText(productionBillOilDto.getClient());
@@ -181,7 +176,7 @@ public class ProductionBillOilModifyUiController extends ProductionBillModifyUi 
     }
 
     public void onBtnAddItemClicked(ActionEvent actionEvent) {
-        stockAddUiController.showStockAdd(stockItem -> productionBillStockItemModelObservableList.add(new ProductionBillStockItemModel(new ProductionBillStockItem(stockItem.getStockId(), stockItem.getStockPercent() * Double.parseDouble(totalQuantityProperty.get()), stockItem.getStockProcess()))));
+        productionBillStockItemAddUiController.showStockAdd(stockItem -> productionBillStockItemModelObservableList.add(new ProductionBillStockItemModel(new ProductionBillStockItem(stockItem.getStockCode(), stockItem.getStockAmount(), stockItem.getStockProcess()))));
     }
 
     public void onBtnDeleteItemClicked(ActionEvent actionEvent) {
@@ -217,8 +212,7 @@ public class ProductionBillOilModifyUiController extends ProductionBillModifyUi 
 
     private ProductionBillOilDto getCurrentProductionBillOilDto() {
         List<ProductionBillStockItem> productionBillStockItems = productionBillStockItemModelObservableList.stream().collect(ArrayList::new, (list, item) -> list.add(item.getProductionBillStockItemObjectProperty()), ArrayList::addAll);
-        ProductionBillOilDto productionBillOilDto = new ProductionBillOilDto(billIdProperty.get(), productionDateProperty.get(), productionNameProperty.get(), billDateProperty.get(), clientProperty.get(), productionTypeProperty.get(), machineIdProperty.get(), productionIdProperty.get(), Double.parseDouble(totalQuantityProperty.get()), modifyRecordProperty.get(), commentProperty.get(), stableAttr1Property.get(), stableAttr2Property.get(), productionBillStockItems, outLookingProperty.get(), flashPointProperty.get(), viscosityProperty.get());
-        return productionBillOilDto;
+        return new ProductionBillOilDto(billIdProperty.get(), FormatDateTime.fromLocalDate(productionDate.getValue()), productionNameProperty.get(), billDateProperty.get(), clientProperty.get(), productionTypeProperty.get(), machineIdProperty.get(), productionIdProperty.get(), Double.parseDouble(totalQuantityProperty.get()), modifyRecordProperty.get(), commentProperty.get(), stableAttr1Property.get(), stableAttr2Property.get(), productionBillStockItems, outLookingProperty.get(), flashPointProperty.get(), viscosityProperty.get());
     }
 
     public void onBtnResetClicked(ActionEvent actionEvent) {
@@ -239,7 +233,6 @@ public class ProductionBillOilModifyUiController extends ProductionBillModifyUi 
     private void reset() {
         billId.clear();
         selectedProductionId.clear();
-        productionDate.clear();
         productionName.clear();
         billDate.clear();
         client.clear();

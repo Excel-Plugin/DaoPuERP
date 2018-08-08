@@ -47,7 +47,7 @@ public class ProductionBillBlServiceImpl implements ProductionBillBlService {
 
     @Override
     public void submit(ProductionBillDto productionBillDto) {
-        List<String> stockIds = productionBillDto.getProductionBillStockItems().stream().collect(ArrayList::new, (list, item) -> list.add(item.getStockId()), ArrayList::addAll);
+        List<String> stockIds = productionBillDto.getProductionBillStockItems().stream().collect(ArrayList::new, (list, item) -> list.add(item.getStockCode()), ArrayList::addAll);
         switch (productionBillDto.getBillType()) {
             case LIQUID:
                 ProductionBillLiquidDto productionBillLiquidDto = (ProductionBillLiquidDto) productionBillDto;
@@ -96,7 +96,7 @@ public class ProductionBillBlServiceImpl implements ProductionBillBlService {
      */
     @Override
     public List<ProductionBill> getBillsBetween(Date startDate, Date endDate) {
-        return productionBillDataService.getAllProductionBills().stream().filter((productionBill -> productionBill.getBillDate().getTime() >= startDate.getTime() && productionBill.getBillDate().getTime() <= endDate.getTime())).collect(Collectors.toList());
+        return productionBillDataService.getAllProductionBills().stream().filter((productionBill -> productionBill.getProductionDate().getTime() >= startDate.getTime() && productionBill.getProductionDate().getTime() <= endDate.getTime())).collect(Collectors.toList());
     }
 
     /**
@@ -108,5 +108,15 @@ public class ProductionBillBlServiceImpl implements ProductionBillBlService {
     public FormulaDto getNextTestBill(BillType billType) {
         String id = getNextId(billType);
         return new FormulaDto(billType, id, "", "", "", new ArrayList<>(), "", "");
+    }
+
+    /**
+     * @param keyword
+     * @return
+     */
+    @Override
+    public ProductionBillItem[] query(String keyword) {
+        List<ProductionBillItem> productionBillItems = productionBillDataService.queryForBillId(keyword).stream().collect(ArrayList::new, (productionBillItems1, productionBill) -> productionBillItems1.add(new ProductionBillItem(productionBill.getBillType(), productionBill.getBillId(), productionBill.getProductionName(), productionBill.getBillDate() + "", productionBill.getProductionType(), productionBill.getProductionId())), ArrayList::addAll);
+        return productionBillItems.toArray(new ProductionBillItem[productionBillItems.size()]);
     }
 }

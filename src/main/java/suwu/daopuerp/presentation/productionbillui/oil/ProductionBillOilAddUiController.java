@@ -1,9 +1,6 @@
 package suwu.daopuerp.presentation.productionbillui.oil;
 
-import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXTreeTableColumn;
-import com.jfoenix.controls.JFXTreeTableView;
-import com.jfoenix.controls.RecursiveTreeItem;
+import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import com.jfoenix.validation.NumberValidator;
 import com.jfoenix.validation.RequiredFieldValidator;
@@ -27,8 +24,8 @@ import suwu.daopuerp.presentation.formulaui.FormulaSelectUiController;
 import suwu.daopuerp.presentation.helpui.*;
 import suwu.daopuerp.presentation.productionbillui.ProductionBillStockItemModel;
 import suwu.daopuerp.presentation.productionbillui.ProductionBillUiController;
-import suwu.daopuerp.presentation.stockui.StockAddUiController;
-import suwu.daopuerp.presentation.stockui.factory.StackAddUiControllerFactory;
+import suwu.daopuerp.presentation.stockui.factory.ProductionStockAddUiControllerFactory;
+import suwu.daopuerp.presentation.stockui.productionstock.ProductionBillStockItemAddUiController;
 import suwu.daopuerp.publicdata.BillType;
 import suwu.daopuerp.util.FormatDateTime;
 
@@ -41,7 +38,7 @@ public class ProductionBillOilAddUiController implements ExternalLoadableUiContr
     @FXML
     private JFXTextField selectedProductionId;
     @FXML
-    private JFXTextField productionDate;
+    private JFXDatePicker productionDate;
     @FXML
     private JFXTextField productionName;
     @FXML
@@ -81,7 +78,6 @@ public class ProductionBillOilAddUiController implements ExternalLoadableUiContr
 
     private ObservableList<ProductionBillStockItemModel> productionBillStockItemModelObservableList = FXCollections.observableArrayList();
     private StringProperty billIdProperty = new SimpleStringProperty("");
-    private StringProperty productionDateProperty = new SimpleStringProperty("");
     private StringProperty productionNameProperty = new SimpleStringProperty("");
     private StringProperty billDateProperty = new SimpleStringProperty("");
     private StringProperty clientProperty = new SimpleStringProperty("");
@@ -98,7 +94,7 @@ public class ProductionBillOilAddUiController implements ExternalLoadableUiContr
     private StringProperty stableAttr2Property = new SimpleStringProperty("");
 
     private FormulaSelectUi formulaSelectUi = new FormulaSelectUiController();
-    private StockAddUiController stockAddUiController = StackAddUiControllerFactory.getStackAddUiController();
+    private ProductionBillStockItemAddUiController productionBillStockItemAddUiController = ProductionStockAddUiControllerFactory.getProductionStockAddUiController();
     private ProductionBillBlService productionBillBlService = ProductionBillBlServiceFactory.getProductionBillBlService();
 
     /**
@@ -112,7 +108,7 @@ public class ProductionBillOilAddUiController implements ExternalLoadableUiContr
     }
 
     public void initialize() {
-        stockIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getProductionBillStockItemObjectProperty().getStockId()));
+        stockIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getProductionBillStockItemObjectProperty().getStockCode()));
         stockPredictAmountColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getProductionBillStockItemObjectProperty().getStockAmount() + ""));
         stockProcessColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getProductionBillStockItemObjectProperty().getStockProcess()));
         TreeItem<ProductionBillStockItemModel> root = new RecursiveTreeItem<>(productionBillStockItemModelObservableList, RecursiveTreeObject::getChildren);
@@ -128,7 +124,6 @@ public class ProductionBillOilAddUiController implements ExternalLoadableUiContr
         });
 
         billId.textProperty().bindBidirectional(billIdProperty);
-        productionDate.textProperty().bindBidirectional(productionDateProperty);
         productionName.textProperty().bindBidirectional(productionNameProperty);
         billDate.textProperty().bindBidirectional(billDateProperty);
         client.textProperty().bindBidirectional(clientProperty);
@@ -174,7 +169,6 @@ public class ProductionBillOilAddUiController implements ExternalLoadableUiContr
     private void reset() {
         billId.clear();
         selectedProductionId.clear();
-        productionDate.clear();
         productionName.clear();
         billDate.clear();
         client.clear();
@@ -204,7 +198,7 @@ public class ProductionBillOilAddUiController implements ExternalLoadableUiContr
 
     private ProductionBillOilDto getCurrentProductionBillOilDto() {
         List<ProductionBillStockItem> productionBillStockItems = productionBillStockItemModelObservableList.stream().collect(ArrayList::new, (list, item) -> list.add(item.getProductionBillStockItemObjectProperty()), ArrayList::addAll);
-        ProductionBillOilDto productionBillOilDto = new ProductionBillOilDto(billIdProperty.get(), productionDateProperty.get(), productionNameProperty.get(), billDateProperty.get(), clientProperty.get(), productionTypeProperty.get(), machineIdProperty.get(), productionIdProperty.get(), Double.parseDouble(totalQuantityProperty.get()), modifyRecordProperty.get(), commentProperty.get(), stableAttr1Property.get(), stableAttr2Property.get(), productionBillStockItems, outLookingProperty.get(), flashPointProperty.get(), viscosityProperty.get());
+        ProductionBillOilDto productionBillOilDto = new ProductionBillOilDto(billIdProperty.get(), FormatDateTime.fromLocalDate(productionDate.getValue()), productionNameProperty.get(), billDateProperty.get(), clientProperty.get(), productionTypeProperty.get(), machineIdProperty.get(), productionIdProperty.get(), Double.parseDouble(totalQuantityProperty.get()), modifyRecordProperty.get(), commentProperty.get(), stableAttr1Property.get(), stableAttr2Property.get(), productionBillStockItems, outLookingProperty.get(), flashPointProperty.get(), viscosityProperty.get());
         return productionBillOilDto;
     }
 
@@ -214,7 +208,7 @@ public class ProductionBillOilAddUiController implements ExternalLoadableUiContr
     }
 
     public void onBtnAddItemClicked(ActionEvent actionEvent) {
-        stockAddUiController.showStockAdd(stockItem -> productionBillStockItemModelObservableList.add(new ProductionBillStockItemModel(new ProductionBillStockItem(stockItem.getStockId(), stockItem.getStockPercent() * Double.parseDouble(totalQuantityProperty.get()), stockItem.getStockProcess()))));
+        productionBillStockItemAddUiController.showStockAdd(stockItem -> productionBillStockItemModelObservableList.add(new ProductionBillStockItemModel(new ProductionBillStockItem(stockItem.getStockCode(), stockItem.getStockAmount(), stockItem.getStockProcess()))));
     }
 
     public void onBtnDeleteItemClicked(ActionEvent actionEvent) {

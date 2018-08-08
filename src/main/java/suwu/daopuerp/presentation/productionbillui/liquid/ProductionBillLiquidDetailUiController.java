@@ -21,8 +21,9 @@ import suwu.daopuerp.presentation.helpui.ExternalLoadedUiPackage;
 import suwu.daopuerp.presentation.helpui.UiLoader;
 import suwu.daopuerp.presentation.productionbillui.ProductionBillDetailUi;
 import suwu.daopuerp.presentation.productionbillui.ProductionBillStockItemModel;
-import suwu.daopuerp.presentation.stockui.StockAddUiController;
-import suwu.daopuerp.presentation.stockui.factory.StackAddUiControllerFactory;
+import suwu.daopuerp.presentation.stockui.factory.ProductionStockAddUiControllerFactory;
+import suwu.daopuerp.presentation.stockui.productionstock.ProductionBillStockItemAddUiController;
+import suwu.daopuerp.util.FormatDateTime;
 
 public class ProductionBillLiquidDetailUiController extends ProductionBillDetailUi implements ExternalLoadableUiController {
     @FXML
@@ -84,7 +85,7 @@ public class ProductionBillLiquidDetailUiController extends ProductionBillDetail
     private StringProperty stableAttr1Property = new SimpleStringProperty("");
     private StringProperty stableAttr2Property = new SimpleStringProperty("");
 
-    private StockAddUiController stockAddUiController = StackAddUiControllerFactory.getStackAddUiController();
+    private ProductionBillStockItemAddUiController productionBillStockItemAddUiController = ProductionStockAddUiControllerFactory.getProductionStockAddUiController();
     private ProductionBillBlService productionBillBlService = ProductionBillBlServiceFactory.getProductionBillBlService();
 
     /**
@@ -98,7 +99,7 @@ public class ProductionBillLiquidDetailUiController extends ProductionBillDetail
     }
 
     public void initialize() {
-        stockIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getProductionBillStockItemObjectProperty().getStockId()));
+        stockIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getProductionBillStockItemObjectProperty().getStockCode()));
         stockPredictAmountColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getProductionBillStockItemObjectProperty().getStockAmount() + ""));
         stockProcessColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getProductionBillStockItemObjectProperty().getStockProcess()));
         TreeItem<ProductionBillStockItemModel> root = new RecursiveTreeItem<>(productionBillStockItemModelObservableList, RecursiveTreeObject::getChildren);
@@ -129,7 +130,7 @@ public class ProductionBillLiquidDetailUiController extends ProductionBillDetail
         ProductionBillLiquidDto productionBillLiquidDto = (ProductionBillLiquidDto) productionBillDto;
         ProductionBillLiquidDetailUiController productionBillLiquidDetailUiController = externalLoadedUiPackage.getController();
         productionBillLiquidDetailUiController.billId.setText(productionBillLiquidDto.getBillId());
-        productionBillLiquidDetailUiController.productionDate.setText(productionBillLiquidDto.getBillDate());
+        productionBillLiquidDetailUiController.productionDate.setText(FormatDateTime.toShortDateString(productionBillLiquidDto.getProductionDate()));
         productionBillLiquidDetailUiController.productionName.setText(productionBillLiquidDto.getProductionName());
         productionBillLiquidDetailUiController.billDate.setText(productionBillLiquidDto.getBillDate());
         productionBillLiquidDetailUiController.client.setText(productionBillLiquidDto.getClient());

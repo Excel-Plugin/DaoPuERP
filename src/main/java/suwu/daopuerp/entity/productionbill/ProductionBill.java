@@ -16,8 +16,9 @@ public class ProductionBill extends Entity {
     @EnumTranslate(targetClass = BillType.class)
     @Column(name = "outLooking")
     private BillType billType;
+    @JsonSerialize
     @Column(name = "productionDate")
-    private String productionDate;
+    private Date productionDate;
     @Column(name = "productionName")
     private String productionName;
     @JsonSerialize
@@ -48,7 +49,7 @@ public class ProductionBill extends Entity {
     public ProductionBill() {
     }
 
-    public ProductionBill(String billId, BillType billType, String productionDate, String productionName, Date billDate, String client, String productionType, String machineId, String productionId, double totalQuantity, String modifyRecord, String comment, String stableAttr1, String stableAttr2, List<ProductionBillStockItem> productionBillStockItems) {
+    public ProductionBill(String billId, BillType billType, Date productionDate, String productionName, Date billDate, String client, String productionType, String machineId, String productionId, double totalQuantity, String modifyRecord, String comment, String stableAttr1, String stableAttr2, List<ProductionBillStockItem> productionBillStockItems) {
         this.billId = billId;
         this.billType = billType;
         this.productionDate = productionDate;
@@ -82,11 +83,11 @@ public class ProductionBill extends Entity {
         this.billType = billType;
     }
 
-    public String getProductionDate() {
+    public Date getProductionDate() {
         return productionDate;
     }
 
-    public void setProductionDate(String productionDate) {
+    public void setProductionDate(Date productionDate) {
         this.productionDate = productionDate;
     }
 

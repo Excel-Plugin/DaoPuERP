@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
+import javafx.scene.input.KeyCode;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import jxl.Workbook;
@@ -29,10 +30,13 @@ import suwu.daopuerp.presentation.helpui.*;
 import suwu.daopuerp.presentation.productionbillui.liquid.ProductionBillLiquidAddUiController;
 import suwu.daopuerp.presentation.productionbillui.oil.ProductionBillOilAddUiController;
 import suwu.daopuerp.publicdata.BillType;
+import suwu.daopuerp.util.FormatDateTime;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductionBillUiController implements ExternalLoadableUiController {
     @FXML
@@ -83,6 +87,23 @@ public class ProductionBillUiController implements ExternalLoadableUiController 
         tfSearch.textProperty().bindBidirectional(tfSearchProperty);
 
         initProductionBills();
+        initSearch();
+
+        billTable.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) {
+                onBtnSelectClicked(null);
+            }
+        });
+    }
+
+    private void initSearch() {
+        tfSearch.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                ProductionBillItem[] productionBillItems = productionBillBlService.query(tfSearch.getText());
+                productionBillItemModelObservableList.clear();
+                productionBillItemModelObservableList.addAll(Arrays.stream(productionBillItems).map(ProductionBillItemModel::new).collect(Collectors.toList()));
+            }
+        });
     }
 
     private void initProductionBills() {
@@ -116,7 +137,7 @@ public class ProductionBillUiController implements ExternalLoadableUiController 
                         .createAndShow();
             }
             assert productionBillDto != null;
-            PromptDialogHelper.start("修改客户信息", "")
+            PromptDialogHelper.start("修改单据信息", "")
                     .setContent(productionBillDto.modifyUi().showContent(productionBillDto).getComponent())
                     .createAndShow();
         } else {
@@ -238,7 +259,7 @@ public class ProductionBillUiController implements ExternalLoadableUiController 
             sheet.addCell(new Label(0, 0, "文件编号", normalFormat));
             sheet.addCell(new Label(1, 0, productionBillDto.getBillId(), normalFormat));
             sheet.addCell(new Label(2, 0, "生产日期", normalFormat));
-            sheet.addCell(new Label(3, 0, productionBillDto.getProductionDate(), normalFormat));
+            sheet.addCell(new Label(3, 0, FormatDateTime.toShortDateString(productionBillDto.getProductionDate()), normalFormat));
             sheet.addCell(new Label(4, 0, "品名", normalFormat));
             sheet.addCell(new Label(5, 0, productionBillDto.getProductionName(), normalFormat));
 
@@ -269,7 +290,7 @@ public class ProductionBillUiController implements ExternalLoadableUiController 
             for (i = 0; i < productionBillDto.getProductionBillStockItems().size(); i++) {
                 ProductionBillStockItem productionBillStockItem = productionBillDto.getProductionBillStockItems().get(i);
                 sheet.addCell(new Label(0, 4 + i, i + "", normalFormat));
-                sheet.addCell(new Label(1, 4 + i, productionBillStockItem.getStockId(), normalFormat));
+                sheet.addCell(new Label(1, 4 + i, productionBillStockItem.getStockCode(), normalFormat));
                 sheet.addCell(new Label(2, 4 + i, productionBillStockItem.getStockAmount() + "", normalFormat));
                 sheet.addCell(new Label(3, 4 + i, "", normalFormat));
                 sheet.addCell(new Label(4, 4 + i, productionBillStockItem.getStockProcess(), normalFormat));

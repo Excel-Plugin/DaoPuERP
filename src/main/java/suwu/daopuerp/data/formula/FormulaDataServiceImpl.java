@@ -57,4 +57,10 @@ public class FormulaDataServiceImpl implements FormulaDataService {
             formulaLiquidDao.deleteFormulaByFormulaId(id);
         }
     }
+
+    @Override
+    public List<Formula> queryForCode(String keyword) {
+        List<Formula> allFormulas = getAllFormulas();
+        return allFormulas.stream().filter(formula -> formula.getFormulaCode().contains(keyword)).collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
+    }
 }

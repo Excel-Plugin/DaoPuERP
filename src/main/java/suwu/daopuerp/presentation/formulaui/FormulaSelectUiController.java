@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
+import javafx.scene.input.KeyCode;
 import suwu.daopuerp.bl.formula.factory.FormulaBlServiceFactory;
 import suwu.daopuerp.bl.productionbill.factory.ProductionBillBlServiceFactory;
 import suwu.daopuerp.blservice.formula.FormulaBlService;
@@ -23,8 +24,10 @@ import suwu.daopuerp.exception.IdDoesNotExistException;
 import suwu.daopuerp.presentation.helpui.*;
 import suwu.daopuerp.publicdata.BillType;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class FormulaSelectUiController extends SelectingDialog implements FormulaSelectUi, ExternalLoadableUiController {
     @FXML
@@ -75,6 +78,7 @@ public class FormulaSelectUiController extends SelectingDialog implements Formul
         tfQuantity.textProperty().bindBidirectional(tfQuantityProperty);
 
         initFormulas();
+        initSearch();
     }
 
     private void initFormulas() {
@@ -82,6 +86,16 @@ public class FormulaSelectUiController extends SelectingDialog implements Formul
         for (FormulaItem formulaItem : formulaItems) {
             formulaItemModelObservableList.add(new FormulaItemModel(formulaItem));
         }
+    }
+
+    private void initSearch() {
+        tfSearch.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                FormulaItem[] formulaItems = formulaBlService.query(tfSearch.getText());
+                formulaItemModelObservableList.clear();
+                formulaItemModelObservableList.addAll(Arrays.stream(formulaItems).map(FormulaItemModel::new).collect(Collectors.toList()));
+            }
+        });
     }
 
     /**

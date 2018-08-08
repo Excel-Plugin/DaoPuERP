@@ -73,4 +73,15 @@ public class FormulaBlServiceImpl implements FormulaBlService {
     public void deleteFormula(String id) throws IdDoesNotExistException {
         formulaDataService.deleteFormula(id);
     }
+
+    /**
+     * @param keyword
+     * @return
+     */
+    @Override
+    public FormulaItem[] query(String keyword) {
+        List<Formula> formulas = formulaDataService.queryForCode(keyword);
+        List<FormulaItem> formulaItems = formulas.stream().collect(ArrayList::new, (list, item) -> list.add(new FormulaItem(item.getFormulaId(), item.getFormulaCode(), item.getFormulaName(), item.getFormulaType())), ArrayList::addAll);
+        return formulaItems.toArray(new FormulaItem[formulaItems.size()]);
+    }
 }

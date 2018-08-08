@@ -63,4 +63,10 @@ public interface ProductionBillBlService {
      * @return
      */
     FormulaDto getNextTestBill(BillType billType);
+
+    /**
+     * @param keyword
+     * @return
+     */
+    ProductionBillItem[] query(String keyword);
 }

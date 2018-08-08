@@ -13,4 +13,6 @@ public interface ProductionBillDataService {
     void saveProductionBill(ProductionBill productionBill);
 
     void deleteProductionBill(String id) throws IdDoesNotExistException;
+
+    List<ProductionBill> queryForBillId(String keyword);
 }

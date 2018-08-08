@@ -2,6 +2,7 @@ package suwu.daopuerp.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -33,6 +34,14 @@ public class FormatDateTime {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static LocalDate fromDate(Date date) {
+        Instant instant = date.toInstant();
+        ZoneId zoneId = ZoneId.systemDefault();
+
+        // atZone()方法返回在指定时区从此Instant生成的ZonedDateTime。
+        return instant.atZone(zoneId).toLocalDate();
     }
 
     public static Date fromLocalDate(LocalDate localDate) {
