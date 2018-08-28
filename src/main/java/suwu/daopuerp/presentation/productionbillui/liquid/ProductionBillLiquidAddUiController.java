@@ -27,6 +27,7 @@ import suwu.daopuerp.presentation.stockui.productionstock.ProductionBillStockIte
 import suwu.daopuerp.publicdata.BillType;
 import suwu.daopuerp.util.FormatDateTime;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -136,12 +137,15 @@ public class ProductionBillLiquidAddUiController implements ExternalLoadableUiCo
         lightValue.textProperty().bindBidirectional(lightValueProperty);
         stableAttr1.textProperty().bindBidirectional(stableAttr1Property);
         stableAttr2.textProperty().bindBidirectional(stableAttr2Property);
+        stableAttr1.setText("-5℃");
+        stableAttr2.setText("50℃");
         autoFill();
     }
 
     private void autoFill() {
         try {
             billId.setText(productionBillBlService.getNextId(BillType.LIQUID));
+            productionDate.setValue(LocalDate.now());
             billDate.setText(FormatDateTime.toShortDateString());
         } catch (Exception e) {
             e.printStackTrace();
@@ -174,15 +178,22 @@ public class ProductionBillLiquidAddUiController implements ExternalLoadableUiCo
         liquidLooking.clear();
         phValue.clear();
         lightValue.clear();
-        stableAttr1.clear();
-        stableAttr2.clear();
+        stableAttr1.setText("-5℃");
+        stableAttr2.setText("50℃");
         productionBillStockItemModelObservableList.clear();
         autoFill();
     }
 
     public void onBtnSubmitClicked(ActionEvent actionEvent) {
-        submit();
-        reset();
+        try {
+            submit();
+            onBtnResetClicked();
+            autoFill();
+        } catch (Exception e) {
+            PromptDialogHelper.start("提交失败！", "请将单据填写完整！")
+                    .addCloseButton("好的", "CHECK", null)
+                    .createAndShow();
+        }
     }
 
     private void submit() {
@@ -211,24 +222,30 @@ public class ProductionBillLiquidAddUiController implements ExternalLoadableUiCo
 
     public void onSelectProductionClicked(MouseEvent mouseEvent) {
         formulaSelectUi.showFormulaSelectDialog(formulaAndAmountDto -> {
-            double amount = formulaAndAmountDto.getAmount();
-            FormulaLiquidDto formulaLiquidDto = (FormulaLiquidDto) formulaAndAmountDto.getFormulaDto();
-            selectedProductionId.setText(formulaLiquidDto.getFormulaCode());
-            productionName.setText(formulaLiquidDto.getFormulaName());
-            billDate.setText(FormatDateTime.toShortDateString());
-            productionType.setText(formulaLiquidDto.getFormulaType());
-            productionId.setText(formulaLiquidDto.getFormulaCode());
-            totalQuantity.setText(formulaAndAmountDto.getAmount() + "");
-            liquidLooking.setText(formulaLiquidDto.getLiquidLooking());
-            phValue.setText(formulaLiquidDto.getPhValue());
-            lightValue.setText(formulaLiquidDto.getLightValue());
-            stableAttr1.setText(formulaLiquidDto.getStableAttr1());
-            stableAttr2.setText(formulaLiquidDto.getStableAttr2());
-            List<ProductionBillStockItemModel> productionBillStockItemModels = new ArrayList<>();
-            for (StockItem stockItem : formulaLiquidDto.getStockItems()) {
-                productionBillStockItemModels.add(new ProductionBillStockItemModel(new ProductionBillStockItem(stockItem.getStockId(), amount * stockItem.getStockPercent(), stockItem.getStockProcess())));
+            if (formulaAndAmountDto.getFormulaDto().getBillType() != BillType.LIQUID) {
+                PromptDialogHelper.start("选择失败！", "请选择液的配方单！")
+                        .addCloseButton("好的", "CHECK", null)
+                        .createAndShow();
+            } else {
+                double amount = formulaAndAmountDto.getAmount();
+                FormulaLiquidDto formulaLiquidDto = (FormulaLiquidDto) formulaAndAmountDto.getFormulaDto();
+                selectedProductionId.setText(formulaLiquidDto.getFormulaCode());
+                productionName.setText(formulaLiquidDto.getFormulaName());
+                billDate.setText(FormatDateTime.toShortDateString());
+                productionType.setText(formulaLiquidDto.getFormulaType());
+                productionId.setText(formulaLiquidDto.getFormulaCode());
+                totalQuantity.setText(formulaAndAmountDto.getAmount() + "");
+                liquidLooking.setText(formulaLiquidDto.getLiquidLooking());
+                phValue.setText(formulaLiquidDto.getPhValue());
+                lightValue.setText(formulaLiquidDto.getLightValue());
+                stableAttr1.setText(formulaLiquidDto.getStableAttr1());
+                stableAttr2.setText(formulaLiquidDto.getStableAttr2());
+                List<ProductionBillStockItemModel> productionBillStockItemModels = new ArrayList<>();
+                for (StockItem stockItem : formulaLiquidDto.getStockItems()) {
+                    productionBillStockItemModels.add(new ProductionBillStockItemModel(new ProductionBillStockItem(stockItem.getStockId(), amount * stockItem.getStockPercent(), stockItem.getStockProcess())));
+                }
+                productionBillStockItemModelObservableList.addAll(productionBillStockItemModels);
             }
-            productionBillStockItemModelObservableList.addAll(productionBillStockItemModels);
         }, BillType.LIQUID);
     }
 }

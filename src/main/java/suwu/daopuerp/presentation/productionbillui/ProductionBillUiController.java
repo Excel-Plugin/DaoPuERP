@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TreeItem;
 import javafx.scene.input.KeyCode;
 import javafx.stage.FileChooser;
@@ -64,6 +65,7 @@ public class ProductionBillUiController implements ExternalLoadableUiController 
     private ProductionBillBlService productionBillBlService = ProductionBillBlServiceFactory.getProductionBillBlService();
 
     private final static int MIN_ROW = 20;
+    private final static String MULTI_EXPORT_STR = "批量导出无需输入名称";
 
     /**
      * Loads the controller.
@@ -84,6 +86,7 @@ public class ProductionBillUiController implements ExternalLoadableUiController 
         productionIdColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue().getProductionBillItemObjectProperty().getProductionId()));
         TreeItem<ProductionBillItemModel> root = new RecursiveTreeItem<>(productionBillItemModelObservableList, RecursiveTreeObject::getChildren);
         billTable.setRoot(root);
+        billTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         billTable.setShowRoot(false);
 
         tfSearch.textProperty().bindBidirectional(tfSearchProperty);
@@ -230,6 +233,39 @@ public class ProductionBillUiController implements ExternalLoadableUiController 
         }
     }
 
+    @FXML
+    private void onBtnExportClicked() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("选择路径");
+        fileChooser.setInitialFileName(MULTI_EXPORT_STR);
+        File file = fileChooser.showSaveDialog(new Stage());
+
+        ObservableList<TreeItem<ProductionBillItemModel>> treeItemObservableList = billTable.getSelectionModel().getSelectedItems();
+        for (TreeItem<ProductionBillItemModel> productionBillItemModelTreeItem : treeItemObservableList) {
+            ProductionBillItem selected = productionBillItemModelTreeItem.getValue().getProductionBillItemObjectProperty();
+            ProductionBillDto productionBillDto = null;
+            try {
+                productionBillDto = productionBillBlService.getProductionBillDtoById(selected.getBillId());
+            } catch (IdDoesNotExistException e) {
+                e.printStackTrace();
+                PromptDialogHelper.start("错误", "找不到该单据ID。")
+                        .addCloseButton("好的", "DONE", null)
+                        .createAndShow();
+            }
+
+            if (file != null) {
+                assert productionBillDto != null;
+                createExcel(productionBillDto.getBillType(), productionBillDto, "生产原始单表" + productionBillDto.getBillId(), file.getPath().substring(0, file.getPath().length() - MULTI_EXPORT_STR.length()) + "生产原始单表" + productionBillDto.getBillId());
+            }
+        }
+        if (file != null) {
+            PromptDialogHelper.start("导出成功！", String.format("生产原始单表已经导出到%s。", file.getPath().substring(0, file.getPath().length() - MULTI_EXPORT_STR.length() - 1)))
+                    .addCloseButton("好", "CHECK", null)
+                    .createAndShow();
+        }
+    }
+
+
     private void exportExcel(BillType billType, ProductionBillDto productionBillDto) throws ExcelCreateFailException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("选择路径");
@@ -258,14 +294,14 @@ public class ProductionBillUiController implements ExternalLoadableUiController 
             sheet.setColumnView(1, 12);
             sheet.setColumnView(2, 12);
             sheet.setColumnView(3, 10);
-            sheet.setColumnView(4, 40);
+            sheet.setColumnView(4, 33);
             sheet.setColumnView(5, 8);
             sheet.getSettings().setTopMargin(0.5);
             sheet.getSettings().setBottomMargin(0.3);
             sheet.getSettings().setLeftMargin(0.1);
             sheet.getSettings().setRightMargin(0.1);
 
-            WritableFont normalFont = new WritableFont(WritableFont.createFont("宋体"), 11, WritableFont.NO_BOLD);
+            WritableFont normalFont = new WritableFont(WritableFont.createFont("宋体"), 12, WritableFont.NO_BOLD);
             // 设置字体为宋体,11号字,不加粗,颜色为红色
             WritableCellFormat normalFormat = new WritableCellFormat(normalFont);
             normalFormat.setAlignment(jxl.format.Alignment.CENTRE);

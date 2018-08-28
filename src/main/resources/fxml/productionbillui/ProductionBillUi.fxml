@@ -56,6 +56,12 @@
                 <MaterialIconView glyphName="CHECK" glyphSize="24" glyphStyle="-fx-fill: #FFFFFF"/>
             </graphic>
         </JFXButton>
+        <JFXButton buttonType="RAISED" onAction="#onBtnExportClicked"
+                   style="-fx-background-color: #c3c323; -fx-text-fill: #000000;" text="导出">
+            <graphic>
+                <MaterialIconView glyphName="HOME" glyphSize="24"/>
+            </graphic>
+        </JFXButton>
         <JFXButton buttonType="RAISED" onAction="#onBtnCloseClicked"
                    style="-fx-background-color: #E8EAF6; -fx-text-fill: #000000;" text="取消">
             <graphic>

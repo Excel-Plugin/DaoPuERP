@@ -122,6 +122,8 @@ public class ProductionBillOilDetailUiController extends ProductionBillDetailUi 
         viscosity.textProperty().bindBidirectional(viscosityProperty);
         stableAttr1.textProperty().bindBidirectional(stableAttr1Property);
         stableAttr2.textProperty().bindBidirectional(stableAttr2Property);
+        stableAttr1.setText("-5℃");
+        stableAttr2.setText("50℃");
     }
 
 

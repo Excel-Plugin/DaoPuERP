@@ -96,6 +96,8 @@ public class FormulaLiquidDetailUiController extends FormulaDetailUi implements 
         lightValue.textProperty().bindBidirectional(lightValueProperty);
         stableAttr1.textProperty().bindBidirectional(stableAttr1Property);
         stableAttr2.textProperty().bindBidirectional(stableAttr2Property);
+        stableAttr1.setText("-5℃");
+        stableAttr2.setText("50℃");
     }
 
     @Override

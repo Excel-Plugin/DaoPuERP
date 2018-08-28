@@ -11,8 +11,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
-import suwu.daopuerp.bl.productionbill.factory.ProductionBillBlServiceFactory;
-import suwu.daopuerp.blservice.productionbill.ProductionBillBlService;
 import suwu.daopuerp.dto.productionbill.ProductionBillDto;
 import suwu.daopuerp.dto.productionbill.ProductionBillLiquidDto;
 import suwu.daopuerp.dto.stock.ProductionBillStockItem;
@@ -21,8 +19,6 @@ import suwu.daopuerp.presentation.helpui.ExternalLoadedUiPackage;
 import suwu.daopuerp.presentation.helpui.UiLoader;
 import suwu.daopuerp.presentation.productionbillui.ProductionBillDetailUi;
 import suwu.daopuerp.presentation.productionbillui.ProductionBillStockItemModel;
-import suwu.daopuerp.presentation.stockui.factory.ProductionStockAddUiControllerFactory;
-import suwu.daopuerp.presentation.stockui.productionstock.ProductionBillStockItemAddUiController;
 import suwu.daopuerp.util.FormatDateTime;
 
 public class ProductionBillLiquidDetailUiController extends ProductionBillDetailUi implements ExternalLoadableUiController {
@@ -85,9 +81,6 @@ public class ProductionBillLiquidDetailUiController extends ProductionBillDetail
     private StringProperty stableAttr1Property = new SimpleStringProperty("");
     private StringProperty stableAttr2Property = new SimpleStringProperty("");
 
-    private ProductionBillStockItemAddUiController productionBillStockItemAddUiController = ProductionStockAddUiControllerFactory.getProductionStockAddUiController();
-    private ProductionBillBlService productionBillBlService = ProductionBillBlServiceFactory.getProductionBillBlService();
-
     /**
      * Loads the controller.
      *
@@ -122,6 +115,8 @@ public class ProductionBillLiquidDetailUiController extends ProductionBillDetail
         lightValue.textProperty().bindBidirectional(lightValueProperty);
         stableAttr1.textProperty().bindBidirectional(stableAttr1Property);
         stableAttr2.textProperty().bindBidirectional(stableAttr2Property);
+        stableAttr1.setText("-5℃");
+        stableAttr2.setText("50℃");
     }
 
     @Override

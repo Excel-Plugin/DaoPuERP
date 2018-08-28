@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
+import javafx.scene.input.KeyCode;
 import suwu.daopuerp.bl.formula.factory.FormulaBlServiceFactory;
 import suwu.daopuerp.blservice.formula.FormulaBlService;
 import suwu.daopuerp.dto.formula.FormulaDto;
@@ -20,9 +21,10 @@ import suwu.daopuerp.dto.stock.StockItem;
 import suwu.daopuerp.presentation.formulaui.FormulaModifyUi;
 import suwu.daopuerp.presentation.formulaui.FormulaUiController;
 import suwu.daopuerp.presentation.helpui.*;
+import suwu.daopuerp.presentation.stockui.factory.StackAddUiControllerFactory;
 import suwu.daopuerp.presentation.stockui.formulastock.StockAddUiController;
 import suwu.daopuerp.presentation.stockui.formulastock.StockItemModel;
-import suwu.daopuerp.presentation.stockui.factory.StackAddUiControllerFactory;
+import suwu.daopuerp.util.ContentUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,6 +104,24 @@ public class FormulaLiquidModifyUiController extends FormulaModifyUi implements 
         lightValue.textProperty().bindBidirectional(lightValueProperty);
         stableAttr1.textProperty().bindBidirectional(stableAttr1Property);
         stableAttr2.textProperty().bindBidirectional(stableAttr2Property);
+        stableAttr1.setText("-5℃");
+        stableAttr2.setText("50℃");
+
+        stockTable.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.V) {
+                String[] tuples = ContentUtil.getSysClipboardText().split("\n");
+                for (String tuple : tuples) {
+                    String[] attrs = tuple.split("\t");
+                    StockItem stockItem;
+                    if (attrs.length >= 6) {
+                        stockItem = new StockItem(attrs[0], attrs[1], Double.parseDouble(attrs[2]), 0.0, attrs[5]);
+                    } else {
+                        stockItem = new StockItem(attrs[0], attrs[1], Double.parseDouble(attrs[2]), 0.0, "");
+                    }
+                    stockItemModelObservableList.add(new StockItemModel(stockItem));
+                }
+            }
+        });
     }
 
 
@@ -135,9 +155,15 @@ public class FormulaLiquidModifyUiController extends FormulaModifyUi implements 
     }
 
     public void onBtnSubmitClicked(ActionEvent actionEvent) {
-        submit();
-        FrameworkUiManager.getCurrentDialogStack().closeCurrentAndPopAndShowNext();
-        FrameworkUiManager.switchFunction(FormulaUiController.class, "管理配方单", true);
+        try {
+            submit();
+            FrameworkUiManager.getCurrentDialogStack().closeCurrentAndPopAndShowNext();
+            FrameworkUiManager.switchFunction(FormulaUiController.class, "管理配方单", true);
+        } catch (Exception e) {
+            PromptDialogHelper.start("提交失败！", "请将单据填写完整！")
+                    .addCloseButton("好的", "CHECK", null)
+                    .createAndShow();
+        }
 //        FormulaDto formulaDto = getCurrentFormulaDto();
 //
 //        PromptDialogHelper.start("确认配方单", "").setContent(
@@ -177,6 +203,8 @@ public class FormulaLiquidModifyUiController extends FormulaModifyUi implements 
         formulaCode.clear();
         formulaName.clear();
         formulaType.clear();
+        stableAttr1.setText("-5℃");
+        stableAttr2.setText("50℃");
         stockItemModelObservableList.clear();
     }
 

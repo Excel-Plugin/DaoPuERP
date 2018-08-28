@@ -25,7 +25,6 @@ import suwu.daopuerp.presentation.formulaui.FormulaSelectUiController;
 import suwu.daopuerp.presentation.helpui.*;
 import suwu.daopuerp.presentation.productionbillui.ProductionBillModifyUi;
 import suwu.daopuerp.presentation.productionbillui.ProductionBillStockItemModel;
-import suwu.daopuerp.presentation.productionbillui.ProductionBillUiController;
 import suwu.daopuerp.presentation.stockui.factory.ProductionStockAddUiControllerFactory;
 import suwu.daopuerp.presentation.stockui.productionstock.ProductionBillStockItemAddUiController;
 import suwu.daopuerp.publicdata.BillType;
@@ -140,6 +139,8 @@ public class ProductionBillOilModifyUiController extends ProductionBillModifyUi 
         viscosity.textProperty().bindBidirectional(viscosityProperty);
         stableAttr1.textProperty().bindBidirectional(stableAttr1Property);
         stableAttr2.textProperty().bindBidirectional(stableAttr2Property);
+        stableAttr1.setText("-5℃");
+        stableAttr2.setText("50℃");
 
         NumberValidator numberValidator = new NumberValidator();
         numberValidator.setMessage("请输入数字类型");
@@ -185,25 +186,14 @@ public class ProductionBillOilModifyUiController extends ProductionBillModifyUi 
     }
 
     public void onBtnSubmitClicked(ActionEvent actionEvent) {
-        submit();
-        FrameworkUiManager.getCurrentDialogStack().closeCurrentAndPopAndShowNext();
-        FrameworkUiManager.switchFunction(ProductionBillUiController.class, "管理生产原始单", true);
-//        FormulaDto formulaDto = getCurrentFormulaDto();
-//
-//        PromptDialogHelper.start("确认配方单", "").setContent(
-//                purchaseBillVo.billDetailUi().showContent(purchaseBillVo).getComponent())
-//                .addCloseButton("确定", "CHECK", e -> {
-//                    submit();
-//                })
-//                .addCloseButton("取消", "CLOSE", null)
-//                .createAndShow();
-//        FrameworkUiManager.getWholePane().setOnKeyPressed(event -> {
-//            if (event.getCode() == KeyCode.ENTER) {
-//                initHotKey();
-//                FrameworkUiManager.getCurrentDialogStack().closeCurrentAndPopAndShowNext();
-//                submit();
-//            }
-//        });
+        try {
+            submit();
+            FrameworkUiManager.getCurrentDialogStack().closeCurrentAndPopAndShowNext();
+        } catch (Exception e) {
+            PromptDialogHelper.start("提交失败！", "请将单据填写完整！")
+                    .addCloseButton("好的", "CHECK", null)
+                    .createAndShow();
+        }
     }
 
     private void submit() {
@@ -238,8 +228,8 @@ public class ProductionBillOilModifyUiController extends ProductionBillModifyUi 
         outLooking.clear();
         flashPoint.clear();
         viscosity.clear();
-        stableAttr1.clear();
-        stableAttr2.clear();
+        stableAttr1.setText("-5℃");
+        stableAttr2.setText("50℃");
         productionBillStockItemModelObservableList.clear();
     }
 
@@ -249,23 +239,29 @@ public class ProductionBillOilModifyUiController extends ProductionBillModifyUi 
 
     public void onSelectProductionClicked(MouseEvent mouseEvent) {
         formulaSelectUi.showFormulaSelectDialog(formulaAndAmountDto -> {
-            FormulaOilDto formulaOilDto = (FormulaOilDto) formulaAndAmountDto.getFormulaDto();
-            selectedProductionId.setText(formulaOilDto.getFormulaCode());
-            productionName.setText(formulaOilDto.getFormulaName());
-            billDate.setText(FormatDateTime.toShortDateString());
-            productionType.setText(formulaOilDto.getFormulaType());
-            productionId.setText(formulaOilDto.getFormulaCode());
-            totalQuantity.setText(formulaAndAmountDto.getAmount() + "");
-            outLooking.setText(formulaOilDto.getOutLooking());
-            flashPoint.setText(formulaOilDto.getFlashPoint());
-            viscosity.setText(formulaOilDto.getViscosity());
-            stableAttr1.setText(formulaOilDto.getStableAttr1());
-            stableAttr2.setText(formulaOilDto.getStableAttr2());
-            List<ProductionBillStockItemModel> productionBillStockItemModels = new ArrayList<>();
-            for (StockItem stockItem : formulaOilDto.getStockItems()) {
-                productionBillStockItemModels.add(new ProductionBillStockItemModel(new ProductionBillStockItem(stockItem.getStockId(), formulaAndAmountDto.getAmount() * stockItem.getStockPercent(), stockItem.getStockProcess())));
+            if (formulaAndAmountDto.getFormulaDto().getBillType() != BillType.OIL) {
+                PromptDialogHelper.start("选择失败！", "请选择油的配方单！")
+                        .addCloseButton("好的", "CHECK", null)
+                        .createAndShow();
+            } else {
+                FormulaOilDto formulaOilDto = (FormulaOilDto) formulaAndAmountDto.getFormulaDto();
+                selectedProductionId.setText(formulaOilDto.getFormulaCode());
+                productionName.setText(formulaOilDto.getFormulaName());
+                billDate.setText(FormatDateTime.toShortDateString());
+                productionType.setText(formulaOilDto.getFormulaType());
+                productionId.setText(formulaOilDto.getFormulaCode());
+                totalQuantity.setText(formulaAndAmountDto.getAmount() + "");
+                outLooking.setText(formulaOilDto.getOutLooking());
+                flashPoint.setText(formulaOilDto.getFlashPoint());
+                viscosity.setText(formulaOilDto.getViscosity());
+                stableAttr1.setText(formulaOilDto.getStableAttr1());
+                stableAttr2.setText(formulaOilDto.getStableAttr2());
+                List<ProductionBillStockItemModel> productionBillStockItemModels = new ArrayList<>();
+                for (StockItem stockItem : formulaOilDto.getStockItems()) {
+                    productionBillStockItemModels.add(new ProductionBillStockItemModel(new ProductionBillStockItem(stockItem.getStockId(), formulaAndAmountDto.getAmount() * stockItem.getStockPercent(), stockItem.getStockProcess())));
+                }
+                productionBillStockItemModelObservableList.addAll(productionBillStockItemModels);
             }
-            productionBillStockItemModelObservableList.addAll(productionBillStockItemModels);
         }, BillType.OIL);
     }
 }

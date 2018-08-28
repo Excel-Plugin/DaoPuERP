@@ -5,8 +5,6 @@ import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import com.jfoenix.validation.NumberValidator;
-import com.jfoenix.validation.RequiredFieldValidator;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -14,15 +12,17 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
+import javafx.scene.input.KeyCode;
 import suwu.daopuerp.bl.formula.factory.FormulaBlServiceFactory;
 import suwu.daopuerp.blservice.formula.FormulaBlService;
 import suwu.daopuerp.dto.formula.FormulaOilDto;
 import suwu.daopuerp.dto.stock.StockItem;
 import suwu.daopuerp.presentation.formulaui.FormulaUiController;
 import suwu.daopuerp.presentation.helpui.*;
+import suwu.daopuerp.presentation.stockui.factory.StackAddUiControllerFactory;
 import suwu.daopuerp.presentation.stockui.formulastock.StockAddUiController;
 import suwu.daopuerp.presentation.stockui.formulastock.StockItemModel;
-import suwu.daopuerp.presentation.stockui.factory.StackAddUiControllerFactory;
+import suwu.daopuerp.util.ContentUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,11 +102,24 @@ public class FormulaOilAddUiController implements ExternalLoadableUiController {
         viscosity.textProperty().bindBidirectional(viscosityProperty);
         stableAttr1.textProperty().bindBidirectional(stableAttr1Property);
         stableAttr2.textProperty().bindBidirectional(stableAttr2Property);
+        stableAttr1.setText("-5℃");
+        stableAttr2.setText("50℃");
 
-        NumberValidator numberValidator = new NumberValidator();
-        numberValidator.setMessage("请输入数字类型");
-        RequiredFieldValidator requiredValidator = new RequiredFieldValidator();
-        requiredValidator.setMessage("请输入信息");
+        stockTable.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.V) {
+                String[] tuples = ContentUtil.getSysClipboardText().split("\n");
+                for (String tuple : tuples) {
+                    String[] attrs = tuple.split("\t");
+                    StockItem stockItem;
+                    if (attrs.length >= 6) {
+                        stockItem = new StockItem(attrs[0], attrs[1], Double.parseDouble(attrs[2]), 0.0, attrs[5]);
+                    } else {
+                        stockItem = new StockItem(attrs[0], attrs[1], Double.parseDouble(attrs[2]), 0.0, "");
+                    }
+                    stockItemModelObservableList.add(new StockItemModel(stockItem));
+                }
+            }
+        });
 
         autoFill();
     }
@@ -137,15 +150,21 @@ public class FormulaOilAddUiController implements ExternalLoadableUiController {
         outLooking.clear();
         flashPoint.clear();
         viscosity.clear();
-        stableAttr1.clear();
-        stableAttr2.clear();
+        stableAttr1.setText("-5℃");
+        stableAttr2.setText("50℃");
         stockItemModelObservableList.clear();
         autoFill();
     }
 
     public void onBtnSubmitClicked(ActionEvent actionEvent) {
-        submit();
-        reset();
+        try {
+            submit();
+            reset();
+        } catch (Exception e) {
+            PromptDialogHelper.start("提交失败！", "请将单据填写完整！")
+                    .addCloseButton("好的", "CHECK", null)
+                    .createAndShow();
+        }
     }
 
     private void submit() {

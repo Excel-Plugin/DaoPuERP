@@ -28,7 +28,7 @@ public class ExcelOutput {
             book = Workbook.createWorkbook(new File(path));
             //页码
             sheet = book.createSheet(name, 0);
-            normalFont = new WritableFont(WritableFont.createFont("宋体"), 11, WritableFont.NO_BOLD);
+            normalFont = new WritableFont(WritableFont.createFont("宋体"), 12, WritableFont.NO_BOLD);
             // 设置字体为宋体,11号字,不加粗,颜色为红色
             normalFormat = new WritableCellFormat(normalFont);
             normalFormat.setAlignment(jxl.format.Alignment.CENTRE);

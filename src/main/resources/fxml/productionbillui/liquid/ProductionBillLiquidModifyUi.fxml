@@ -11,7 +11,7 @@
 <VBox alignment="TOP_CENTER" xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="suwu.daopuerp.presentation.productionbillui.liquid.ProductionBillLiquidModifyUiController"
-      prefHeight="600.0" prefWidth="600.0" spacing="20">
+      prefHeight="800.0" prefWidth="800.0" spacing="20">
     <padding>
         <Insets top="10" left="20" bottom="20" right="20"/>
     </padding>
